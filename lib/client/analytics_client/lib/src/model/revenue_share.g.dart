@@ -37,9 +37,9 @@ class _$RevenueShare extends RevenueShare {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'RevenueShare')
-          ..add('grossAmount', grossAmount))
-        .toString();
+    return (newBuiltValueToStringHelper(
+      r'RevenueShare',
+    )..add('grossAmount', grossAmount)).toString();
   }
 }
 
@@ -78,10 +78,7 @@ class RevenueShareBuilder
   RevenueShare build() => _build();
 
   _$RevenueShare _build() {
-    final _$result = _$v ??
-        _$RevenueShare._(
-          grossAmount: grossAmount,
-        );
+    final _$result = _$v ?? _$RevenueShare._(grossAmount: grossAmount);
     replace(_$result);
     return _$result;
   }

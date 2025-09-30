@@ -13,19 +13,17 @@ class _$CustomerSpendingCustomerIdGet200Response
   @override
   final BuiltList<CustomerSpending>? data;
 
-  factory _$CustomerSpendingCustomerIdGet200Response(
-          [void Function(CustomerSpendingCustomerIdGet200ResponseBuilder)?
-              updates]) =>
-      (CustomerSpendingCustomerIdGet200ResponseBuilder()..update(updates))
-          ._build();
+  factory _$CustomerSpendingCustomerIdGet200Response([
+    void Function(CustomerSpendingCustomerIdGet200ResponseBuilder)? updates,
+  ]) => (CustomerSpendingCustomerIdGet200ResponseBuilder()..update(updates))
+      ._build();
 
   _$CustomerSpendingCustomerIdGet200Response._({this.status, this.data})
-      : super._();
+    : super._();
   @override
   CustomerSpendingCustomerIdGet200Response rebuild(
-          void Function(CustomerSpendingCustomerIdGet200ResponseBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CustomerSpendingCustomerIdGet200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CustomerSpendingCustomerIdGet200ResponseBuilder toBuilder() =>
@@ -51,7 +49,8 @@ class _$CustomerSpendingCustomerIdGet200Response
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'CustomerSpendingCustomerIdGet200Response')
+            r'CustomerSpendingCustomerIdGet200Response',
+          )
           ..add('status', status)
           ..add('data', data))
         .toString();
@@ -60,8 +59,10 @@ class _$CustomerSpendingCustomerIdGet200Response
 
 class CustomerSpendingCustomerIdGet200ResponseBuilder
     implements
-        Builder<CustomerSpendingCustomerIdGet200Response,
-            CustomerSpendingCustomerIdGet200ResponseBuilder> {
+        Builder<
+          CustomerSpendingCustomerIdGet200Response,
+          CustomerSpendingCustomerIdGet200ResponseBuilder
+        > {
   _$CustomerSpendingCustomerIdGet200Response? _$v;
 
   String? _status;
@@ -94,7 +95,8 @@ class CustomerSpendingCustomerIdGet200ResponseBuilder
 
   @override
   void update(
-      void Function(CustomerSpendingCustomerIdGet200ResponseBuilder)? updates) {
+    void Function(CustomerSpendingCustomerIdGet200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -104,7 +106,8 @@ class CustomerSpendingCustomerIdGet200ResponseBuilder
   _$CustomerSpendingCustomerIdGet200Response _build() {
     _$CustomerSpendingCustomerIdGet200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$CustomerSpendingCustomerIdGet200Response._(
             status: status,
             data: _data?.build(),
@@ -116,9 +119,10 @@ class CustomerSpendingCustomerIdGet200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'CustomerSpendingCustomerIdGet200Response',
-            _$failedField,
-            e.toString());
+          r'CustomerSpendingCustomerIdGet200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

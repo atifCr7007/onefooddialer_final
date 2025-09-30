@@ -15,20 +15,20 @@ class _$GetThirdPartyDeliveryStatus200Response
   @override
   final GetThirdPartyDeliveryStatus200ResponseData? data;
 
-  factory _$GetThirdPartyDeliveryStatus200Response(
-          [void Function(GetThirdPartyDeliveryStatus200ResponseBuilder)?
-              updates]) =>
-      (GetThirdPartyDeliveryStatus200ResponseBuilder()..update(updates))
-          ._build();
+  factory _$GetThirdPartyDeliveryStatus200Response([
+    void Function(GetThirdPartyDeliveryStatus200ResponseBuilder)? updates,
+  ]) => (GetThirdPartyDeliveryStatus200ResponseBuilder()..update(updates))
+      ._build();
 
-  _$GetThirdPartyDeliveryStatus200Response._(
-      {this.success, this.message, this.data})
-      : super._();
+  _$GetThirdPartyDeliveryStatus200Response._({
+    this.success,
+    this.message,
+    this.data,
+  }) : super._();
   @override
   GetThirdPartyDeliveryStatus200Response rebuild(
-          void Function(GetThirdPartyDeliveryStatus200ResponseBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetThirdPartyDeliveryStatus200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetThirdPartyDeliveryStatus200ResponseBuilder toBuilder() =>
@@ -56,7 +56,8 @@ class _$GetThirdPartyDeliveryStatus200Response
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GetThirdPartyDeliveryStatus200Response')
+            r'GetThirdPartyDeliveryStatus200Response',
+          )
           ..add('success', success)
           ..add('message', message)
           ..add('data', data))
@@ -66,8 +67,10 @@ class _$GetThirdPartyDeliveryStatus200Response
 
 class GetThirdPartyDeliveryStatus200ResponseBuilder
     implements
-        Builder<GetThirdPartyDeliveryStatus200Response,
-            GetThirdPartyDeliveryStatus200ResponseBuilder> {
+        Builder<
+          GetThirdPartyDeliveryStatus200Response,
+          GetThirdPartyDeliveryStatus200ResponseBuilder
+        > {
   _$GetThirdPartyDeliveryStatus200Response? _$v;
 
   bool? _success;
@@ -106,7 +109,8 @@ class GetThirdPartyDeliveryStatus200ResponseBuilder
 
   @override
   void update(
-      void Function(GetThirdPartyDeliveryStatus200ResponseBuilder)? updates) {
+    void Function(GetThirdPartyDeliveryStatus200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -116,7 +120,8 @@ class GetThirdPartyDeliveryStatus200ResponseBuilder
   _$GetThirdPartyDeliveryStatus200Response _build() {
     _$GetThirdPartyDeliveryStatus200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetThirdPartyDeliveryStatus200Response._(
             success: success,
             message: message,
@@ -129,9 +134,10 @@ class GetThirdPartyDeliveryStatus200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetThirdPartyDeliveryStatus200Response',
-            _$failedField,
-            e.toString());
+          r'GetThirdPartyDeliveryStatus200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

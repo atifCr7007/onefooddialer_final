@@ -12,15 +12,15 @@ class _$ValidateToken200Response extends ValidateToken200Response {
   @override
   final ValidateToken200ResponseData? data;
 
-  factory _$ValidateToken200Response(
-          [void Function(ValidateToken200ResponseBuilder)? updates]) =>
-      (ValidateToken200ResponseBuilder()..update(updates))._build();
+  factory _$ValidateToken200Response([
+    void Function(ValidateToken200ResponseBuilder)? updates,
+  ]) => (ValidateToken200ResponseBuilder()..update(updates))._build();
 
   _$ValidateToken200Response._({this.status, this.data}) : super._();
   @override
   ValidateToken200Response rebuild(
-          void Function(ValidateToken200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ValidateToken200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ValidateToken200ResponseBuilder toBuilder() =>
@@ -96,11 +96,9 @@ class ValidateToken200ResponseBuilder
   _$ValidateToken200Response _build() {
     _$ValidateToken200Response _$result;
     try {
-      _$result = _$v ??
-          _$ValidateToken200Response._(
-            status: status,
-            data: _data?.build(),
-          );
+      _$result =
+          _$v ??
+          _$ValidateToken200Response._(status: status, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -108,7 +106,10 @@ class ValidateToken200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'ValidateToken200Response', _$failedField, e.toString());
+          r'ValidateToken200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

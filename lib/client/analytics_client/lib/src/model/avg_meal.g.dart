@@ -86,11 +86,7 @@ class AvgMealBuilder implements Builder<AvgMeal, AvgMealBuilder> {
   AvgMeal build() => _build();
 
   _$AvgMeal _build() {
-    final _$result = _$v ??
-        _$AvgMeal._(
-          mealName: mealName,
-          qty: qty,
-        );
+    final _$result = _$v ?? _$AvgMeal._(mealName: mealName, qty: qty);
     replace(_$result);
     return _$result;
   }

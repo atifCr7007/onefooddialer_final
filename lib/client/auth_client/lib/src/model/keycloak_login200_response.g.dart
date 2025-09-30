@@ -12,15 +12,15 @@ class _$KeycloakLogin200Response extends KeycloakLogin200Response {
   @override
   final KeycloakLogin200ResponseData? data;
 
-  factory _$KeycloakLogin200Response(
-          [void Function(KeycloakLogin200ResponseBuilder)? updates]) =>
-      (KeycloakLogin200ResponseBuilder()..update(updates))._build();
+  factory _$KeycloakLogin200Response([
+    void Function(KeycloakLogin200ResponseBuilder)? updates,
+  ]) => (KeycloakLogin200ResponseBuilder()..update(updates))._build();
 
   _$KeycloakLogin200Response._({this.status, this.data}) : super._();
   @override
   KeycloakLogin200Response rebuild(
-          void Function(KeycloakLogin200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(KeycloakLogin200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   KeycloakLogin200ResponseBuilder toBuilder() =>
@@ -96,11 +96,9 @@ class KeycloakLogin200ResponseBuilder
   _$KeycloakLogin200Response _build() {
     _$KeycloakLogin200Response _$result;
     try {
-      _$result = _$v ??
-          _$KeycloakLogin200Response._(
-            status: status,
-            data: _data?.build(),
-          );
+      _$result =
+          _$v ??
+          _$KeycloakLogin200Response._(status: status, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -108,7 +106,10 @@ class KeycloakLogin200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'KeycloakLogin200Response', _$failedField, e.toString());
+          r'KeycloakLogin200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

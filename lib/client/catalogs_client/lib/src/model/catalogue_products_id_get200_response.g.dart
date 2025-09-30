@@ -11,15 +11,15 @@ class _$CatalogueProductsIdGet200Response
   @override
   final Product? data;
 
-  factory _$CatalogueProductsIdGet200Response(
-          [void Function(CatalogueProductsIdGet200ResponseBuilder)? updates]) =>
-      (CatalogueProductsIdGet200ResponseBuilder()..update(updates))._build();
+  factory _$CatalogueProductsIdGet200Response([
+    void Function(CatalogueProductsIdGet200ResponseBuilder)? updates,
+  ]) => (CatalogueProductsIdGet200ResponseBuilder()..update(updates))._build();
 
   _$CatalogueProductsIdGet200Response._({this.data}) : super._();
   @override
   CatalogueProductsIdGet200Response rebuild(
-          void Function(CatalogueProductsIdGet200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CatalogueProductsIdGet200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CatalogueProductsIdGet200ResponseBuilder toBuilder() =>
@@ -41,16 +41,18 @@ class _$CatalogueProductsIdGet200Response
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'CatalogueProductsIdGet200Response')
-          ..add('data', data))
-        .toString();
+    return (newBuiltValueToStringHelper(
+      r'CatalogueProductsIdGet200Response',
+    )..add('data', data)).toString();
   }
 }
 
 class CatalogueProductsIdGet200ResponseBuilder
     implements
-        Builder<CatalogueProductsIdGet200Response,
-            CatalogueProductsIdGet200ResponseBuilder> {
+        Builder<
+          CatalogueProductsIdGet200Response,
+          CatalogueProductsIdGet200ResponseBuilder
+        > {
   _$CatalogueProductsIdGet200Response? _$v;
 
   ProductBuilder? _data;
@@ -77,7 +79,8 @@ class CatalogueProductsIdGet200ResponseBuilder
 
   @override
   void update(
-      void Function(CatalogueProductsIdGet200ResponseBuilder)? updates) {
+    void Function(CatalogueProductsIdGet200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -87,10 +90,8 @@ class CatalogueProductsIdGet200ResponseBuilder
   _$CatalogueProductsIdGet200Response _build() {
     _$CatalogueProductsIdGet200Response _$result;
     try {
-      _$result = _$v ??
-          _$CatalogueProductsIdGet200Response._(
-            data: _data?.build(),
-          );
+      _$result =
+          _$v ?? _$CatalogueProductsIdGet200Response._(data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -98,7 +99,10 @@ class CatalogueProductsIdGet200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'CatalogueProductsIdGet200Response', _$failedField, e.toString());
+          r'CatalogueProductsIdGet200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

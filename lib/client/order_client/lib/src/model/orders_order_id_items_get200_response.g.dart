@@ -7,14 +7,14 @@ part of 'orders_order_id_items_get200_response.dart';
 // **************************************************************************
 
 const OrdersOrderIdItemsGet200ResponseStatusEnum
-    _$ordersOrderIdItemsGet200ResponseStatusEnum_success =
+_$ordersOrderIdItemsGet200ResponseStatusEnum_success =
     const OrdersOrderIdItemsGet200ResponseStatusEnum._('success');
 const OrdersOrderIdItemsGet200ResponseStatusEnum
-    _$ordersOrderIdItemsGet200ResponseStatusEnum_unknownDefaultOpenApi =
+_$ordersOrderIdItemsGet200ResponseStatusEnum_unknownDefaultOpenApi =
     const OrdersOrderIdItemsGet200ResponseStatusEnum._('unknownDefaultOpenApi');
 
 OrdersOrderIdItemsGet200ResponseStatusEnum
-    _$ordersOrderIdItemsGet200ResponseStatusEnumValueOf(String name) {
+_$ordersOrderIdItemsGet200ResponseStatusEnumValueOf(String name) {
   switch (name) {
     case 'success':
       return _$ordersOrderIdItemsGet200ResponseStatusEnum_success;
@@ -26,14 +26,16 @@ OrdersOrderIdItemsGet200ResponseStatusEnum
 }
 
 final BuiltSet<OrdersOrderIdItemsGet200ResponseStatusEnum>
-    _$ordersOrderIdItemsGet200ResponseStatusEnumValues = BuiltSet<
-        OrdersOrderIdItemsGet200ResponseStatusEnum>(const <OrdersOrderIdItemsGet200ResponseStatusEnum>[
-  _$ordersOrderIdItemsGet200ResponseStatusEnum_success,
-  _$ordersOrderIdItemsGet200ResponseStatusEnum_unknownDefaultOpenApi,
-]);
+_$ordersOrderIdItemsGet200ResponseStatusEnumValues =
+    BuiltSet<OrdersOrderIdItemsGet200ResponseStatusEnum>(
+      const <OrdersOrderIdItemsGet200ResponseStatusEnum>[
+        _$ordersOrderIdItemsGet200ResponseStatusEnum_success,
+        _$ordersOrderIdItemsGet200ResponseStatusEnum_unknownDefaultOpenApi,
+      ],
+    );
 
 Serializer<OrdersOrderIdItemsGet200ResponseStatusEnum>
-    _$ordersOrderIdItemsGet200ResponseStatusEnumSerializer =
+_$ordersOrderIdItemsGet200ResponseStatusEnumSerializer =
     _$OrdersOrderIdItemsGet200ResponseStatusEnumSerializer();
 
 class _$OrdersOrderIdItemsGet200ResponseStatusEnumSerializer
@@ -49,23 +51,26 @@ class _$OrdersOrderIdItemsGet200ResponseStatusEnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    OrdersOrderIdItemsGet200ResponseStatusEnum
+    OrdersOrderIdItemsGet200ResponseStatusEnum,
   ];
   @override
   final String wireName = 'OrdersOrderIdItemsGet200ResponseStatusEnum';
 
   @override
-  Object serialize(Serializers serializers,
-          OrdersOrderIdItemsGet200ResponseStatusEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    OrdersOrderIdItemsGet200ResponseStatusEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   OrdersOrderIdItemsGet200ResponseStatusEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      OrdersOrderIdItemsGet200ResponseStatusEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => OrdersOrderIdItemsGet200ResponseStatusEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$OrdersOrderIdItemsGet200Response
@@ -75,15 +80,15 @@ class _$OrdersOrderIdItemsGet200Response
   @override
   final OrdersOrderIdItemsGet200ResponseData? data;
 
-  factory _$OrdersOrderIdItemsGet200Response(
-          [void Function(OrdersOrderIdItemsGet200ResponseBuilder)? updates]) =>
-      (OrdersOrderIdItemsGet200ResponseBuilder()..update(updates))._build();
+  factory _$OrdersOrderIdItemsGet200Response([
+    void Function(OrdersOrderIdItemsGet200ResponseBuilder)? updates,
+  ]) => (OrdersOrderIdItemsGet200ResponseBuilder()..update(updates))._build();
 
   _$OrdersOrderIdItemsGet200Response._({this.status, this.data}) : super._();
   @override
   OrdersOrderIdItemsGet200Response rebuild(
-          void Function(OrdersOrderIdItemsGet200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(OrdersOrderIdItemsGet200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   OrdersOrderIdItemsGet200ResponseBuilder toBuilder() =>
@@ -117,8 +122,10 @@ class _$OrdersOrderIdItemsGet200Response
 
 class OrdersOrderIdItemsGet200ResponseBuilder
     implements
-        Builder<OrdersOrderIdItemsGet200Response,
-            OrdersOrderIdItemsGet200ResponseBuilder> {
+        Builder<
+          OrdersOrderIdItemsGet200Response,
+          OrdersOrderIdItemsGet200ResponseBuilder
+        > {
   _$OrdersOrderIdItemsGet200Response? _$v;
 
   OrdersOrderIdItemsGet200ResponseStatusEnum? _status;
@@ -162,7 +169,8 @@ class OrdersOrderIdItemsGet200ResponseBuilder
   _$OrdersOrderIdItemsGet200Response _build() {
     _$OrdersOrderIdItemsGet200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$OrdersOrderIdItemsGet200Response._(
             status: status,
             data: _data?.build(),
@@ -174,7 +182,10 @@ class OrdersOrderIdItemsGet200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'OrdersOrderIdItemsGet200Response', _$failedField, e.toString());
+          r'OrdersOrderIdItemsGet200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

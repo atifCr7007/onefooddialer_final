@@ -12,15 +12,15 @@ class _$FoodExtrasGet200Response extends FoodExtrasGet200Response {
   @override
   final BuiltList<CommonExtra>? data;
 
-  factory _$FoodExtrasGet200Response(
-          [void Function(FoodExtrasGet200ResponseBuilder)? updates]) =>
-      (FoodExtrasGet200ResponseBuilder()..update(updates))._build();
+  factory _$FoodExtrasGet200Response([
+    void Function(FoodExtrasGet200ResponseBuilder)? updates,
+  ]) => (FoodExtrasGet200ResponseBuilder()..update(updates))._build();
 
   _$FoodExtrasGet200Response._({this.status, this.data}) : super._();
   @override
   FoodExtrasGet200Response rebuild(
-          void Function(FoodExtrasGet200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(FoodExtrasGet200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   FoodExtrasGet200ResponseBuilder toBuilder() =>
@@ -96,11 +96,9 @@ class FoodExtrasGet200ResponseBuilder
   _$FoodExtrasGet200Response _build() {
     _$FoodExtrasGet200Response _$result;
     try {
-      _$result = _$v ??
-          _$FoodExtrasGet200Response._(
-            status: status,
-            data: _data?.build(),
-          );
+      _$result =
+          _$v ??
+          _$FoodExtrasGet200Response._(status: status, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -108,7 +106,10 @@ class FoodExtrasGet200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'FoodExtrasGet200Response', _$failedField, e.toString());
+          r'FoodExtrasGet200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

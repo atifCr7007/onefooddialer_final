@@ -36,12 +36,12 @@ SubscriptionStatusEnum _$subscriptionStatusEnumValueOf(String name) {
 
 final BuiltSet<SubscriptionStatusEnum> _$subscriptionStatusEnumValues =
     BuiltSet<SubscriptionStatusEnum>(const <SubscriptionStatusEnum>[
-  _$subscriptionStatusEnum_active,
-  _$subscriptionStatusEnum_paused,
-  _$subscriptionStatusEnum_cancelled,
-  _$subscriptionStatusEnum_expired,
-  _$subscriptionStatusEnum_unknownDefaultOpenApi,
-]);
+      _$subscriptionStatusEnum_active,
+      _$subscriptionStatusEnum_paused,
+      _$subscriptionStatusEnum_cancelled,
+      _$subscriptionStatusEnum_expired,
+      _$subscriptionStatusEnum_unknownDefaultOpenApi,
+    ]);
 
 Serializer<SubscriptionStatusEnum> _$subscriptionStatusEnumSerializer =
     _$SubscriptionStatusEnumSerializer();
@@ -69,15 +69,20 @@ class _$SubscriptionStatusEnumSerializer
   final String wireName = 'SubscriptionStatusEnum';
 
   @override
-  Object serialize(Serializers serializers, SubscriptionStatusEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    SubscriptionStatusEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
-  SubscriptionStatusEnum deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      SubscriptionStatusEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+  SubscriptionStatusEnum deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => SubscriptionStatusEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$Subscription extends Subscription {
@@ -133,32 +138,32 @@ class _$Subscription extends Subscription {
   factory _$Subscription([void Function(SubscriptionBuilder)? updates]) =>
       (SubscriptionBuilder()..update(updates))._build();
 
-  _$Subscription._(
-      {this.id,
-      this.companyId,
-      this.unitId,
-      this.customerId,
-      this.planId,
-      this.subscriptionNo,
-      this.startDate,
-      this.endDate,
-      this.status,
-      this.amount,
-      this.discount,
-      this.total,
-      this.paymentMethod,
-      this.paymentStatus,
-      this.transactionId,
-      this.pauseHistory,
-      this.nextBillingDate,
-      this.autoRenew,
-      this.notes,
-      this.customer,
-      this.plan,
-      this.items,
-      this.createdAt,
-      this.updatedAt})
-      : super._();
+  _$Subscription._({
+    this.id,
+    this.companyId,
+    this.unitId,
+    this.customerId,
+    this.planId,
+    this.subscriptionNo,
+    this.startDate,
+    this.endDate,
+    this.status,
+    this.amount,
+    this.discount,
+    this.total,
+    this.paymentMethod,
+    this.paymentStatus,
+    this.transactionId,
+    this.pauseHistory,
+    this.nextBillingDate,
+    this.autoRenew,
+    this.notes,
+    this.customer,
+    this.plan,
+    this.items,
+    this.createdAt,
+    this.updatedAt,
+  }) : super._();
   @override
   Subscription rebuild(void Function(SubscriptionBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -419,7 +424,8 @@ class SubscriptionBuilder
   _$Subscription _build() {
     _$Subscription _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$Subscription._(
             id: id,
             companyId: companyId,
@@ -460,7 +466,10 @@ class SubscriptionBuilder
         _items?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'Subscription', _$failedField, e.toString());
+          r'Subscription',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

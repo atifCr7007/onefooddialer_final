@@ -13,19 +13,17 @@ class _$SalesComparisonYearTypeGet200Response
   @override
   final BuiltList<SalesComparison>? data;
 
-  factory _$SalesComparisonYearTypeGet200Response(
-          [void Function(SalesComparisonYearTypeGet200ResponseBuilder)?
-              updates]) =>
-      (SalesComparisonYearTypeGet200ResponseBuilder()..update(updates))
-          ._build();
+  factory _$SalesComparisonYearTypeGet200Response([
+    void Function(SalesComparisonYearTypeGet200ResponseBuilder)? updates,
+  ]) => (SalesComparisonYearTypeGet200ResponseBuilder()..update(updates))
+      ._build();
 
   _$SalesComparisonYearTypeGet200Response._({this.status, this.data})
-      : super._();
+    : super._();
   @override
   SalesComparisonYearTypeGet200Response rebuild(
-          void Function(SalesComparisonYearTypeGet200ResponseBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SalesComparisonYearTypeGet200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SalesComparisonYearTypeGet200ResponseBuilder toBuilder() =>
@@ -51,7 +49,8 @@ class _$SalesComparisonYearTypeGet200Response
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'SalesComparisonYearTypeGet200Response')
+            r'SalesComparisonYearTypeGet200Response',
+          )
           ..add('status', status)
           ..add('data', data))
         .toString();
@@ -60,8 +59,10 @@ class _$SalesComparisonYearTypeGet200Response
 
 class SalesComparisonYearTypeGet200ResponseBuilder
     implements
-        Builder<SalesComparisonYearTypeGet200Response,
-            SalesComparisonYearTypeGet200ResponseBuilder> {
+        Builder<
+          SalesComparisonYearTypeGet200Response,
+          SalesComparisonYearTypeGet200ResponseBuilder
+        > {
   _$SalesComparisonYearTypeGet200Response? _$v;
 
   String? _status;
@@ -94,7 +95,8 @@ class SalesComparisonYearTypeGet200ResponseBuilder
 
   @override
   void update(
-      void Function(SalesComparisonYearTypeGet200ResponseBuilder)? updates) {
+    void Function(SalesComparisonYearTypeGet200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -104,7 +106,8 @@ class SalesComparisonYearTypeGet200ResponseBuilder
   _$SalesComparisonYearTypeGet200Response _build() {
     _$SalesComparisonYearTypeGet200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$SalesComparisonYearTypeGet200Response._(
             status: status,
             data: _data?.build(),
@@ -116,9 +119,10 @@ class SalesComparisonYearTypeGet200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'SalesComparisonYearTypeGet200Response',
-            _$failedField,
-            e.toString());
+          r'SalesComparisonYearTypeGet200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

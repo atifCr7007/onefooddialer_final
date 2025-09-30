@@ -55,9 +55,10 @@ class GetDeliveryLocations200ResponseBuilder
         > {
   _$GetDeliveryLocations200Response? _$v;
 
-  ListBuilder<dynamic>? _data;
-  ListBuilder<dynamic> get data => _$this._data ??= ListBuilder<dynamic>();
-  set data(ListBuilder<dynamic>? data) => _$this._data = data;
+  ListBuilder<DeliveryLocation>? _data;
+  ListBuilder<DeliveryLocation> get data =>
+      _$this._data ??= ListBuilder<DeliveryLocation>();
+  set data(ListBuilder<DeliveryLocation>? data) => _$this._data = data;
 
   GetDeliveryLocations200ResponseBuilder() {
     GetDeliveryLocations200Response._defaults(this);
@@ -89,7 +90,7 @@ class GetDeliveryLocations200ResponseBuilder
     _$GetDeliveryLocations200Response _$result;
     try {
       _$result =
-          _$v ?? _$GetDeliveryLocations200Response._(data: _data?.build() as BuiltList<DeliveryLocation>);
+          _$v ?? _$GetDeliveryLocations200Response._(data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {

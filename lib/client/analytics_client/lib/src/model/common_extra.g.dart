@@ -98,12 +98,8 @@ class CommonExtraBuilder implements Builder<CommonExtra, CommonExtraBuilder> {
   CommonExtra build() => _build();
 
   _$CommonExtra _build() {
-    final _$result = _$v ??
-        _$CommonExtra._(
-          meal: meal,
-          extra: extra,
-          count: count,
-        );
+    final _$result =
+        _$v ?? _$CommonExtra._(meal: meal, extra: extra, count: count);
     replace(_$result);
     return _$result;
   }

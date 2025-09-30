@@ -14,16 +14,16 @@ class _$InitiatePaymentResponse extends InitiatePaymentResponse {
   @override
   final InitiatePaymentResponseData? data;
 
-  factory _$InitiatePaymentResponse(
-          [void Function(InitiatePaymentResponseBuilder)? updates]) =>
-      (InitiatePaymentResponseBuilder()..update(updates))._build();
+  factory _$InitiatePaymentResponse([
+    void Function(InitiatePaymentResponseBuilder)? updates,
+  ]) => (InitiatePaymentResponseBuilder()..update(updates))._build();
 
   _$InitiatePaymentResponse._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   InitiatePaymentResponse rebuild(
-          void Function(InitiatePaymentResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(InitiatePaymentResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   InitiatePaymentResponseBuilder toBuilder() =>
@@ -107,7 +107,8 @@ class InitiatePaymentResponseBuilder
   _$InitiatePaymentResponse _build() {
     _$InitiatePaymentResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$InitiatePaymentResponse._(
             success: success,
             message: message,
@@ -120,7 +121,10 @@ class InitiatePaymentResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'InitiatePaymentResponse', _$failedField, e.toString());
+          r'InitiatePaymentResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

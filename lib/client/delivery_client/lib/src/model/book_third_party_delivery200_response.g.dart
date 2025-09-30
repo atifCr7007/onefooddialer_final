@@ -15,16 +15,16 @@ class _$BookThirdPartyDelivery200Response
   @override
   final BookThirdPartyDelivery200ResponseData? data;
 
-  factory _$BookThirdPartyDelivery200Response(
-          [void Function(BookThirdPartyDelivery200ResponseBuilder)? updates]) =>
-      (BookThirdPartyDelivery200ResponseBuilder()..update(updates))._build();
+  factory _$BookThirdPartyDelivery200Response([
+    void Function(BookThirdPartyDelivery200ResponseBuilder)? updates,
+  ]) => (BookThirdPartyDelivery200ResponseBuilder()..update(updates))._build();
 
   _$BookThirdPartyDelivery200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   BookThirdPartyDelivery200Response rebuild(
-          void Function(BookThirdPartyDelivery200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(BookThirdPartyDelivery200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   BookThirdPartyDelivery200ResponseBuilder toBuilder() =>
@@ -61,8 +61,10 @@ class _$BookThirdPartyDelivery200Response
 
 class BookThirdPartyDelivery200ResponseBuilder
     implements
-        Builder<BookThirdPartyDelivery200Response,
-            BookThirdPartyDelivery200ResponseBuilder> {
+        Builder<
+          BookThirdPartyDelivery200Response,
+          BookThirdPartyDelivery200ResponseBuilder
+        > {
   _$BookThirdPartyDelivery200Response? _$v;
 
   bool? _success;
@@ -101,7 +103,8 @@ class BookThirdPartyDelivery200ResponseBuilder
 
   @override
   void update(
-      void Function(BookThirdPartyDelivery200ResponseBuilder)? updates) {
+    void Function(BookThirdPartyDelivery200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -111,7 +114,8 @@ class BookThirdPartyDelivery200ResponseBuilder
   _$BookThirdPartyDelivery200Response _build() {
     _$BookThirdPartyDelivery200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$BookThirdPartyDelivery200Response._(
             success: success,
             message: message,
@@ -124,7 +128,10 @@ class BookThirdPartyDelivery200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'BookThirdPartyDelivery200Response', _$failedField, e.toString());
+          r'BookThirdPartyDelivery200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

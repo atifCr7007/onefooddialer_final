@@ -36,26 +36,26 @@ class _$SubscriptionInput extends SubscriptionInput {
   @override
   final BuiltList<SubscriptionItemInput>? items;
 
-  factory _$SubscriptionInput(
-          [void Function(SubscriptionInputBuilder)? updates]) =>
-      (SubscriptionInputBuilder()..update(updates))._build();
+  factory _$SubscriptionInput([
+    void Function(SubscriptionInputBuilder)? updates,
+  ]) => (SubscriptionInputBuilder()..update(updates))._build();
 
-  _$SubscriptionInput._(
-      {this.companyId,
-      this.unitId,
-      required this.customerId,
-      required this.planId,
-      required this.startDate,
-      required this.endDate,
-      required this.amount,
-      this.discount,
-      this.paymentMethod,
-      this.paymentStatus,
-      this.transactionId,
-      this.autoRenew,
-      this.notes,
-      this.items})
-      : super._();
+  _$SubscriptionInput._({
+    this.companyId,
+    this.unitId,
+    required this.customerId,
+    required this.planId,
+    required this.startDate,
+    required this.endDate,
+    required this.amount,
+    this.discount,
+    this.paymentMethod,
+    this.paymentStatus,
+    this.transactionId,
+    this.autoRenew,
+    this.notes,
+    this.items,
+  }) : super._();
   @override
   SubscriptionInput rebuild(void Function(SubscriptionInputBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -232,20 +232,36 @@ class SubscriptionInputBuilder
   _$SubscriptionInput _build() {
     _$SubscriptionInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$SubscriptionInput._(
             companyId: companyId,
             unitId: unitId,
             customerId: BuiltValueNullFieldError.checkNotNull(
-                customerId, r'SubscriptionInput', 'customerId'),
+              customerId,
+              r'SubscriptionInput',
+              'customerId',
+            ),
             planId: BuiltValueNullFieldError.checkNotNull(
-                planId, r'SubscriptionInput', 'planId'),
+              planId,
+              r'SubscriptionInput',
+              'planId',
+            ),
             startDate: BuiltValueNullFieldError.checkNotNull(
-                startDate, r'SubscriptionInput', 'startDate'),
+              startDate,
+              r'SubscriptionInput',
+              'startDate',
+            ),
             endDate: BuiltValueNullFieldError.checkNotNull(
-                endDate, r'SubscriptionInput', 'endDate'),
+              endDate,
+              r'SubscriptionInput',
+              'endDate',
+            ),
             amount: BuiltValueNullFieldError.checkNotNull(
-                amount, r'SubscriptionInput', 'amount'),
+              amount,
+              r'SubscriptionInput',
+              'amount',
+            ),
             discount: discount,
             paymentMethod: paymentMethod,
             paymentStatus: paymentStatus,
@@ -261,7 +277,10 @@ class SubscriptionInputBuilder
         _items?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'SubscriptionInput', _$failedField, e.toString());
+          r'SubscriptionInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

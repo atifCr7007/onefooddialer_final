@@ -18,7 +18,7 @@ class _$LoyalCustomer extends LoyalCustomer {
       (LoyalCustomerBuilder()..update(updates))._build();
 
   _$LoyalCustomer._({this.customerCode, this.customerName, this.netAmount})
-      : super._();
+    : super._();
   @override
   LoyalCustomer rebuild(void Function(LoyalCustomerBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -100,7 +100,8 @@ class LoyalCustomerBuilder
   LoyalCustomer build() => _build();
 
   _$LoyalCustomer _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$LoyalCustomer._(
           customerCode: customerCode,
           customerName: customerName,

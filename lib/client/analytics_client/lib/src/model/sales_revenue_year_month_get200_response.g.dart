@@ -13,16 +13,16 @@ class _$SalesRevenueYearMonthGet200Response
   @override
   final BuiltList<RevenueShare>? data;
 
-  factory _$SalesRevenueYearMonthGet200Response(
-          [void Function(SalesRevenueYearMonthGet200ResponseBuilder)?
-              updates]) =>
+  factory _$SalesRevenueYearMonthGet200Response([
+    void Function(SalesRevenueYearMonthGet200ResponseBuilder)? updates,
+  ]) =>
       (SalesRevenueYearMonthGet200ResponseBuilder()..update(updates))._build();
 
   _$SalesRevenueYearMonthGet200Response._({this.status, this.data}) : super._();
   @override
   SalesRevenueYearMonthGet200Response rebuild(
-          void Function(SalesRevenueYearMonthGet200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SalesRevenueYearMonthGet200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SalesRevenueYearMonthGet200ResponseBuilder toBuilder() =>
@@ -56,8 +56,10 @@ class _$SalesRevenueYearMonthGet200Response
 
 class SalesRevenueYearMonthGet200ResponseBuilder
     implements
-        Builder<SalesRevenueYearMonthGet200Response,
-            SalesRevenueYearMonthGet200ResponseBuilder> {
+        Builder<
+          SalesRevenueYearMonthGet200Response,
+          SalesRevenueYearMonthGet200ResponseBuilder
+        > {
   _$SalesRevenueYearMonthGet200Response? _$v;
 
   String? _status;
@@ -90,7 +92,8 @@ class SalesRevenueYearMonthGet200ResponseBuilder
 
   @override
   void update(
-      void Function(SalesRevenueYearMonthGet200ResponseBuilder)? updates) {
+    void Function(SalesRevenueYearMonthGet200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -100,7 +103,8 @@ class SalesRevenueYearMonthGet200ResponseBuilder
   _$SalesRevenueYearMonthGet200Response _build() {
     _$SalesRevenueYearMonthGet200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$SalesRevenueYearMonthGet200Response._(
             status: status,
             data: _data?.build(),
@@ -111,8 +115,11 @@ class SalesRevenueYearMonthGet200ResponseBuilder
         _$failedField = 'data';
         _data?.build();
       } catch (e) {
-        throw BuiltValueNestedFieldError(r'SalesRevenueYearMonthGet200Response',
-            _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'SalesRevenueYearMonthGet200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

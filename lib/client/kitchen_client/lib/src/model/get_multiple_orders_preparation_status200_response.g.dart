@@ -11,7 +11,11 @@ class _$GetMultipleOrdersPreparationStatus200Response
   @override
   final bool? success;
   @override
-  final BuiltMap<String, GetMultipleOrdersPreparationStatus200ResponseDataValue>? data;
+  final BuiltMap<
+    String,
+    GetMultipleOrdersPreparationStatus200ResponseDataValue
+  >?
+  data;
 
   factory _$GetMultipleOrdersPreparationStatus200Response([
     void Function(GetMultipleOrdersPreparationStatus200ResponseBuilder)?
@@ -71,10 +75,18 @@ class GetMultipleOrdersPreparationStatus200ResponseBuilder
   bool? get success => _$this._success;
   set success(bool? success) => _$this._success = success;
 
-  MapBuilder<String, dynamic>? _data;
-  MapBuilder<String, dynamic> get data =>
-      _$this._data ??= MapBuilder<String, dynamic>();
-  set data(MapBuilder<String, dynamic>? data) => _$this._data = data;
+  MapBuilder<String, GetMultipleOrdersPreparationStatus200ResponseDataValue>?
+  _data;
+  MapBuilder<String, GetMultipleOrdersPreparationStatus200ResponseDataValue>
+  get data => _$this._data ??=
+      MapBuilder<
+        String,
+        GetMultipleOrdersPreparationStatus200ResponseDataValue
+      >();
+  set data(
+    MapBuilder<String, GetMultipleOrdersPreparationStatus200ResponseDataValue>?
+    data,
+  ) => _$this._data = data;
 
   GetMultipleOrdersPreparationStatus200ResponseBuilder() {
     GetMultipleOrdersPreparationStatus200Response._defaults(this);
@@ -113,7 +125,7 @@ class GetMultipleOrdersPreparationStatus200ResponseBuilder
           _$v ??
           _$GetMultipleOrdersPreparationStatus200Response._(
             success: success,
-            data: _data?.build() as BuiltMap<String , GetMultipleOrdersPreparationStatus200ResponseDataValue>,
+            data: _data?.build(),
           );
     } catch (_) {
       late String _$failedField;

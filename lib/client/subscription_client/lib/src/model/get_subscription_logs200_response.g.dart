@@ -64,9 +64,10 @@ class GetSubscriptionLogs200ResponseBuilder
   bool? get success => _$this._success;
   set success(bool? success) => _$this._success = success;
 
-  ListBuilder<dynamic>? _data;
-  ListBuilder<dynamic> get data => _$this._data ??= ListBuilder<dynamic>();
-  set data(ListBuilder<dynamic>? data) => _$this._data = data;
+  ListBuilder<SubscriptionLog>? _data;
+  ListBuilder<SubscriptionLog> get data =>
+      _$this._data ??= ListBuilder<SubscriptionLog>();
+  set data(ListBuilder<SubscriptionLog>? data) => _$this._data = data;
 
   GetSubscriptionLogs200ResponseBuilder() {
     GetSubscriptionLogs200Response._defaults(this);
@@ -102,7 +103,7 @@ class GetSubscriptionLogs200ResponseBuilder
           _$v ??
           _$GetSubscriptionLogs200Response._(
             success: success,
-            data: _data?.build()as BuiltList<SubscriptionLog>,
+            data: _data?.build(),
           );
     } catch (_) {
       late String _$failedField;

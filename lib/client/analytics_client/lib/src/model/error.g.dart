@@ -102,12 +102,9 @@ class ErrorBuilder implements Builder<Error, ErrorBuilder> {
   _$Error _build() {
     _$Error _$result;
     try {
-      _$result = _$v ??
-          _$Error._(
-            status: status,
-            message: message,
-            errors: _errors?.build(),
-          );
+      _$result =
+          _$v ??
+          _$Error._(status: status, message: message, errors: _errors?.build());
     } catch (_) {
       late String _$failedField;
       try {

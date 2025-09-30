@@ -14,15 +14,15 @@ class _$Login200ResponseData extends Login200ResponseData {
   @override
   final String? tokenType;
 
-  factory _$Login200ResponseData(
-          [void Function(Login200ResponseDataBuilder)? updates]) =>
-      (Login200ResponseDataBuilder()..update(updates))._build();
+  factory _$Login200ResponseData([
+    void Function(Login200ResponseDataBuilder)? updates,
+  ]) => (Login200ResponseDataBuilder()..update(updates))._build();
 
   _$Login200ResponseData._({this.user, this.token, this.tokenType}) : super._();
   @override
   Login200ResponseData rebuild(
-          void Function(Login200ResponseDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(Login200ResponseDataBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   Login200ResponseDataBuilder toBuilder() =>
@@ -104,7 +104,8 @@ class Login200ResponseDataBuilder
   _$Login200ResponseData _build() {
     _$Login200ResponseData _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$Login200ResponseData._(
             user: _user?.build(),
             token: token,
@@ -117,7 +118,10 @@ class Login200ResponseDataBuilder
         _user?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'Login200ResponseData', _$failedField, e.toString());
+          r'Login200ResponseData',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

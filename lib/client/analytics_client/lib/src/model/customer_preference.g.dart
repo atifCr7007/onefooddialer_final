@@ -16,17 +16,20 @@ class _$CustomerPreference extends CustomerPreference {
   @override
   final double? netAmount;
 
-  factory _$CustomerPreference(
-          [void Function(CustomerPreferenceBuilder)? updates]) =>
-      (CustomerPreferenceBuilder()..update(updates))._build();
+  factory _$CustomerPreference([
+    void Function(CustomerPreferenceBuilder)? updates,
+  ]) => (CustomerPreferenceBuilder()..update(updates))._build();
 
-  _$CustomerPreference._(
-      {this.customerCode, this.customerName, this.productName, this.netAmount})
-      : super._();
+  _$CustomerPreference._({
+    this.customerCode,
+    this.customerName,
+    this.productName,
+    this.netAmount,
+  }) : super._();
   @override
   CustomerPreference rebuild(
-          void Function(CustomerPreferenceBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CustomerPreferenceBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CustomerPreferenceBuilder toBuilder() =>
@@ -114,7 +117,8 @@ class CustomerPreferenceBuilder
   CustomerPreference build() => _build();
 
   _$CustomerPreference _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$CustomerPreference._(
           customerCode: customerCode,
           customerName: customerName,

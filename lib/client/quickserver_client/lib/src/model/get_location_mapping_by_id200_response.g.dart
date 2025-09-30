@@ -15,16 +15,16 @@ class _$GetLocationMappingById200Response
   @override
   final LocationMapping? data;
 
-  factory _$GetLocationMappingById200Response(
-          [void Function(GetLocationMappingById200ResponseBuilder)? updates]) =>
-      (GetLocationMappingById200ResponseBuilder()..update(updates))._build();
+  factory _$GetLocationMappingById200Response([
+    void Function(GetLocationMappingById200ResponseBuilder)? updates,
+  ]) => (GetLocationMappingById200ResponseBuilder()..update(updates))._build();
 
   _$GetLocationMappingById200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   GetLocationMappingById200Response rebuild(
-          void Function(GetLocationMappingById200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetLocationMappingById200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetLocationMappingById200ResponseBuilder toBuilder() =>
@@ -61,8 +61,10 @@ class _$GetLocationMappingById200Response
 
 class GetLocationMappingById200ResponseBuilder
     implements
-        Builder<GetLocationMappingById200Response,
-            GetLocationMappingById200ResponseBuilder> {
+        Builder<
+          GetLocationMappingById200Response,
+          GetLocationMappingById200ResponseBuilder
+        > {
   _$GetLocationMappingById200Response? _$v;
 
   bool? _success;
@@ -99,7 +101,8 @@ class GetLocationMappingById200ResponseBuilder
 
   @override
   void update(
-      void Function(GetLocationMappingById200ResponseBuilder)? updates) {
+    void Function(GetLocationMappingById200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -109,7 +112,8 @@ class GetLocationMappingById200ResponseBuilder
   _$GetLocationMappingById200Response _build() {
     _$GetLocationMappingById200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetLocationMappingById200Response._(
             success: success,
             message: message,
@@ -122,7 +126,10 @@ class GetLocationMappingById200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetLocationMappingById200Response', _$failedField, e.toString());
+          r'GetLocationMappingById200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

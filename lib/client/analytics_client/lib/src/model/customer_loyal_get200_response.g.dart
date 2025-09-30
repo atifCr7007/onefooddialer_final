@@ -12,15 +12,15 @@ class _$CustomerLoyalGet200Response extends CustomerLoyalGet200Response {
   @override
   final BuiltList<LoyalCustomer>? data;
 
-  factory _$CustomerLoyalGet200Response(
-          [void Function(CustomerLoyalGet200ResponseBuilder)? updates]) =>
-      (CustomerLoyalGet200ResponseBuilder()..update(updates))._build();
+  factory _$CustomerLoyalGet200Response([
+    void Function(CustomerLoyalGet200ResponseBuilder)? updates,
+  ]) => (CustomerLoyalGet200ResponseBuilder()..update(updates))._build();
 
   _$CustomerLoyalGet200Response._({this.status, this.data}) : super._();
   @override
   CustomerLoyalGet200Response rebuild(
-          void Function(CustomerLoyalGet200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CustomerLoyalGet200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CustomerLoyalGet200ResponseBuilder toBuilder() =>
@@ -54,8 +54,10 @@ class _$CustomerLoyalGet200Response extends CustomerLoyalGet200Response {
 
 class CustomerLoyalGet200ResponseBuilder
     implements
-        Builder<CustomerLoyalGet200Response,
-            CustomerLoyalGet200ResponseBuilder> {
+        Builder<
+          CustomerLoyalGet200Response,
+          CustomerLoyalGet200ResponseBuilder
+        > {
   _$CustomerLoyalGet200Response? _$v;
 
   String? _status;
@@ -97,11 +99,9 @@ class CustomerLoyalGet200ResponseBuilder
   _$CustomerLoyalGet200Response _build() {
     _$CustomerLoyalGet200Response _$result;
     try {
-      _$result = _$v ??
-          _$CustomerLoyalGet200Response._(
-            status: status,
-            data: _data?.build(),
-          );
+      _$result =
+          _$v ??
+          _$CustomerLoyalGet200Response._(status: status, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -109,7 +109,10 @@ class CustomerLoyalGet200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'CustomerLoyalGet200Response', _$failedField, e.toString());
+          r'CustomerLoyalGet200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

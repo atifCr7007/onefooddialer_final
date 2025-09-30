@@ -12,15 +12,15 @@ class _$GetMealById200Response extends GetMealById200Response {
   @override
   final Meal? data;
 
-  factory _$GetMealById200Response(
-          [void Function(GetMealById200ResponseBuilder)? updates]) =>
-      (GetMealById200ResponseBuilder()..update(updates))._build();
+  factory _$GetMealById200Response([
+    void Function(GetMealById200ResponseBuilder)? updates,
+  ]) => (GetMealById200ResponseBuilder()..update(updates))._build();
 
   _$GetMealById200Response._({this.status, this.data}) : super._();
   @override
   GetMealById200Response rebuild(
-          void Function(GetMealById200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetMealById200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetMealById200ResponseBuilder toBuilder() =>
@@ -94,11 +94,9 @@ class GetMealById200ResponseBuilder
   _$GetMealById200Response _build() {
     _$GetMealById200Response _$result;
     try {
-      _$result = _$v ??
-          _$GetMealById200Response._(
-            status: status,
-            data: _data?.build(),
-          );
+      _$result =
+          _$v ??
+          _$GetMealById200Response._(status: status, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -106,7 +104,10 @@ class GetMealById200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetMealById200Response', _$failedField, e.toString());
+          r'GetMealById200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

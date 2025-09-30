@@ -57,9 +57,10 @@ class LogsResponseBuilder
   bool? get success => _$this._success;
   set success(bool? success) => _$this._success = success;
 
-  ListBuilder<dynamic>? _data;
-  ListBuilder<dynamic> get data => _$this._data ??= ListBuilder<dynamic>();
-  set data(ListBuilder<dynamic>? data) => _$this._data = data;
+  ListBuilder<PaymentLog>? _data;
+  ListBuilder<PaymentLog> get data =>
+      _$this._data ??= ListBuilder<PaymentLog>();
+  set data(ListBuilder<PaymentLog>? data) => _$this._data = data;
 
   LogsResponseBuilder() {
     LogsResponse._defaults(this);
@@ -92,7 +93,7 @@ class LogsResponseBuilder
     _$LogsResponse _$result;
     try {
       _$result =
-          _$v ?? _$LogsResponse._(success: success, data: _data?.build()as BuiltList<PaymentLog>);
+          _$v ?? _$LogsResponse._(success: success, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {

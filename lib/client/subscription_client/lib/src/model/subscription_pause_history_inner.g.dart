@@ -16,17 +16,20 @@ class _$SubscriptionPauseHistoryInner extends SubscriptionPauseHistoryInner {
   @override
   final DateTime? resumedAt;
 
-  factory _$SubscriptionPauseHistoryInner(
-          [void Function(SubscriptionPauseHistoryInnerBuilder)? updates]) =>
-      (SubscriptionPauseHistoryInnerBuilder()..update(updates))._build();
+  factory _$SubscriptionPauseHistoryInner([
+    void Function(SubscriptionPauseHistoryInnerBuilder)? updates,
+  ]) => (SubscriptionPauseHistoryInnerBuilder()..update(updates))._build();
 
-  _$SubscriptionPauseHistoryInner._(
-      {this.pausedAt, this.reason, this.resumeDate, this.resumedAt})
-      : super._();
+  _$SubscriptionPauseHistoryInner._({
+    this.pausedAt,
+    this.reason,
+    this.resumeDate,
+    this.resumedAt,
+  }) : super._();
   @override
   SubscriptionPauseHistoryInner rebuild(
-          void Function(SubscriptionPauseHistoryInnerBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SubscriptionPauseHistoryInnerBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SubscriptionPauseHistoryInnerBuilder toBuilder() =>
@@ -66,8 +69,10 @@ class _$SubscriptionPauseHistoryInner extends SubscriptionPauseHistoryInner {
 
 class SubscriptionPauseHistoryInnerBuilder
     implements
-        Builder<SubscriptionPauseHistoryInner,
-            SubscriptionPauseHistoryInnerBuilder> {
+        Builder<
+          SubscriptionPauseHistoryInner,
+          SubscriptionPauseHistoryInnerBuilder
+        > {
   _$SubscriptionPauseHistoryInner? _$v;
 
   DateTime? _pausedAt;
@@ -116,7 +121,8 @@ class SubscriptionPauseHistoryInnerBuilder
   SubscriptionPauseHistoryInner build() => _build();
 
   _$SubscriptionPauseHistoryInner _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$SubscriptionPauseHistoryInner._(
           pausedAt: pausedAt,
           reason: reason,

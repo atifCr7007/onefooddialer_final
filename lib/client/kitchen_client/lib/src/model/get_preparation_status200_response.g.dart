@@ -65,9 +65,11 @@ class GetPreparationStatus200ResponseBuilder
   bool? get success => _$this._success;
   set success(bool? success) => _$this._success = success;
 
-  ListBuilder<dynamic>? _data;
-  ListBuilder<dynamic> get data => _$this._data ??= ListBuilder<dynamic>();
-  set data(ListBuilder<dynamic>? data) => _$this._data = data;
+  ListBuilder<KitchenPreparationResource>? _data;
+  ListBuilder<KitchenPreparationResource> get data =>
+      _$this._data ??= ListBuilder<KitchenPreparationResource>();
+  set data(ListBuilder<KitchenPreparationResource>? data) =>
+      _$this._data = data;
 
   GetPreparationStatus200ResponseBuilder() {
     GetPreparationStatus200Response._defaults(this);
@@ -103,7 +105,7 @@ class GetPreparationStatus200ResponseBuilder
           _$v ??
           _$GetPreparationStatus200Response._(
             success: success,
-            data: _data?.build() as BuiltList<KitchenPreparationResource>,
+            data: _data?.build(),
           );
     } catch (_) {
       late String _$failedField;

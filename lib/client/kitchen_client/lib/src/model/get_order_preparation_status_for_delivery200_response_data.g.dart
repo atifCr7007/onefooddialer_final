@@ -21,28 +21,27 @@ class _$GetOrderPreparationStatusForDelivery200ResponseData
   @override
   final String? status;
 
-  factory _$GetOrderPreparationStatusForDelivery200ResponseData(
-          [void Function(
-                  GetOrderPreparationStatusForDelivery200ResponseDataBuilder)?
-              updates]) =>
+  factory _$GetOrderPreparationStatusForDelivery200ResponseData([
+    void Function(GetOrderPreparationStatusForDelivery200ResponseDataBuilder)?
+    updates,
+  ]) =>
       (GetOrderPreparationStatusForDelivery200ResponseDataBuilder()
             ..update(updates))
           ._build();
 
-  _$GetOrderPreparationStatusForDelivery200ResponseData._(
-      {this.orderId,
-      this.date,
-      this.menu,
-      this.isFullyPrepared,
-      this.preparationPercentage,
-      this.status})
-      : super._();
+  _$GetOrderPreparationStatusForDelivery200ResponseData._({
+    this.orderId,
+    this.date,
+    this.menu,
+    this.isFullyPrepared,
+    this.preparationPercentage,
+    this.status,
+  }) : super._();
   @override
   GetOrderPreparationStatusForDelivery200ResponseData rebuild(
-          void Function(
-                  GetOrderPreparationStatusForDelivery200ResponseDataBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetOrderPreparationStatusForDelivery200ResponseDataBuilder)
+    updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetOrderPreparationStatusForDelivery200ResponseDataBuilder toBuilder() =>
@@ -77,7 +76,8 @@ class _$GetOrderPreparationStatusForDelivery200ResponseData
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GetOrderPreparationStatusForDelivery200ResponseData')
+            r'GetOrderPreparationStatusForDelivery200ResponseData',
+          )
           ..add('orderId', orderId)
           ..add('date', date)
           ..add('menu', menu)
@@ -90,8 +90,10 @@ class _$GetOrderPreparationStatusForDelivery200ResponseData
 
 class GetOrderPreparationStatusForDelivery200ResponseDataBuilder
     implements
-        Builder<GetOrderPreparationStatusForDelivery200ResponseData,
-            GetOrderPreparationStatusForDelivery200ResponseDataBuilder> {
+        Builder<
+          GetOrderPreparationStatusForDelivery200ResponseData,
+          GetOrderPreparationStatusForDelivery200ResponseDataBuilder
+        > {
   _$GetOrderPreparationStatusForDelivery200ResponseData? _$v;
 
   String? _orderId;
@@ -145,8 +147,9 @@ class GetOrderPreparationStatusForDelivery200ResponseDataBuilder
 
   @override
   void update(
-      void Function(GetOrderPreparationStatusForDelivery200ResponseDataBuilder)?
-          updates) {
+    void Function(GetOrderPreparationStatusForDelivery200ResponseDataBuilder)?
+    updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -154,7 +157,8 @@ class GetOrderPreparationStatusForDelivery200ResponseDataBuilder
   GetOrderPreparationStatusForDelivery200ResponseData build() => _build();
 
   _$GetOrderPreparationStatusForDelivery200ResponseData _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$GetOrderPreparationStatusForDelivery200ResponseData._(
           orderId: orderId,
           date: date,

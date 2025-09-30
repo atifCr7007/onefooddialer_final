@@ -15,18 +15,20 @@ class _$CreateBackorderFromOrder200Response
   @override
   final Backorder? data;
 
-  factory _$CreateBackorderFromOrder200Response(
-          [void Function(CreateBackorderFromOrder200ResponseBuilder)?
-              updates]) =>
+  factory _$CreateBackorderFromOrder200Response([
+    void Function(CreateBackorderFromOrder200ResponseBuilder)? updates,
+  ]) =>
       (CreateBackorderFromOrder200ResponseBuilder()..update(updates))._build();
 
-  _$CreateBackorderFromOrder200Response._(
-      {this.success, this.message, this.data})
-      : super._();
+  _$CreateBackorderFromOrder200Response._({
+    this.success,
+    this.message,
+    this.data,
+  }) : super._();
   @override
   CreateBackorderFromOrder200Response rebuild(
-          void Function(CreateBackorderFromOrder200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CreateBackorderFromOrder200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CreateBackorderFromOrder200ResponseBuilder toBuilder() =>
@@ -63,8 +65,10 @@ class _$CreateBackorderFromOrder200Response
 
 class CreateBackorderFromOrder200ResponseBuilder
     implements
-        Builder<CreateBackorderFromOrder200Response,
-            CreateBackorderFromOrder200ResponseBuilder> {
+        Builder<
+          CreateBackorderFromOrder200Response,
+          CreateBackorderFromOrder200ResponseBuilder
+        > {
   _$CreateBackorderFromOrder200Response? _$v;
 
   bool? _success;
@@ -101,7 +105,8 @@ class CreateBackorderFromOrder200ResponseBuilder
 
   @override
   void update(
-      void Function(CreateBackorderFromOrder200ResponseBuilder)? updates) {
+    void Function(CreateBackorderFromOrder200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -111,7 +116,8 @@ class CreateBackorderFromOrder200ResponseBuilder
   _$CreateBackorderFromOrder200Response _build() {
     _$CreateBackorderFromOrder200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$CreateBackorderFromOrder200Response._(
             success: success,
             message: message,
@@ -123,8 +129,11 @@ class CreateBackorderFromOrder200ResponseBuilder
         _$failedField = 'data';
         _data?.build();
       } catch (e) {
-        throw BuiltValueNestedFieldError(r'CreateBackorderFromOrder200Response',
-            _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'CreateBackorderFromOrder200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

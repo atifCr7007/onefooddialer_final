@@ -88,11 +88,8 @@ class PaymentModeBuilder implements Builder<PaymentMode, PaymentModeBuilder> {
   PaymentMode build() => _build();
 
   _$PaymentMode _build() {
-    final _$result = _$v ??
-        _$PaymentMode._(
-          paymentMode: paymentMode,
-          count: count,
-        );
+    final _$result =
+        _$v ?? _$PaymentMode._(paymentMode: paymentMode, count: count);
     replace(_$result);
     return _$result;
   }

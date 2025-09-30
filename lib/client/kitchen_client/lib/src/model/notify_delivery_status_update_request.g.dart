@@ -17,20 +17,20 @@ class _$NotifyDeliveryStatusUpdateRequest
   @override
   final NotifyDeliveryStatusUpdateRequestDeliveryAgent? deliveryAgent;
 
-  factory _$NotifyDeliveryStatusUpdateRequest(
-          [void Function(NotifyDeliveryStatusUpdateRequestBuilder)? updates]) =>
-      (NotifyDeliveryStatusUpdateRequestBuilder()..update(updates))._build();
+  factory _$NotifyDeliveryStatusUpdateRequest([
+    void Function(NotifyDeliveryStatusUpdateRequestBuilder)? updates,
+  ]) => (NotifyDeliveryStatusUpdateRequestBuilder()..update(updates))._build();
 
-  _$NotifyDeliveryStatusUpdateRequest._(
-      {required this.orderId,
-      required this.status,
-      this.timestamp,
-      this.deliveryAgent})
-      : super._();
+  _$NotifyDeliveryStatusUpdateRequest._({
+    required this.orderId,
+    required this.status,
+    this.timestamp,
+    this.deliveryAgent,
+  }) : super._();
   @override
   NotifyDeliveryStatusUpdateRequest rebuild(
-          void Function(NotifyDeliveryStatusUpdateRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(NotifyDeliveryStatusUpdateRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   NotifyDeliveryStatusUpdateRequestBuilder toBuilder() =>
@@ -70,8 +70,10 @@ class _$NotifyDeliveryStatusUpdateRequest
 
 class NotifyDeliveryStatusUpdateRequestBuilder
     implements
-        Builder<NotifyDeliveryStatusUpdateRequest,
-            NotifyDeliveryStatusUpdateRequestBuilder> {
+        Builder<
+          NotifyDeliveryStatusUpdateRequest,
+          NotifyDeliveryStatusUpdateRequestBuilder
+        > {
   _$NotifyDeliveryStatusUpdateRequest? _$v;
 
   String? _orderId;
@@ -91,9 +93,8 @@ class NotifyDeliveryStatusUpdateRequestBuilder
       _$this._deliveryAgent ??=
           NotifyDeliveryStatusUpdateRequestDeliveryAgentBuilder();
   set deliveryAgent(
-          NotifyDeliveryStatusUpdateRequestDeliveryAgentBuilder?
-              deliveryAgent) =>
-      _$this._deliveryAgent = deliveryAgent;
+    NotifyDeliveryStatusUpdateRequestDeliveryAgentBuilder? deliveryAgent,
+  ) => _$this._deliveryAgent = deliveryAgent;
 
   NotifyDeliveryStatusUpdateRequestBuilder() {
     NotifyDeliveryStatusUpdateRequest._defaults(this);
@@ -118,7 +119,8 @@ class NotifyDeliveryStatusUpdateRequestBuilder
 
   @override
   void update(
-      void Function(NotifyDeliveryStatusUpdateRequestBuilder)? updates) {
+    void Function(NotifyDeliveryStatusUpdateRequestBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -128,12 +130,19 @@ class NotifyDeliveryStatusUpdateRequestBuilder
   _$NotifyDeliveryStatusUpdateRequest _build() {
     _$NotifyDeliveryStatusUpdateRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$NotifyDeliveryStatusUpdateRequest._(
             orderId: BuiltValueNullFieldError.checkNotNull(
-                orderId, r'NotifyDeliveryStatusUpdateRequest', 'orderId'),
+              orderId,
+              r'NotifyDeliveryStatusUpdateRequest',
+              'orderId',
+            ),
             status: BuiltValueNullFieldError.checkNotNull(
-                status, r'NotifyDeliveryStatusUpdateRequest', 'status'),
+              status,
+              r'NotifyDeliveryStatusUpdateRequest',
+              'status',
+            ),
             timestamp: timestamp,
             deliveryAgent: _deliveryAgent?.build(),
           );
@@ -144,7 +153,10 @@ class NotifyDeliveryStatusUpdateRequestBuilder
         _deliveryAgent?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'NotifyDeliveryStatusUpdateRequest', _$failedField, e.toString());
+          r'NotifyDeliveryStatusUpdateRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

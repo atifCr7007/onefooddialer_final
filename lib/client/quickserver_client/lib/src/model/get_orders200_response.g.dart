@@ -69,9 +69,9 @@ class GetOrders200ResponseBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  ListBuilder<dynamic>? _data;
-  ListBuilder<dynamic> get data => _$this._data ??= ListBuilder<dynamic>();
-  set data(ListBuilder<dynamic>? data) => _$this._data = data;
+  ListBuilder<Order>? _data;
+  ListBuilder<Order> get data => _$this._data ??= ListBuilder<Order>();
+  set data(ListBuilder<Order>? data) => _$this._data = data;
 
   GetOrders200ResponseBuilder() {
     GetOrders200Response._defaults(this);
@@ -109,7 +109,7 @@ class GetOrders200ResponseBuilder
           _$GetOrders200Response._(
             success: success,
             message: message,
-            data: _data?.build() as BuiltList<Order>,
+            data: _data?.build(),
           );
     } catch (_) {
       late String _$failedField;

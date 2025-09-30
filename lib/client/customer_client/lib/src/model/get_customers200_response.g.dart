@@ -12,15 +12,15 @@ class _$GetCustomers200Response extends GetCustomers200Response {
   @override
   final GetCustomers200ResponseData? data;
 
-  factory _$GetCustomers200Response(
-          [void Function(GetCustomers200ResponseBuilder)? updates]) =>
-      (GetCustomers200ResponseBuilder()..update(updates))._build();
+  factory _$GetCustomers200Response([
+    void Function(GetCustomers200ResponseBuilder)? updates,
+  ]) => (GetCustomers200ResponseBuilder()..update(updates))._build();
 
   _$GetCustomers200Response._({this.success, this.data}) : super._();
   @override
   GetCustomers200Response rebuild(
-          void Function(GetCustomers200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetCustomers200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetCustomers200ResponseBuilder toBuilder() =>
@@ -96,11 +96,9 @@ class GetCustomers200ResponseBuilder
   _$GetCustomers200Response _build() {
     _$GetCustomers200Response _$result;
     try {
-      _$result = _$v ??
-          _$GetCustomers200Response._(
-            success: success,
-            data: _data?.build(),
-          );
+      _$result =
+          _$v ??
+          _$GetCustomers200Response._(success: success, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -108,7 +106,10 @@ class GetCustomers200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetCustomers200Response', _$failedField, e.toString());
+          r'GetCustomers200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

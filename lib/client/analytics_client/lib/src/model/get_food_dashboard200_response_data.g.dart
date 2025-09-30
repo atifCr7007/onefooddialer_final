@@ -17,17 +17,20 @@ class _$GetFoodDashboard200ResponseData
   @override
   final BuiltList<CommonExtra>? commonExtras;
 
-  factory _$GetFoodDashboard200ResponseData(
-          [void Function(GetFoodDashboard200ResponseDataBuilder)? updates]) =>
-      (GetFoodDashboard200ResponseDataBuilder()..update(updates))._build();
+  factory _$GetFoodDashboard200ResponseData([
+    void Function(GetFoodDashboard200ResponseDataBuilder)? updates,
+  ]) => (GetFoodDashboard200ResponseDataBuilder()..update(updates))._build();
 
-  _$GetFoodDashboard200ResponseData._(
-      {this.years, this.months, this.menus, this.commonExtras})
-      : super._();
+  _$GetFoodDashboard200ResponseData._({
+    this.years,
+    this.months,
+    this.menus,
+    this.commonExtras,
+  }) : super._();
   @override
   GetFoodDashboard200ResponseData rebuild(
-          void Function(GetFoodDashboard200ResponseDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetFoodDashboard200ResponseDataBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetFoodDashboard200ResponseDataBuilder toBuilder() =>
@@ -67,8 +70,10 @@ class _$GetFoodDashboard200ResponseData
 
 class GetFoodDashboard200ResponseDataBuilder
     implements
-        Builder<GetFoodDashboard200ResponseData,
-            GetFoodDashboard200ResponseDataBuilder> {
+        Builder<
+          GetFoodDashboard200ResponseData,
+          GetFoodDashboard200ResponseDataBuilder
+        > {
   _$GetFoodDashboard200ResponseData? _$v;
 
   ListBuilder<int>? _years;
@@ -122,7 +127,8 @@ class GetFoodDashboard200ResponseDataBuilder
   _$GetFoodDashboard200ResponseData _build() {
     _$GetFoodDashboard200ResponseData _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetFoodDashboard200ResponseData._(
             years: _years?.build(),
             months: _months?.build(),
@@ -142,7 +148,10 @@ class GetFoodDashboard200ResponseDataBuilder
         _commonExtras?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetFoodDashboard200ResponseData', _$failedField, e.toString());
+          r'GetFoodDashboard200ResponseData',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

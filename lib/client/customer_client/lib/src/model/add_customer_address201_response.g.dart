@@ -14,16 +14,16 @@ class _$AddCustomerAddress201Response extends AddCustomerAddress201Response {
   @override
   final Address? data;
 
-  factory _$AddCustomerAddress201Response(
-          [void Function(AddCustomerAddress201ResponseBuilder)? updates]) =>
-      (AddCustomerAddress201ResponseBuilder()..update(updates))._build();
+  factory _$AddCustomerAddress201Response([
+    void Function(AddCustomerAddress201ResponseBuilder)? updates,
+  ]) => (AddCustomerAddress201ResponseBuilder()..update(updates))._build();
 
   _$AddCustomerAddress201Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   AddCustomerAddress201Response rebuild(
-          void Function(AddCustomerAddress201ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AddCustomerAddress201ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AddCustomerAddress201ResponseBuilder toBuilder() =>
@@ -60,8 +60,10 @@ class _$AddCustomerAddress201Response extends AddCustomerAddress201Response {
 
 class AddCustomerAddress201ResponseBuilder
     implements
-        Builder<AddCustomerAddress201Response,
-            AddCustomerAddress201ResponseBuilder> {
+        Builder<
+          AddCustomerAddress201Response,
+          AddCustomerAddress201ResponseBuilder
+        > {
   _$AddCustomerAddress201Response? _$v;
 
   bool? _success;
@@ -107,7 +109,8 @@ class AddCustomerAddress201ResponseBuilder
   _$AddCustomerAddress201Response _build() {
     _$AddCustomerAddress201Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$AddCustomerAddress201Response._(
             success: success,
             message: message,
@@ -120,7 +123,10 @@ class AddCustomerAddress201ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'AddCustomerAddress201Response', _$failedField, e.toString());
+          r'AddCustomerAddress201Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

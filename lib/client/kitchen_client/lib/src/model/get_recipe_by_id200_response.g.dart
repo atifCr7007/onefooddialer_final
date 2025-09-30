@@ -12,15 +12,15 @@ class _$GetRecipeById200Response extends GetRecipeById200Response {
   @override
   final GetRecipeById200ResponseData? data;
 
-  factory _$GetRecipeById200Response(
-          [void Function(GetRecipeById200ResponseBuilder)? updates]) =>
-      (GetRecipeById200ResponseBuilder()..update(updates))._build();
+  factory _$GetRecipeById200Response([
+    void Function(GetRecipeById200ResponseBuilder)? updates,
+  ]) => (GetRecipeById200ResponseBuilder()..update(updates))._build();
 
   _$GetRecipeById200Response._({this.success, this.data}) : super._();
   @override
   GetRecipeById200Response rebuild(
-          void Function(GetRecipeById200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetRecipeById200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetRecipeById200ResponseBuilder toBuilder() =>
@@ -96,11 +96,9 @@ class GetRecipeById200ResponseBuilder
   _$GetRecipeById200Response _build() {
     _$GetRecipeById200Response _$result;
     try {
-      _$result = _$v ??
-          _$GetRecipeById200Response._(
-            success: success,
-            data: _data?.build(),
-          );
+      _$result =
+          _$v ??
+          _$GetRecipeById200Response._(success: success, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -108,7 +106,10 @@ class GetRecipeById200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetRecipeById200Response', _$failedField, e.toString());
+          r'GetRecipeById200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -14,16 +14,16 @@ class _$CompleteBackorder200Response extends CompleteBackorder200Response {
   @override
   final Backorder? data;
 
-  factory _$CompleteBackorder200Response(
-          [void Function(CompleteBackorder200ResponseBuilder)? updates]) =>
-      (CompleteBackorder200ResponseBuilder()..update(updates))._build();
+  factory _$CompleteBackorder200Response([
+    void Function(CompleteBackorder200ResponseBuilder)? updates,
+  ]) => (CompleteBackorder200ResponseBuilder()..update(updates))._build();
 
   _$CompleteBackorder200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   CompleteBackorder200Response rebuild(
-          void Function(CompleteBackorder200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CompleteBackorder200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CompleteBackorder200ResponseBuilder toBuilder() =>
@@ -60,8 +60,10 @@ class _$CompleteBackorder200Response extends CompleteBackorder200Response {
 
 class CompleteBackorder200ResponseBuilder
     implements
-        Builder<CompleteBackorder200Response,
-            CompleteBackorder200ResponseBuilder> {
+        Builder<
+          CompleteBackorder200Response,
+          CompleteBackorder200ResponseBuilder
+        > {
   _$CompleteBackorder200Response? _$v;
 
   bool? _success;
@@ -107,7 +109,8 @@ class CompleteBackorder200ResponseBuilder
   _$CompleteBackorder200Response _build() {
     _$CompleteBackorder200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$CompleteBackorder200Response._(
             success: success,
             message: message,
@@ -120,7 +123,10 @@ class CompleteBackorder200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'CompleteBackorder200Response', _$failedField, e.toString());
+          r'CompleteBackorder200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

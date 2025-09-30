@@ -15,11 +15,12 @@ const SubscriptionPlanPlanPeriodEnum _$subscriptionPlanPlanPeriodEnum_month =
 const SubscriptionPlanPlanPeriodEnum _$subscriptionPlanPlanPeriodEnum_year =
     const SubscriptionPlanPlanPeriodEnum._('year');
 const SubscriptionPlanPlanPeriodEnum
-    _$subscriptionPlanPlanPeriodEnum_unknownDefaultOpenApi =
+_$subscriptionPlanPlanPeriodEnum_unknownDefaultOpenApi =
     const SubscriptionPlanPlanPeriodEnum._('unknownDefaultOpenApi');
 
 SubscriptionPlanPlanPeriodEnum _$subscriptionPlanPlanPeriodEnumValueOf(
-    String name) {
+  String name,
+) {
   switch (name) {
     case 'day':
       return _$subscriptionPlanPlanPeriodEnum_day;
@@ -37,30 +38,33 @@ SubscriptionPlanPlanPeriodEnum _$subscriptionPlanPlanPeriodEnumValueOf(
 }
 
 final BuiltSet<SubscriptionPlanPlanPeriodEnum>
-    _$subscriptionPlanPlanPeriodEnumValues = BuiltSet<
-        SubscriptionPlanPlanPeriodEnum>(const <SubscriptionPlanPlanPeriodEnum>[
-  _$subscriptionPlanPlanPeriodEnum_day,
-  _$subscriptionPlanPlanPeriodEnum_week,
-  _$subscriptionPlanPlanPeriodEnum_month,
-  _$subscriptionPlanPlanPeriodEnum_year,
-  _$subscriptionPlanPlanPeriodEnum_unknownDefaultOpenApi,
-]);
+_$subscriptionPlanPlanPeriodEnumValues =
+    BuiltSet<SubscriptionPlanPlanPeriodEnum>(
+      const <SubscriptionPlanPlanPeriodEnum>[
+        _$subscriptionPlanPlanPeriodEnum_day,
+        _$subscriptionPlanPlanPeriodEnum_week,
+        _$subscriptionPlanPlanPeriodEnum_month,
+        _$subscriptionPlanPlanPeriodEnum_year,
+        _$subscriptionPlanPlanPeriodEnum_unknownDefaultOpenApi,
+      ],
+    );
 
 const SubscriptionPlanShowToCustomerEnum
-    _$subscriptionPlanShowToCustomerEnum_true_ =
+_$subscriptionPlanShowToCustomerEnum_true_ =
     const SubscriptionPlanShowToCustomerEnum._('true_');
 const SubscriptionPlanShowToCustomerEnum
-    _$subscriptionPlanShowToCustomerEnum_false_ =
+_$subscriptionPlanShowToCustomerEnum_false_ =
     const SubscriptionPlanShowToCustomerEnum._('false_');
 const SubscriptionPlanShowToCustomerEnum
-    _$subscriptionPlanShowToCustomerEnum_admin =
+_$subscriptionPlanShowToCustomerEnum_admin =
     const SubscriptionPlanShowToCustomerEnum._('admin');
 const SubscriptionPlanShowToCustomerEnum
-    _$subscriptionPlanShowToCustomerEnum_unknownDefaultOpenApi =
+_$subscriptionPlanShowToCustomerEnum_unknownDefaultOpenApi =
     const SubscriptionPlanShowToCustomerEnum._('unknownDefaultOpenApi');
 
 SubscriptionPlanShowToCustomerEnum _$subscriptionPlanShowToCustomerEnumValueOf(
-    String name) {
+  String name,
+) {
   switch (name) {
     case 'true_':
       return _$subscriptionPlanShowToCustomerEnum_true_;
@@ -76,19 +80,21 @@ SubscriptionPlanShowToCustomerEnum _$subscriptionPlanShowToCustomerEnumValueOf(
 }
 
 final BuiltSet<SubscriptionPlanShowToCustomerEnum>
-    _$subscriptionPlanShowToCustomerEnumValues = BuiltSet<
-        SubscriptionPlanShowToCustomerEnum>(const <SubscriptionPlanShowToCustomerEnum>[
-  _$subscriptionPlanShowToCustomerEnum_true_,
-  _$subscriptionPlanShowToCustomerEnum_false_,
-  _$subscriptionPlanShowToCustomerEnum_admin,
-  _$subscriptionPlanShowToCustomerEnum_unknownDefaultOpenApi,
-]);
+_$subscriptionPlanShowToCustomerEnumValues =
+    BuiltSet<SubscriptionPlanShowToCustomerEnum>(
+      const <SubscriptionPlanShowToCustomerEnum>[
+        _$subscriptionPlanShowToCustomerEnum_true_,
+        _$subscriptionPlanShowToCustomerEnum_false_,
+        _$subscriptionPlanShowToCustomerEnum_admin,
+        _$subscriptionPlanShowToCustomerEnum_unknownDefaultOpenApi,
+      ],
+    );
 
 Serializer<SubscriptionPlanPlanPeriodEnum>
-    _$subscriptionPlanPlanPeriodEnumSerializer =
+_$subscriptionPlanPlanPeriodEnumSerializer =
     _$SubscriptionPlanPlanPeriodEnumSerializer();
 Serializer<SubscriptionPlanShowToCustomerEnum>
-    _$subscriptionPlanShowToCustomerEnumSerializer =
+_$subscriptionPlanShowToCustomerEnumSerializer =
     _$SubscriptionPlanShowToCustomerEnumSerializer();
 
 class _$SubscriptionPlanPlanPeriodEnumSerializer
@@ -115,16 +121,19 @@ class _$SubscriptionPlanPlanPeriodEnumSerializer
 
   @override
   Object serialize(
-          Serializers serializers, SubscriptionPlanPlanPeriodEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+    Serializers serializers,
+    SubscriptionPlanPlanPeriodEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   SubscriptionPlanPlanPeriodEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      SubscriptionPlanPlanPeriodEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => SubscriptionPlanPlanPeriodEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$SubscriptionPlanShowToCustomerEnumSerializer
@@ -149,16 +158,19 @@ class _$SubscriptionPlanShowToCustomerEnumSerializer
 
   @override
   Object serialize(
-          Serializers serializers, SubscriptionPlanShowToCustomerEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+    Serializers serializers,
+    SubscriptionPlanShowToCustomerEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   SubscriptionPlanShowToCustomerEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      SubscriptionPlanShowToCustomerEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => SubscriptionPlanShowToCustomerEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$SubscriptionPlan extends SubscriptionPlan {
@@ -197,29 +209,29 @@ class _$SubscriptionPlan extends SubscriptionPlan {
   @override
   final DateTime? updatedAt;
 
-  factory _$SubscriptionPlan(
-          [void Function(SubscriptionPlanBuilder)? updates]) =>
-      (SubscriptionPlanBuilder()..update(updates))._build();
+  factory _$SubscriptionPlan([
+    void Function(SubscriptionPlanBuilder)? updates,
+  ]) => (SubscriptionPlanBuilder()..update(updates))._build();
 
-  _$SubscriptionPlan._(
-      {this.id,
-      this.companyId,
-      this.unitId,
-      this.planName,
-      this.planQuantity,
-      this.planPeriod,
-      this.planType,
-      this.planStartDate,
-      this.planEndDate,
-      this.fkPromoCode,
-      this.planStatus,
-      this.showToCustomer,
-      this.fkKitchenCode,
-      this.price,
-      this.isRecurring,
-      this.createdAt,
-      this.updatedAt})
-      : super._();
+  _$SubscriptionPlan._({
+    this.id,
+    this.companyId,
+    this.unitId,
+    this.planName,
+    this.planQuantity,
+    this.planPeriod,
+    this.planType,
+    this.planStartDate,
+    this.planEndDate,
+    this.fkPromoCode,
+    this.planStatus,
+    this.showToCustomer,
+    this.fkKitchenCode,
+    this.price,
+    this.isRecurring,
+    this.createdAt,
+    this.updatedAt,
+  }) : super._();
   @override
   SubscriptionPlan rebuild(void Function(SubscriptionPlanBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -419,7 +431,8 @@ class SubscriptionPlanBuilder
   SubscriptionPlan build() => _build();
 
   _$SubscriptionPlan _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$SubscriptionPlan._(
           id: id,
           companyId: companyId,

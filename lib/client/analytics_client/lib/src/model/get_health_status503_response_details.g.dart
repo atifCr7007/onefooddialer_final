@@ -15,17 +15,19 @@ class _$GetHealthStatus503ResponseDetails
   @override
   final String? rabbitmq;
 
-  factory _$GetHealthStatus503ResponseDetails(
-          [void Function(GetHealthStatus503ResponseDetailsBuilder)? updates]) =>
-      (GetHealthStatus503ResponseDetailsBuilder()..update(updates))._build();
+  factory _$GetHealthStatus503ResponseDetails([
+    void Function(GetHealthStatus503ResponseDetailsBuilder)? updates,
+  ]) => (GetHealthStatus503ResponseDetailsBuilder()..update(updates))._build();
 
-  _$GetHealthStatus503ResponseDetails._(
-      {this.database, this.cache, this.rabbitmq})
-      : super._();
+  _$GetHealthStatus503ResponseDetails._({
+    this.database,
+    this.cache,
+    this.rabbitmq,
+  }) : super._();
   @override
   GetHealthStatus503ResponseDetails rebuild(
-          void Function(GetHealthStatus503ResponseDetailsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetHealthStatus503ResponseDetailsBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetHealthStatus503ResponseDetailsBuilder toBuilder() =>
@@ -62,8 +64,10 @@ class _$GetHealthStatus503ResponseDetails
 
 class GetHealthStatus503ResponseDetailsBuilder
     implements
-        Builder<GetHealthStatus503ResponseDetails,
-            GetHealthStatus503ResponseDetailsBuilder> {
+        Builder<
+          GetHealthStatus503ResponseDetails,
+          GetHealthStatus503ResponseDetailsBuilder
+        > {
   _$GetHealthStatus503ResponseDetails? _$v;
 
   String? _database;
@@ -100,7 +104,8 @@ class GetHealthStatus503ResponseDetailsBuilder
 
   @override
   void update(
-      void Function(GetHealthStatus503ResponseDetailsBuilder)? updates) {
+    void Function(GetHealthStatus503ResponseDetailsBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -108,7 +113,8 @@ class GetHealthStatus503ResponseDetailsBuilder
   GetHealthStatus503ResponseDetails build() => _build();
 
   _$GetHealthStatus503ResponseDetails _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$GetHealthStatus503ResponseDetails._(
           database: database,
           cache: cache,

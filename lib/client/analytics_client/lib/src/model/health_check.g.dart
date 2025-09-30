@@ -20,7 +20,7 @@ class _$HealthCheck extends HealthCheck {
       (HealthCheckBuilder()..update(updates))._build();
 
   _$HealthCheck._({this.status, this.service, this.version, this.timestamp})
-      : super._();
+    : super._();
   @override
   HealthCheck rebuild(void Function(HealthCheckBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -109,7 +109,8 @@ class HealthCheckBuilder implements Builder<HealthCheck, HealthCheckBuilder> {
   HealthCheck build() => _build();
 
   _$HealthCheck _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$HealthCheck._(
           status: status,
           service: service,

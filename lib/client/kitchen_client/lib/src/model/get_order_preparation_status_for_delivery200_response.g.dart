@@ -13,21 +13,21 @@ class _$GetOrderPreparationStatusForDelivery200Response
   @override
   final GetOrderPreparationStatusForDelivery200ResponseData? data;
 
-  factory _$GetOrderPreparationStatusForDelivery200Response(
-          [void Function(
-                  GetOrderPreparationStatusForDelivery200ResponseBuilder)?
-              updates]) =>
+  factory _$GetOrderPreparationStatusForDelivery200Response([
+    void Function(GetOrderPreparationStatusForDelivery200ResponseBuilder)?
+    updates,
+  ]) =>
       (GetOrderPreparationStatusForDelivery200ResponseBuilder()
             ..update(updates))
           ._build();
 
   _$GetOrderPreparationStatusForDelivery200Response._({this.success, this.data})
-      : super._();
+    : super._();
   @override
   GetOrderPreparationStatusForDelivery200Response rebuild(
-          void Function(GetOrderPreparationStatusForDelivery200ResponseBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetOrderPreparationStatusForDelivery200ResponseBuilder)
+    updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetOrderPreparationStatusForDelivery200ResponseBuilder toBuilder() =>
@@ -53,7 +53,8 @@ class _$GetOrderPreparationStatusForDelivery200Response
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GetOrderPreparationStatusForDelivery200Response')
+            r'GetOrderPreparationStatusForDelivery200Response',
+          )
           ..add('success', success)
           ..add('data', data))
         .toString();
@@ -62,8 +63,10 @@ class _$GetOrderPreparationStatusForDelivery200Response
 
 class GetOrderPreparationStatusForDelivery200ResponseBuilder
     implements
-        Builder<GetOrderPreparationStatusForDelivery200Response,
-            GetOrderPreparationStatusForDelivery200ResponseBuilder> {
+        Builder<
+          GetOrderPreparationStatusForDelivery200Response,
+          GetOrderPreparationStatusForDelivery200ResponseBuilder
+        > {
   _$GetOrderPreparationStatusForDelivery200Response? _$v;
 
   bool? _success;
@@ -98,8 +101,9 @@ class GetOrderPreparationStatusForDelivery200ResponseBuilder
 
   @override
   void update(
-      void Function(GetOrderPreparationStatusForDelivery200ResponseBuilder)?
-          updates) {
+    void Function(GetOrderPreparationStatusForDelivery200ResponseBuilder)?
+    updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -109,7 +113,8 @@ class GetOrderPreparationStatusForDelivery200ResponseBuilder
   _$GetOrderPreparationStatusForDelivery200Response _build() {
     _$GetOrderPreparationStatusForDelivery200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetOrderPreparationStatusForDelivery200Response._(
             success: success,
             data: _data?.build(),
@@ -121,9 +126,10 @@ class GetOrderPreparationStatusForDelivery200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetOrderPreparationStatusForDelivery200Response',
-            _$failedField,
-            e.toString());
+          r'GetOrderPreparationStatusForDelivery200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

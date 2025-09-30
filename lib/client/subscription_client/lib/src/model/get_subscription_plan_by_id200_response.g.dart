@@ -13,16 +13,15 @@ class _$GetSubscriptionPlanById200Response
   @override
   final SubscriptionPlan? data;
 
-  factory _$GetSubscriptionPlanById200Response(
-          [void Function(GetSubscriptionPlanById200ResponseBuilder)?
-              updates]) =>
-      (GetSubscriptionPlanById200ResponseBuilder()..update(updates))._build();
+  factory _$GetSubscriptionPlanById200Response([
+    void Function(GetSubscriptionPlanById200ResponseBuilder)? updates,
+  ]) => (GetSubscriptionPlanById200ResponseBuilder()..update(updates))._build();
 
   _$GetSubscriptionPlanById200Response._({this.success, this.data}) : super._();
   @override
   GetSubscriptionPlanById200Response rebuild(
-          void Function(GetSubscriptionPlanById200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetSubscriptionPlanById200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetSubscriptionPlanById200ResponseBuilder toBuilder() =>
@@ -56,8 +55,10 @@ class _$GetSubscriptionPlanById200Response
 
 class GetSubscriptionPlanById200ResponseBuilder
     implements
-        Builder<GetSubscriptionPlanById200Response,
-            GetSubscriptionPlanById200ResponseBuilder> {
+        Builder<
+          GetSubscriptionPlanById200Response,
+          GetSubscriptionPlanById200ResponseBuilder
+        > {
   _$GetSubscriptionPlanById200Response? _$v;
 
   bool? _success;
@@ -90,7 +91,8 @@ class GetSubscriptionPlanById200ResponseBuilder
 
   @override
   void update(
-      void Function(GetSubscriptionPlanById200ResponseBuilder)? updates) {
+    void Function(GetSubscriptionPlanById200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -100,7 +102,8 @@ class GetSubscriptionPlanById200ResponseBuilder
   _$GetSubscriptionPlanById200Response _build() {
     _$GetSubscriptionPlanById200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetSubscriptionPlanById200Response._(
             success: success,
             data: _data?.build(),
@@ -112,7 +115,10 @@ class GetSubscriptionPlanById200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetSubscriptionPlanById200Response', _$failedField, e.toString());
+          r'GetSubscriptionPlanById200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -15,17 +15,19 @@ class _$GetSalesDashboard200ResponseData
   @override
   final BuiltList<PaymentMode>? paymentModes;
 
-  factory _$GetSalesDashboard200ResponseData(
-          [void Function(GetSalesDashboard200ResponseDataBuilder)? updates]) =>
-      (GetSalesDashboard200ResponseDataBuilder()..update(updates))._build();
+  factory _$GetSalesDashboard200ResponseData([
+    void Function(GetSalesDashboard200ResponseDataBuilder)? updates,
+  ]) => (GetSalesDashboard200ResponseDataBuilder()..update(updates))._build();
 
-  _$GetSalesDashboard200ResponseData._(
-      {this.years, this.months, this.paymentModes})
-      : super._();
+  _$GetSalesDashboard200ResponseData._({
+    this.years,
+    this.months,
+    this.paymentModes,
+  }) : super._();
   @override
   GetSalesDashboard200ResponseData rebuild(
-          void Function(GetSalesDashboard200ResponseDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetSalesDashboard200ResponseDataBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetSalesDashboard200ResponseDataBuilder toBuilder() =>
@@ -62,8 +64,10 @@ class _$GetSalesDashboard200ResponseData
 
 class GetSalesDashboard200ResponseDataBuilder
     implements
-        Builder<GetSalesDashboard200ResponseData,
-            GetSalesDashboard200ResponseDataBuilder> {
+        Builder<
+          GetSalesDashboard200ResponseData,
+          GetSalesDashboard200ResponseDataBuilder
+        > {
   _$GetSalesDashboard200ResponseData? _$v;
 
   ListBuilder<int>? _years;
@@ -112,7 +116,8 @@ class GetSalesDashboard200ResponseDataBuilder
   _$GetSalesDashboard200ResponseData _build() {
     _$GetSalesDashboard200ResponseData _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetSalesDashboard200ResponseData._(
             years: _years?.build(),
             months: _months?.build(),
@@ -129,7 +134,10 @@ class GetSalesDashboard200ResponseDataBuilder
         _paymentModes?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetSalesDashboard200ResponseData', _$failedField, e.toString());
+          r'GetSalesDashboard200ResponseData',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

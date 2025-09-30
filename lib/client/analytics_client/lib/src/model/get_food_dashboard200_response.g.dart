@@ -12,15 +12,15 @@ class _$GetFoodDashboard200Response extends GetFoodDashboard200Response {
   @override
   final GetFoodDashboard200ResponseData? data;
 
-  factory _$GetFoodDashboard200Response(
-          [void Function(GetFoodDashboard200ResponseBuilder)? updates]) =>
-      (GetFoodDashboard200ResponseBuilder()..update(updates))._build();
+  factory _$GetFoodDashboard200Response([
+    void Function(GetFoodDashboard200ResponseBuilder)? updates,
+  ]) => (GetFoodDashboard200ResponseBuilder()..update(updates))._build();
 
   _$GetFoodDashboard200Response._({this.status, this.data}) : super._();
   @override
   GetFoodDashboard200Response rebuild(
-          void Function(GetFoodDashboard200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetFoodDashboard200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetFoodDashboard200ResponseBuilder toBuilder() =>
@@ -54,8 +54,10 @@ class _$GetFoodDashboard200Response extends GetFoodDashboard200Response {
 
 class GetFoodDashboard200ResponseBuilder
     implements
-        Builder<GetFoodDashboard200Response,
-            GetFoodDashboard200ResponseBuilder> {
+        Builder<
+          GetFoodDashboard200Response,
+          GetFoodDashboard200ResponseBuilder
+        > {
   _$GetFoodDashboard200Response? _$v;
 
   String? _status;
@@ -97,11 +99,9 @@ class GetFoodDashboard200ResponseBuilder
   _$GetFoodDashboard200Response _build() {
     _$GetFoodDashboard200Response _$result;
     try {
-      _$result = _$v ??
-          _$GetFoodDashboard200Response._(
-            status: status,
-            data: _data?.build(),
-          );
+      _$result =
+          _$v ??
+          _$GetFoodDashboard200Response._(status: status, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -109,7 +109,10 @@ class GetFoodDashboard200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetFoodDashboard200Response', _$failedField, e.toString());
+          r'GetFoodDashboard200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

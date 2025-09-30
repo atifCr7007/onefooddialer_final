@@ -14,16 +14,16 @@ class _$CreateSubscription201Response extends CreateSubscription201Response {
   @override
   final Subscription? data;
 
-  factory _$CreateSubscription201Response(
-          [void Function(CreateSubscription201ResponseBuilder)? updates]) =>
-      (CreateSubscription201ResponseBuilder()..update(updates))._build();
+  factory _$CreateSubscription201Response([
+    void Function(CreateSubscription201ResponseBuilder)? updates,
+  ]) => (CreateSubscription201ResponseBuilder()..update(updates))._build();
 
   _$CreateSubscription201Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   CreateSubscription201Response rebuild(
-          void Function(CreateSubscription201ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CreateSubscription201ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CreateSubscription201ResponseBuilder toBuilder() =>
@@ -60,8 +60,10 @@ class _$CreateSubscription201Response extends CreateSubscription201Response {
 
 class CreateSubscription201ResponseBuilder
     implements
-        Builder<CreateSubscription201Response,
-            CreateSubscription201ResponseBuilder> {
+        Builder<
+          CreateSubscription201Response,
+          CreateSubscription201ResponseBuilder
+        > {
   _$CreateSubscription201Response? _$v;
 
   bool? _success;
@@ -107,7 +109,8 @@ class CreateSubscription201ResponseBuilder
   _$CreateSubscription201Response _build() {
     _$CreateSubscription201Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$CreateSubscription201Response._(
             success: success,
             message: message,
@@ -120,7 +123,10 @@ class CreateSubscription201ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'CreateSubscription201Response', _$failedField, e.toString());
+          r'CreateSubscription201Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -14,16 +14,16 @@ class _$CreateOrder200Response extends CreateOrder200Response {
   @override
   final Order? data;
 
-  factory _$CreateOrder200Response(
-          [void Function(CreateOrder200ResponseBuilder)? updates]) =>
-      (CreateOrder200ResponseBuilder()..update(updates))._build();
+  factory _$CreateOrder200Response([
+    void Function(CreateOrder200ResponseBuilder)? updates,
+  ]) => (CreateOrder200ResponseBuilder()..update(updates))._build();
 
   _$CreateOrder200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   CreateOrder200Response rebuild(
-          void Function(CreateOrder200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CreateOrder200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CreateOrder200ResponseBuilder toBuilder() =>
@@ -105,7 +105,8 @@ class CreateOrder200ResponseBuilder
   _$CreateOrder200Response _build() {
     _$CreateOrder200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$CreateOrder200Response._(
             success: success,
             message: message,
@@ -118,7 +119,10 @@ class CreateOrder200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'CreateOrder200Response', _$failedField, e.toString());
+          r'CreateOrder200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

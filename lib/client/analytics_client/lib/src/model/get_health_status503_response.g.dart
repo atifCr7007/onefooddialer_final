@@ -14,16 +14,16 @@ class _$GetHealthStatus503Response extends GetHealthStatus503Response {
   @override
   final GetHealthStatus503ResponseDetails? details;
 
-  factory _$GetHealthStatus503Response(
-          [void Function(GetHealthStatus503ResponseBuilder)? updates]) =>
-      (GetHealthStatus503ResponseBuilder()..update(updates))._build();
+  factory _$GetHealthStatus503Response([
+    void Function(GetHealthStatus503ResponseBuilder)? updates,
+  ]) => (GetHealthStatus503ResponseBuilder()..update(updates))._build();
 
   _$GetHealthStatus503Response._({this.status, this.message, this.details})
-      : super._();
+    : super._();
   @override
   GetHealthStatus503Response rebuild(
-          void Function(GetHealthStatus503ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetHealthStatus503ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetHealthStatus503ResponseBuilder toBuilder() =>
@@ -108,7 +108,8 @@ class GetHealthStatus503ResponseBuilder
   _$GetHealthStatus503Response _build() {
     _$GetHealthStatus503Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetHealthStatus503Response._(
             status: status,
             message: message,
@@ -121,7 +122,10 @@ class GetHealthStatus503ResponseBuilder
         _details?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetHealthStatus503Response', _$failedField, e.toString());
+          r'GetHealthStatus503Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

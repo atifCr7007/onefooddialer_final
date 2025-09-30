@@ -13,15 +13,15 @@ class _$SalesPaymentMethodsGet200Response
   @override
   final BuiltList<PaymentMode>? data;
 
-  factory _$SalesPaymentMethodsGet200Response(
-          [void Function(SalesPaymentMethodsGet200ResponseBuilder)? updates]) =>
-      (SalesPaymentMethodsGet200ResponseBuilder()..update(updates))._build();
+  factory _$SalesPaymentMethodsGet200Response([
+    void Function(SalesPaymentMethodsGet200ResponseBuilder)? updates,
+  ]) => (SalesPaymentMethodsGet200ResponseBuilder()..update(updates))._build();
 
   _$SalesPaymentMethodsGet200Response._({this.status, this.data}) : super._();
   @override
   SalesPaymentMethodsGet200Response rebuild(
-          void Function(SalesPaymentMethodsGet200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SalesPaymentMethodsGet200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SalesPaymentMethodsGet200ResponseBuilder toBuilder() =>
@@ -55,8 +55,10 @@ class _$SalesPaymentMethodsGet200Response
 
 class SalesPaymentMethodsGet200ResponseBuilder
     implements
-        Builder<SalesPaymentMethodsGet200Response,
-            SalesPaymentMethodsGet200ResponseBuilder> {
+        Builder<
+          SalesPaymentMethodsGet200Response,
+          SalesPaymentMethodsGet200ResponseBuilder
+        > {
   _$SalesPaymentMethodsGet200Response? _$v;
 
   String? _status;
@@ -89,7 +91,8 @@ class SalesPaymentMethodsGet200ResponseBuilder
 
   @override
   void update(
-      void Function(SalesPaymentMethodsGet200ResponseBuilder)? updates) {
+    void Function(SalesPaymentMethodsGet200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -99,7 +102,8 @@ class SalesPaymentMethodsGet200ResponseBuilder
   _$SalesPaymentMethodsGet200Response _build() {
     _$SalesPaymentMethodsGet200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$SalesPaymentMethodsGet200Response._(
             status: status,
             data: _data?.build(),
@@ -111,7 +115,10 @@ class SalesPaymentMethodsGet200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'SalesPaymentMethodsGet200Response', _$failedField, e.toString());
+          r'SalesPaymentMethodsGet200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

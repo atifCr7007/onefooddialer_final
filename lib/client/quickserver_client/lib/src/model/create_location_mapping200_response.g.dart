@@ -15,16 +15,16 @@ class _$CreateLocationMapping200Response
   @override
   final LocationMapping? data;
 
-  factory _$CreateLocationMapping200Response(
-          [void Function(CreateLocationMapping200ResponseBuilder)? updates]) =>
-      (CreateLocationMapping200ResponseBuilder()..update(updates))._build();
+  factory _$CreateLocationMapping200Response([
+    void Function(CreateLocationMapping200ResponseBuilder)? updates,
+  ]) => (CreateLocationMapping200ResponseBuilder()..update(updates))._build();
 
   _$CreateLocationMapping200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   CreateLocationMapping200Response rebuild(
-          void Function(CreateLocationMapping200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CreateLocationMapping200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CreateLocationMapping200ResponseBuilder toBuilder() =>
@@ -61,8 +61,10 @@ class _$CreateLocationMapping200Response
 
 class CreateLocationMapping200ResponseBuilder
     implements
-        Builder<CreateLocationMapping200Response,
-            CreateLocationMapping200ResponseBuilder> {
+        Builder<
+          CreateLocationMapping200Response,
+          CreateLocationMapping200ResponseBuilder
+        > {
   _$CreateLocationMapping200Response? _$v;
 
   bool? _success;
@@ -108,7 +110,8 @@ class CreateLocationMapping200ResponseBuilder
   _$CreateLocationMapping200Response _build() {
     _$CreateLocationMapping200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$CreateLocationMapping200Response._(
             success: success,
             message: message,
@@ -121,7 +124,10 @@ class CreateLocationMapping200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'CreateLocationMapping200Response', _$failedField, e.toString());
+          r'CreateLocationMapping200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

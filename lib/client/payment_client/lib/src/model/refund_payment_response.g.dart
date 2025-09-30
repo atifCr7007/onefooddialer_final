@@ -14,16 +14,16 @@ class _$RefundPaymentResponse extends RefundPaymentResponse {
   @override
   final RefundPaymentResponseData? data;
 
-  factory _$RefundPaymentResponse(
-          [void Function(RefundPaymentResponseBuilder)? updates]) =>
-      (RefundPaymentResponseBuilder()..update(updates))._build();
+  factory _$RefundPaymentResponse([
+    void Function(RefundPaymentResponseBuilder)? updates,
+  ]) => (RefundPaymentResponseBuilder()..update(updates))._build();
 
   _$RefundPaymentResponse._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   RefundPaymentResponse rebuild(
-          void Function(RefundPaymentResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(RefundPaymentResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   RefundPaymentResponseBuilder toBuilder() =>
@@ -106,7 +106,8 @@ class RefundPaymentResponseBuilder
   _$RefundPaymentResponse _build() {
     _$RefundPaymentResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$RefundPaymentResponse._(
             success: success,
             message: message,
@@ -119,7 +120,10 @@ class RefundPaymentResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'RefundPaymentResponse', _$failedField, e.toString());
+          r'RefundPaymentResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

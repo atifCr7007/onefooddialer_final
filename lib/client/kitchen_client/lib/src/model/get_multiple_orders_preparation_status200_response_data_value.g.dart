@@ -19,27 +19,28 @@ class _$GetMultipleOrdersPreparationStatus200ResponseDataValue
   @override
   final String? status;
 
-  factory _$GetMultipleOrdersPreparationStatus200ResponseDataValue(
-          [void Function(
-                  GetMultipleOrdersPreparationStatus200ResponseDataValueBuilder)?
-              updates]) =>
+  factory _$GetMultipleOrdersPreparationStatus200ResponseDataValue([
+    void Function(
+      GetMultipleOrdersPreparationStatus200ResponseDataValueBuilder,
+    )?
+    updates,
+  ]) =>
       (GetMultipleOrdersPreparationStatus200ResponseDataValueBuilder()
             ..update(updates))
           ._build();
 
-  _$GetMultipleOrdersPreparationStatus200ResponseDataValue._(
-      {this.date,
-      this.menu,
-      this.isFullyPrepared,
-      this.preparationPercentage,
-      this.status})
-      : super._();
+  _$GetMultipleOrdersPreparationStatus200ResponseDataValue._({
+    this.date,
+    this.menu,
+    this.isFullyPrepared,
+    this.preparationPercentage,
+    this.status,
+  }) : super._();
   @override
   GetMultipleOrdersPreparationStatus200ResponseDataValue rebuild(
-          void Function(
-                  GetMultipleOrdersPreparationStatus200ResponseDataValueBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetMultipleOrdersPreparationStatus200ResponseDataValueBuilder)
+    updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetMultipleOrdersPreparationStatus200ResponseDataValueBuilder toBuilder() =>
@@ -72,7 +73,8 @@ class _$GetMultipleOrdersPreparationStatus200ResponseDataValue
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GetMultipleOrdersPreparationStatus200ResponseDataValue')
+            r'GetMultipleOrdersPreparationStatus200ResponseDataValue',
+          )
           ..add('date', date)
           ..add('menu', menu)
           ..add('isFullyPrepared', isFullyPrepared)
@@ -84,8 +86,10 @@ class _$GetMultipleOrdersPreparationStatus200ResponseDataValue
 
 class GetMultipleOrdersPreparationStatus200ResponseDataValueBuilder
     implements
-        Builder<GetMultipleOrdersPreparationStatus200ResponseDataValue,
-            GetMultipleOrdersPreparationStatus200ResponseDataValueBuilder> {
+        Builder<
+          GetMultipleOrdersPreparationStatus200ResponseDataValue,
+          GetMultipleOrdersPreparationStatus200ResponseDataValueBuilder
+        > {
   _$GetMultipleOrdersPreparationStatus200ResponseDataValue? _$v;
 
   Date? _date;
@@ -134,9 +138,11 @@ class GetMultipleOrdersPreparationStatus200ResponseDataValueBuilder
 
   @override
   void update(
-      void Function(
-              GetMultipleOrdersPreparationStatus200ResponseDataValueBuilder)?
-          updates) {
+    void Function(
+      GetMultipleOrdersPreparationStatus200ResponseDataValueBuilder,
+    )?
+    updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -144,7 +150,8 @@ class GetMultipleOrdersPreparationStatus200ResponseDataValueBuilder
   GetMultipleOrdersPreparationStatus200ResponseDataValue build() => _build();
 
   _$GetMultipleOrdersPreparationStatus200ResponseDataValue _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$GetMultipleOrdersPreparationStatus200ResponseDataValue._(
           date: date,
           menu: menu,

@@ -32,28 +32,28 @@ class _$KitchenPreparationResource extends KitchenPreparationResource {
   @override
   final KitchenKitchenMaster? kitchenMaster;
 
-  factory _$KitchenPreparationResource(
-          [void Function(KitchenPreparationResourceBuilder)? updates]) =>
-      (KitchenPreparationResourceBuilder()..update(updates))._build();
+  factory _$KitchenPreparationResource([
+    void Function(KitchenPreparationResourceBuilder)? updates,
+  ]) => (KitchenPreparationResourceBuilder()..update(updates))._build();
 
-  _$KitchenPreparationResource._(
-      {this.id,
-      this.productId,
-      this.kitchenId,
-      this.totalOrder,
-      this.prepared,
-      this.remaining,
-      this.preparationPercentage,
-      this.isFullyPrepared,
-      this.date,
-      this.menu,
-      this.product,
-      this.kitchenMaster})
-      : super._();
+  _$KitchenPreparationResource._({
+    this.id,
+    this.productId,
+    this.kitchenId,
+    this.totalOrder,
+    this.prepared,
+    this.remaining,
+    this.preparationPercentage,
+    this.isFullyPrepared,
+    this.date,
+    this.menu,
+    this.product,
+    this.kitchenMaster,
+  }) : super._();
   @override
   KitchenPreparationResource rebuild(
-          void Function(KitchenPreparationResourceBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(KitchenPreparationResourceBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   KitchenPreparationResourceBuilder toBuilder() =>
@@ -214,7 +214,8 @@ class KitchenPreparationResourceBuilder
   _$KitchenPreparationResource _build() {
     _$KitchenPreparationResource _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$KitchenPreparationResource._(
             id: id,
             productId: productId,
@@ -238,7 +239,10 @@ class KitchenPreparationResourceBuilder
         _kitchenMaster?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'KitchenPreparationResource', _$failedField, e.toString());
+          r'KitchenPreparationResource',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

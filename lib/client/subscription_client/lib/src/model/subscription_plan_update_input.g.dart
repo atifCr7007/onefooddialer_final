@@ -7,23 +7,23 @@ part of 'subscription_plan_update_input.dart';
 // **************************************************************************
 
 const SubscriptionPlanUpdateInputPlanPeriodEnum
-    _$subscriptionPlanUpdateInputPlanPeriodEnum_day =
+_$subscriptionPlanUpdateInputPlanPeriodEnum_day =
     const SubscriptionPlanUpdateInputPlanPeriodEnum._('day');
 const SubscriptionPlanUpdateInputPlanPeriodEnum
-    _$subscriptionPlanUpdateInputPlanPeriodEnum_week =
+_$subscriptionPlanUpdateInputPlanPeriodEnum_week =
     const SubscriptionPlanUpdateInputPlanPeriodEnum._('week');
 const SubscriptionPlanUpdateInputPlanPeriodEnum
-    _$subscriptionPlanUpdateInputPlanPeriodEnum_month =
+_$subscriptionPlanUpdateInputPlanPeriodEnum_month =
     const SubscriptionPlanUpdateInputPlanPeriodEnum._('month');
 const SubscriptionPlanUpdateInputPlanPeriodEnum
-    _$subscriptionPlanUpdateInputPlanPeriodEnum_year =
+_$subscriptionPlanUpdateInputPlanPeriodEnum_year =
     const SubscriptionPlanUpdateInputPlanPeriodEnum._('year');
 const SubscriptionPlanUpdateInputPlanPeriodEnum
-    _$subscriptionPlanUpdateInputPlanPeriodEnum_unknownDefaultOpenApi =
+_$subscriptionPlanUpdateInputPlanPeriodEnum_unknownDefaultOpenApi =
     const SubscriptionPlanUpdateInputPlanPeriodEnum._('unknownDefaultOpenApi');
 
 SubscriptionPlanUpdateInputPlanPeriodEnum
-    _$subscriptionPlanUpdateInputPlanPeriodEnumValueOf(String name) {
+_$subscriptionPlanUpdateInputPlanPeriodEnumValueOf(String name) {
   switch (name) {
     case 'day':
       return _$subscriptionPlanUpdateInputPlanPeriodEnum_day;
@@ -41,31 +41,34 @@ SubscriptionPlanUpdateInputPlanPeriodEnum
 }
 
 final BuiltSet<SubscriptionPlanUpdateInputPlanPeriodEnum>
-    _$subscriptionPlanUpdateInputPlanPeriodEnumValues = BuiltSet<
-        SubscriptionPlanUpdateInputPlanPeriodEnum>(const <SubscriptionPlanUpdateInputPlanPeriodEnum>[
-  _$subscriptionPlanUpdateInputPlanPeriodEnum_day,
-  _$subscriptionPlanUpdateInputPlanPeriodEnum_week,
-  _$subscriptionPlanUpdateInputPlanPeriodEnum_month,
-  _$subscriptionPlanUpdateInputPlanPeriodEnum_year,
-  _$subscriptionPlanUpdateInputPlanPeriodEnum_unknownDefaultOpenApi,
-]);
+_$subscriptionPlanUpdateInputPlanPeriodEnumValues =
+    BuiltSet<SubscriptionPlanUpdateInputPlanPeriodEnum>(
+      const <SubscriptionPlanUpdateInputPlanPeriodEnum>[
+        _$subscriptionPlanUpdateInputPlanPeriodEnum_day,
+        _$subscriptionPlanUpdateInputPlanPeriodEnum_week,
+        _$subscriptionPlanUpdateInputPlanPeriodEnum_month,
+        _$subscriptionPlanUpdateInputPlanPeriodEnum_year,
+        _$subscriptionPlanUpdateInputPlanPeriodEnum_unknownDefaultOpenApi,
+      ],
+    );
 
 const SubscriptionPlanUpdateInputShowToCustomerEnum
-    _$subscriptionPlanUpdateInputShowToCustomerEnum_true_ =
+_$subscriptionPlanUpdateInputShowToCustomerEnum_true_ =
     const SubscriptionPlanUpdateInputShowToCustomerEnum._('true_');
 const SubscriptionPlanUpdateInputShowToCustomerEnum
-    _$subscriptionPlanUpdateInputShowToCustomerEnum_false_ =
+_$subscriptionPlanUpdateInputShowToCustomerEnum_false_ =
     const SubscriptionPlanUpdateInputShowToCustomerEnum._('false_');
 const SubscriptionPlanUpdateInputShowToCustomerEnum
-    _$subscriptionPlanUpdateInputShowToCustomerEnum_admin =
+_$subscriptionPlanUpdateInputShowToCustomerEnum_admin =
     const SubscriptionPlanUpdateInputShowToCustomerEnum._('admin');
 const SubscriptionPlanUpdateInputShowToCustomerEnum
-    _$subscriptionPlanUpdateInputShowToCustomerEnum_unknownDefaultOpenApi =
+_$subscriptionPlanUpdateInputShowToCustomerEnum_unknownDefaultOpenApi =
     const SubscriptionPlanUpdateInputShowToCustomerEnum._(
-        'unknownDefaultOpenApi');
+      'unknownDefaultOpenApi',
+    );
 
 SubscriptionPlanUpdateInputShowToCustomerEnum
-    _$subscriptionPlanUpdateInputShowToCustomerEnumValueOf(String name) {
+_$subscriptionPlanUpdateInputShowToCustomerEnumValueOf(String name) {
   switch (name) {
     case 'true_':
       return _$subscriptionPlanUpdateInputShowToCustomerEnum_true_;
@@ -81,19 +84,21 @@ SubscriptionPlanUpdateInputShowToCustomerEnum
 }
 
 final BuiltSet<SubscriptionPlanUpdateInputShowToCustomerEnum>
-    _$subscriptionPlanUpdateInputShowToCustomerEnumValues = BuiltSet<
-        SubscriptionPlanUpdateInputShowToCustomerEnum>(const <SubscriptionPlanUpdateInputShowToCustomerEnum>[
-  _$subscriptionPlanUpdateInputShowToCustomerEnum_true_,
-  _$subscriptionPlanUpdateInputShowToCustomerEnum_false_,
-  _$subscriptionPlanUpdateInputShowToCustomerEnum_admin,
-  _$subscriptionPlanUpdateInputShowToCustomerEnum_unknownDefaultOpenApi,
-]);
+_$subscriptionPlanUpdateInputShowToCustomerEnumValues =
+    BuiltSet<SubscriptionPlanUpdateInputShowToCustomerEnum>(
+      const <SubscriptionPlanUpdateInputShowToCustomerEnum>[
+        _$subscriptionPlanUpdateInputShowToCustomerEnum_true_,
+        _$subscriptionPlanUpdateInputShowToCustomerEnum_false_,
+        _$subscriptionPlanUpdateInputShowToCustomerEnum_admin,
+        _$subscriptionPlanUpdateInputShowToCustomerEnum_unknownDefaultOpenApi,
+      ],
+    );
 
 Serializer<SubscriptionPlanUpdateInputPlanPeriodEnum>
-    _$subscriptionPlanUpdateInputPlanPeriodEnumSerializer =
+_$subscriptionPlanUpdateInputPlanPeriodEnumSerializer =
     _$SubscriptionPlanUpdateInputPlanPeriodEnumSerializer();
 Serializer<SubscriptionPlanUpdateInputShowToCustomerEnum>
-    _$subscriptionPlanUpdateInputShowToCustomerEnumSerializer =
+_$subscriptionPlanUpdateInputShowToCustomerEnumSerializer =
     _$SubscriptionPlanUpdateInputShowToCustomerEnumSerializer();
 
 class _$SubscriptionPlanUpdateInputPlanPeriodEnumSerializer
@@ -115,23 +120,26 @@ class _$SubscriptionPlanUpdateInputPlanPeriodEnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    SubscriptionPlanUpdateInputPlanPeriodEnum
+    SubscriptionPlanUpdateInputPlanPeriodEnum,
   ];
   @override
   final String wireName = 'SubscriptionPlanUpdateInputPlanPeriodEnum';
 
   @override
-  Object serialize(Serializers serializers,
-          SubscriptionPlanUpdateInputPlanPeriodEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    SubscriptionPlanUpdateInputPlanPeriodEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   SubscriptionPlanUpdateInputPlanPeriodEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      SubscriptionPlanUpdateInputPlanPeriodEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => SubscriptionPlanUpdateInputPlanPeriodEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$SubscriptionPlanUpdateInputShowToCustomerEnumSerializer
@@ -152,23 +160,26 @@ class _$SubscriptionPlanUpdateInputShowToCustomerEnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    SubscriptionPlanUpdateInputShowToCustomerEnum
+    SubscriptionPlanUpdateInputShowToCustomerEnum,
   ];
   @override
   final String wireName = 'SubscriptionPlanUpdateInputShowToCustomerEnum';
 
   @override
-  Object serialize(Serializers serializers,
-          SubscriptionPlanUpdateInputShowToCustomerEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    SubscriptionPlanUpdateInputShowToCustomerEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   SubscriptionPlanUpdateInputShowToCustomerEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      SubscriptionPlanUpdateInputShowToCustomerEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => SubscriptionPlanUpdateInputShowToCustomerEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$SubscriptionPlanUpdateInput extends SubscriptionPlanUpdateInput {
@@ -197,28 +208,28 @@ class _$SubscriptionPlanUpdateInput extends SubscriptionPlanUpdateInput {
   @override
   final bool? isRecurring;
 
-  factory _$SubscriptionPlanUpdateInput(
-          [void Function(SubscriptionPlanUpdateInputBuilder)? updates]) =>
-      (SubscriptionPlanUpdateInputBuilder()..update(updates))._build();
+  factory _$SubscriptionPlanUpdateInput([
+    void Function(SubscriptionPlanUpdateInputBuilder)? updates,
+  ]) => (SubscriptionPlanUpdateInputBuilder()..update(updates))._build();
 
-  _$SubscriptionPlanUpdateInput._(
-      {this.planName,
-      this.planQuantity,
-      this.planPeriod,
-      this.planType,
-      this.planStartDate,
-      this.planEndDate,
-      this.fkPromoCode,
-      this.planStatus,
-      this.showToCustomer,
-      this.fkKitchenCode,
-      this.price,
-      this.isRecurring})
-      : super._();
+  _$SubscriptionPlanUpdateInput._({
+    this.planName,
+    this.planQuantity,
+    this.planPeriod,
+    this.planType,
+    this.planStartDate,
+    this.planEndDate,
+    this.fkPromoCode,
+    this.planStatus,
+    this.showToCustomer,
+    this.fkKitchenCode,
+    this.price,
+    this.isRecurring,
+  }) : super._();
   @override
   SubscriptionPlanUpdateInput rebuild(
-          void Function(SubscriptionPlanUpdateInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SubscriptionPlanUpdateInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SubscriptionPlanUpdateInputBuilder toBuilder() =>
@@ -282,8 +293,10 @@ class _$SubscriptionPlanUpdateInput extends SubscriptionPlanUpdateInput {
 
 class SubscriptionPlanUpdateInputBuilder
     implements
-        Builder<SubscriptionPlanUpdateInput,
-            SubscriptionPlanUpdateInputBuilder> {
+        Builder<
+          SubscriptionPlanUpdateInput,
+          SubscriptionPlanUpdateInputBuilder
+        > {
   _$SubscriptionPlanUpdateInput? _$v;
 
   String? _planName;
@@ -325,8 +338,8 @@ class SubscriptionPlanUpdateInputBuilder
   SubscriptionPlanUpdateInputShowToCustomerEnum? get showToCustomer =>
       _$this._showToCustomer;
   set showToCustomer(
-          SubscriptionPlanUpdateInputShowToCustomerEnum? showToCustomer) =>
-      _$this._showToCustomer = showToCustomer;
+    SubscriptionPlanUpdateInputShowToCustomerEnum? showToCustomer,
+  ) => _$this._showToCustomer = showToCustomer;
 
   int? _fkKitchenCode;
   int? get fkKitchenCode => _$this._fkKitchenCode;
@@ -379,7 +392,8 @@ class SubscriptionPlanUpdateInputBuilder
   SubscriptionPlanUpdateInput build() => _build();
 
   _$SubscriptionPlanUpdateInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$SubscriptionPlanUpdateInput._(
           planName: planName,
           planQuantity: planQuantity,

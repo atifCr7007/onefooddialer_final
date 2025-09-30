@@ -15,18 +15,20 @@ class _$GetCustomerDashboard200ResponseData
   @override
   final BuiltList<CustomerSpending>? customerSpending;
 
-  factory _$GetCustomerDashboard200ResponseData(
-          [void Function(GetCustomerDashboard200ResponseDataBuilder)?
-              updates]) =>
+  factory _$GetCustomerDashboard200ResponseData([
+    void Function(GetCustomerDashboard200ResponseDataBuilder)? updates,
+  ]) =>
       (GetCustomerDashboard200ResponseDataBuilder()..update(updates))._build();
 
-  _$GetCustomerDashboard200ResponseData._(
-      {this.loyalCustomers, this.customerPreferences, this.customerSpending})
-      : super._();
+  _$GetCustomerDashboard200ResponseData._({
+    this.loyalCustomers,
+    this.customerPreferences,
+    this.customerSpending,
+  }) : super._();
   @override
   GetCustomerDashboard200ResponseData rebuild(
-          void Function(GetCustomerDashboard200ResponseDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetCustomerDashboard200ResponseDataBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetCustomerDashboard200ResponseDataBuilder toBuilder() =>
@@ -63,8 +65,10 @@ class _$GetCustomerDashboard200ResponseData
 
 class GetCustomerDashboard200ResponseDataBuilder
     implements
-        Builder<GetCustomerDashboard200ResponseData,
-            GetCustomerDashboard200ResponseDataBuilder> {
+        Builder<
+          GetCustomerDashboard200ResponseData,
+          GetCustomerDashboard200ResponseDataBuilder
+        > {
   _$GetCustomerDashboard200ResponseData? _$v;
 
   ListBuilder<LoyalCustomer>? _loyalCustomers;
@@ -77,8 +81,8 @@ class GetCustomerDashboard200ResponseDataBuilder
   ListBuilder<CustomerPreference> get customerPreferences =>
       _$this._customerPreferences ??= ListBuilder<CustomerPreference>();
   set customerPreferences(
-          ListBuilder<CustomerPreference>? customerPreferences) =>
-      _$this._customerPreferences = customerPreferences;
+    ListBuilder<CustomerPreference>? customerPreferences,
+  ) => _$this._customerPreferences = customerPreferences;
 
   ListBuilder<CustomerSpending>? _customerSpending;
   ListBuilder<CustomerSpending> get customerSpending =>
@@ -108,7 +112,8 @@ class GetCustomerDashboard200ResponseDataBuilder
 
   @override
   void update(
-      void Function(GetCustomerDashboard200ResponseDataBuilder)? updates) {
+    void Function(GetCustomerDashboard200ResponseDataBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -118,7 +123,8 @@ class GetCustomerDashboard200ResponseDataBuilder
   _$GetCustomerDashboard200ResponseData _build() {
     _$GetCustomerDashboard200ResponseData _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetCustomerDashboard200ResponseData._(
             loyalCustomers: _loyalCustomers?.build(),
             customerPreferences: _customerPreferences?.build(),
@@ -134,8 +140,11 @@ class GetCustomerDashboard200ResponseDataBuilder
         _$failedField = 'customerSpending';
         _customerSpending?.build();
       } catch (e) {
-        throw BuiltValueNestedFieldError(r'GetCustomerDashboard200ResponseData',
-            _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'GetCustomerDashboard200ResponseData',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

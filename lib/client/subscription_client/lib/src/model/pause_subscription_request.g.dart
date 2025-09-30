@@ -12,15 +12,15 @@ class _$PauseSubscriptionRequest extends PauseSubscriptionRequest {
   @override
   final Date? resumeDate;
 
-  factory _$PauseSubscriptionRequest(
-          [void Function(PauseSubscriptionRequestBuilder)? updates]) =>
-      (PauseSubscriptionRequestBuilder()..update(updates))._build();
+  factory _$PauseSubscriptionRequest([
+    void Function(PauseSubscriptionRequestBuilder)? updates,
+  ]) => (PauseSubscriptionRequestBuilder()..update(updates))._build();
 
   _$PauseSubscriptionRequest._({this.reason, this.resumeDate}) : super._();
   @override
   PauseSubscriptionRequest rebuild(
-          void Function(PauseSubscriptionRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PauseSubscriptionRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PauseSubscriptionRequestBuilder toBuilder() =>
@@ -93,11 +93,9 @@ class PauseSubscriptionRequestBuilder
   PauseSubscriptionRequest build() => _build();
 
   _$PauseSubscriptionRequest _build() {
-    final _$result = _$v ??
-        _$PauseSubscriptionRequest._(
-          reason: reason,
-          resumeDate: resumeDate,
-        );
+    final _$result =
+        _$v ??
+        _$PauseSubscriptionRequest._(reason: reason, resumeDate: resumeDate);
     replace(_$result);
     return _$result;
   }

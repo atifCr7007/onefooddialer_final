@@ -12,15 +12,15 @@ class _$GetCustomerById200Response extends GetCustomerById200Response {
   @override
   final Customer? data;
 
-  factory _$GetCustomerById200Response(
-          [void Function(GetCustomerById200ResponseBuilder)? updates]) =>
-      (GetCustomerById200ResponseBuilder()..update(updates))._build();
+  factory _$GetCustomerById200Response([
+    void Function(GetCustomerById200ResponseBuilder)? updates,
+  ]) => (GetCustomerById200ResponseBuilder()..update(updates))._build();
 
   _$GetCustomerById200Response._({this.success, this.data}) : super._();
   @override
   GetCustomerById200Response rebuild(
-          void Function(GetCustomerById200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetCustomerById200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetCustomerById200ResponseBuilder toBuilder() =>
@@ -95,7 +95,8 @@ class GetCustomerById200ResponseBuilder
   _$GetCustomerById200Response _build() {
     _$GetCustomerById200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetCustomerById200Response._(
             success: success,
             data: _data?.build(),
@@ -107,7 +108,10 @@ class GetCustomerById200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetCustomerById200Response', _$failedField, e.toString());
+          r'GetCustomerById200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

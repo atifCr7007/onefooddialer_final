@@ -14,16 +14,16 @@ class _$ProcessPaymentResponse extends ProcessPaymentResponse {
   @override
   final ProcessPaymentResponseData? data;
 
-  factory _$ProcessPaymentResponse(
-          [void Function(ProcessPaymentResponseBuilder)? updates]) =>
-      (ProcessPaymentResponseBuilder()..update(updates))._build();
+  factory _$ProcessPaymentResponse([
+    void Function(ProcessPaymentResponseBuilder)? updates,
+  ]) => (ProcessPaymentResponseBuilder()..update(updates))._build();
 
   _$ProcessPaymentResponse._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   ProcessPaymentResponse rebuild(
-          void Function(ProcessPaymentResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ProcessPaymentResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ProcessPaymentResponseBuilder toBuilder() =>
@@ -106,7 +106,8 @@ class ProcessPaymentResponseBuilder
   _$ProcessPaymentResponse _build() {
     _$ProcessPaymentResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$ProcessPaymentResponse._(
             success: success,
             message: message,
@@ -119,7 +120,10 @@ class ProcessPaymentResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'ProcessPaymentResponse', _$failedField, e.toString());
+          r'ProcessPaymentResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

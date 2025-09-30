@@ -13,16 +13,16 @@ class _$SalesAvgMealYearMonthGet200Response
   @override
   final BuiltList<AvgMeal>? data;
 
-  factory _$SalesAvgMealYearMonthGet200Response(
-          [void Function(SalesAvgMealYearMonthGet200ResponseBuilder)?
-              updates]) =>
+  factory _$SalesAvgMealYearMonthGet200Response([
+    void Function(SalesAvgMealYearMonthGet200ResponseBuilder)? updates,
+  ]) =>
       (SalesAvgMealYearMonthGet200ResponseBuilder()..update(updates))._build();
 
   _$SalesAvgMealYearMonthGet200Response._({this.status, this.data}) : super._();
   @override
   SalesAvgMealYearMonthGet200Response rebuild(
-          void Function(SalesAvgMealYearMonthGet200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SalesAvgMealYearMonthGet200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SalesAvgMealYearMonthGet200ResponseBuilder toBuilder() =>
@@ -56,8 +56,10 @@ class _$SalesAvgMealYearMonthGet200Response
 
 class SalesAvgMealYearMonthGet200ResponseBuilder
     implements
-        Builder<SalesAvgMealYearMonthGet200Response,
-            SalesAvgMealYearMonthGet200ResponseBuilder> {
+        Builder<
+          SalesAvgMealYearMonthGet200Response,
+          SalesAvgMealYearMonthGet200ResponseBuilder
+        > {
   _$SalesAvgMealYearMonthGet200Response? _$v;
 
   String? _status;
@@ -89,7 +91,8 @@ class SalesAvgMealYearMonthGet200ResponseBuilder
 
   @override
   void update(
-      void Function(SalesAvgMealYearMonthGet200ResponseBuilder)? updates) {
+    void Function(SalesAvgMealYearMonthGet200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -99,7 +102,8 @@ class SalesAvgMealYearMonthGet200ResponseBuilder
   _$SalesAvgMealYearMonthGet200Response _build() {
     _$SalesAvgMealYearMonthGet200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$SalesAvgMealYearMonthGet200Response._(
             status: status,
             data: _data?.build(),
@@ -110,8 +114,11 @@ class SalesAvgMealYearMonthGet200ResponseBuilder
         _$failedField = 'data';
         _data?.build();
       } catch (e) {
-        throw BuiltValueNestedFieldError(r'SalesAvgMealYearMonthGet200Response',
-            _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'SalesAvgMealYearMonthGet200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

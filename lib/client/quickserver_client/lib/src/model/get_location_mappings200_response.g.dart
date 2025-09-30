@@ -74,9 +74,10 @@ class GetLocationMappings200ResponseBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  ListBuilder<dynamic>? _data;
-  ListBuilder<dynamic> get data => _$this._data ??= ListBuilder<dynamic>();
-  set data(ListBuilder<dynamic>? data) => _$this._data = data;
+  ListBuilder<LocationMapping>? _data;
+  ListBuilder<LocationMapping> get data =>
+      _$this._data ??= ListBuilder<LocationMapping>();
+  set data(ListBuilder<LocationMapping>? data) => _$this._data = data;
 
   GetLocationMappings200ResponseBuilder() {
     GetLocationMappings200Response._defaults(this);
@@ -114,7 +115,7 @@ class GetLocationMappings200ResponseBuilder
           _$GetLocationMappings200Response._(
             success: success,
             message: message,
-            data: _data?.build()as BuiltList<LocationMapping>,
+            data: _data?.build(),
           );
     } catch (_) {
       late String _$failedField;

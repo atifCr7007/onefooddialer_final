@@ -71,9 +71,9 @@ class GetBackorders200ResponseBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  ListBuilder<dynamic>? _data;
-  ListBuilder<dynamic> get data => _$this._data ??= ListBuilder<dynamic>();
-  set data(ListBuilder<dynamic>? data) => _$this._data = data;
+  ListBuilder<Backorder>? _data;
+  ListBuilder<Backorder> get data => _$this._data ??= ListBuilder<Backorder>();
+  set data(ListBuilder<Backorder>? data) => _$this._data = data;
 
   GetBackorders200ResponseBuilder() {
     GetBackorders200Response._defaults(this);
@@ -111,7 +111,7 @@ class GetBackorders200ResponseBuilder
           _$GetBackorders200Response._(
             success: success,
             message: message,
-            data: _data?.build()as BuiltList <Backorder>,
+            data: _data?.build(),
           );
     } catch (_) {
       late String _$failedField;

@@ -21,25 +21,23 @@ class _$GetOrderPreparationStatus200ResponseData
   @override
   final BuiltList<KitchenPreparationResource>? items;
 
-  factory _$GetOrderPreparationStatus200ResponseData(
-          [void Function(GetOrderPreparationStatus200ResponseDataBuilder)?
-              updates]) =>
-      (GetOrderPreparationStatus200ResponseDataBuilder()..update(updates))
-          ._build();
+  factory _$GetOrderPreparationStatus200ResponseData([
+    void Function(GetOrderPreparationStatus200ResponseDataBuilder)? updates,
+  ]) => (GetOrderPreparationStatus200ResponseDataBuilder()..update(updates))
+      ._build();
 
-  _$GetOrderPreparationStatus200ResponseData._(
-      {this.orderId,
-      this.date,
-      this.menu,
-      this.isFullyPrepared,
-      this.preparationPercentage,
-      this.items})
-      : super._();
+  _$GetOrderPreparationStatus200ResponseData._({
+    this.orderId,
+    this.date,
+    this.menu,
+    this.isFullyPrepared,
+    this.preparationPercentage,
+    this.items,
+  }) : super._();
   @override
   GetOrderPreparationStatus200ResponseData rebuild(
-          void Function(GetOrderPreparationStatus200ResponseDataBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetOrderPreparationStatus200ResponseDataBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetOrderPreparationStatus200ResponseDataBuilder toBuilder() =>
@@ -73,7 +71,8 @@ class _$GetOrderPreparationStatus200ResponseData
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GetOrderPreparationStatus200ResponseData')
+            r'GetOrderPreparationStatus200ResponseData',
+          )
           ..add('orderId', orderId)
           ..add('date', date)
           ..add('menu', menu)
@@ -86,8 +85,10 @@ class _$GetOrderPreparationStatus200ResponseData
 
 class GetOrderPreparationStatus200ResponseDataBuilder
     implements
-        Builder<GetOrderPreparationStatus200ResponseData,
-            GetOrderPreparationStatus200ResponseDataBuilder> {
+        Builder<
+          GetOrderPreparationStatus200ResponseData,
+          GetOrderPreparationStatus200ResponseDataBuilder
+        > {
   _$GetOrderPreparationStatus200ResponseData? _$v;
 
   String? _orderId;
@@ -143,7 +144,8 @@ class GetOrderPreparationStatus200ResponseDataBuilder
 
   @override
   void update(
-      void Function(GetOrderPreparationStatus200ResponseDataBuilder)? updates) {
+    void Function(GetOrderPreparationStatus200ResponseDataBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -153,7 +155,8 @@ class GetOrderPreparationStatus200ResponseDataBuilder
   _$GetOrderPreparationStatus200ResponseData _build() {
     _$GetOrderPreparationStatus200ResponseData _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetOrderPreparationStatus200ResponseData._(
             orderId: orderId,
             date: date,
@@ -169,9 +172,10 @@ class GetOrderPreparationStatus200ResponseDataBuilder
         _items?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetOrderPreparationStatus200ResponseData',
-            _$failedField,
-            e.toString());
+          r'GetOrderPreparationStatus200ResponseData',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -89,11 +89,8 @@ class MealPerformanceBuilder
   MealPerformance build() => _build();
 
   _$MealPerformance _build() {
-    final _$result = _$v ??
-        _$MealPerformance._(
-          productName: productName,
-          qty: qty,
-        );
+    final _$result =
+        _$v ?? _$MealPerformance._(productName: productName, qty: qty);
     replace(_$result);
     return _$result;
   }

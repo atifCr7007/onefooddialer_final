@@ -12,15 +12,15 @@ class _$GetSalesMonths200Response extends GetSalesMonths200Response {
   @override
   final BuiltMap<String, String>? data;
 
-  factory _$GetSalesMonths200Response(
-          [void Function(GetSalesMonths200ResponseBuilder)? updates]) =>
-      (GetSalesMonths200ResponseBuilder()..update(updates))._build();
+  factory _$GetSalesMonths200Response([
+    void Function(GetSalesMonths200ResponseBuilder)? updates,
+  ]) => (GetSalesMonths200ResponseBuilder()..update(updates))._build();
 
   _$GetSalesMonths200Response._({this.status, this.data}) : super._();
   @override
   GetSalesMonths200Response rebuild(
-          void Function(GetSalesMonths200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetSalesMonths200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetSalesMonths200ResponseBuilder toBuilder() =>
@@ -96,11 +96,9 @@ class GetSalesMonths200ResponseBuilder
   _$GetSalesMonths200Response _build() {
     _$GetSalesMonths200Response _$result;
     try {
-      _$result = _$v ??
-          _$GetSalesMonths200Response._(
-            status: status,
-            data: _data?.build(),
-          );
+      _$result =
+          _$v ??
+          _$GetSalesMonths200Response._(status: status, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -108,7 +106,10 @@ class GetSalesMonths200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetSalesMonths200Response', _$failedField, e.toString());
+          r'GetSalesMonths200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

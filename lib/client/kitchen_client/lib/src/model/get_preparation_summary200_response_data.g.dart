@@ -25,25 +25,25 @@ class _$GetPreparationSummary200ResponseData
   @override
   final bool? isFullyPrepared;
 
-  factory _$GetPreparationSummary200ResponseData(
-          [void Function(GetPreparationSummary200ResponseDataBuilder)?
-              updates]) =>
+  factory _$GetPreparationSummary200ResponseData([
+    void Function(GetPreparationSummary200ResponseDataBuilder)? updates,
+  ]) =>
       (GetPreparationSummary200ResponseDataBuilder()..update(updates))._build();
 
-  _$GetPreparationSummary200ResponseData._(
-      {this.date,
-      this.menu,
-      this.kitchenId,
-      this.totalOrders,
-      this.totalPrepared,
-      this.remaining,
-      this.preparationPercentage,
-      this.isFullyPrepared})
-      : super._();
+  _$GetPreparationSummary200ResponseData._({
+    this.date,
+    this.menu,
+    this.kitchenId,
+    this.totalOrders,
+    this.totalPrepared,
+    this.remaining,
+    this.preparationPercentage,
+    this.isFullyPrepared,
+  }) : super._();
   @override
   GetPreparationSummary200ResponseData rebuild(
-          void Function(GetPreparationSummary200ResponseDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetPreparationSummary200ResponseDataBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetPreparationSummary200ResponseDataBuilder toBuilder() =>
@@ -95,8 +95,10 @@ class _$GetPreparationSummary200ResponseData
 
 class GetPreparationSummary200ResponseDataBuilder
     implements
-        Builder<GetPreparationSummary200ResponseData,
-            GetPreparationSummary200ResponseDataBuilder> {
+        Builder<
+          GetPreparationSummary200ResponseData,
+          GetPreparationSummary200ResponseDataBuilder
+        > {
   _$GetPreparationSummary200ResponseData? _$v;
 
   Date? _date;
@@ -161,7 +163,8 @@ class GetPreparationSummary200ResponseDataBuilder
 
   @override
   void update(
-      void Function(GetPreparationSummary200ResponseDataBuilder)? updates) {
+    void Function(GetPreparationSummary200ResponseDataBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -169,7 +172,8 @@ class GetPreparationSummary200ResponseDataBuilder
   GetPreparationSummary200ResponseData build() => _build();
 
   _$GetPreparationSummary200ResponseData _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$GetPreparationSummary200ResponseData._(
           date: date,
           menu: menu,

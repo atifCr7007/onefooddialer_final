@@ -21,23 +21,23 @@ class _$EstimateDeliveryTime200ResponseData
   @override
   final EstimateDeliveryTime200ResponseDataPreparationStatus? preparationStatus;
 
-  factory _$EstimateDeliveryTime200ResponseData(
-          [void Function(EstimateDeliveryTime200ResponseDataBuilder)?
-              updates]) =>
+  factory _$EstimateDeliveryTime200ResponseData([
+    void Function(EstimateDeliveryTime200ResponseDataBuilder)? updates,
+  ]) =>
       (EstimateDeliveryTime200ResponseDataBuilder()..update(updates))._build();
 
-  _$EstimateDeliveryTime200ResponseData._(
-      {this.orderId,
-      this.preparationTimeMinutes,
-      this.deliveryTimeMinutes,
-      this.totalEstimatedTimeMinutes,
-      this.estimatedDeliveryTime,
-      this.preparationStatus})
-      : super._();
+  _$EstimateDeliveryTime200ResponseData._({
+    this.orderId,
+    this.preparationTimeMinutes,
+    this.deliveryTimeMinutes,
+    this.totalEstimatedTimeMinutes,
+    this.estimatedDeliveryTime,
+    this.preparationStatus,
+  }) : super._();
   @override
   EstimateDeliveryTime200ResponseData rebuild(
-          void Function(EstimateDeliveryTime200ResponseDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(EstimateDeliveryTime200ResponseDataBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EstimateDeliveryTime200ResponseDataBuilder toBuilder() =>
@@ -83,8 +83,10 @@ class _$EstimateDeliveryTime200ResponseData
 
 class EstimateDeliveryTime200ResponseDataBuilder
     implements
-        Builder<EstimateDeliveryTime200ResponseData,
-            EstimateDeliveryTime200ResponseDataBuilder> {
+        Builder<
+          EstimateDeliveryTime200ResponseData,
+          EstimateDeliveryTime200ResponseDataBuilder
+        > {
   _$EstimateDeliveryTime200ResponseData? _$v;
 
   String? _orderId;
@@ -112,14 +114,14 @@ class EstimateDeliveryTime200ResponseDataBuilder
       _$this._estimatedDeliveryTime = estimatedDeliveryTime;
 
   EstimateDeliveryTime200ResponseDataPreparationStatusBuilder?
-      _preparationStatus;
+  _preparationStatus;
   EstimateDeliveryTime200ResponseDataPreparationStatusBuilder
-      get preparationStatus => _$this._preparationStatus ??=
-          EstimateDeliveryTime200ResponseDataPreparationStatusBuilder();
+  get preparationStatus => _$this._preparationStatus ??=
+      EstimateDeliveryTime200ResponseDataPreparationStatusBuilder();
   set preparationStatus(
-          EstimateDeliveryTime200ResponseDataPreparationStatusBuilder?
-              preparationStatus) =>
-      _$this._preparationStatus = preparationStatus;
+    EstimateDeliveryTime200ResponseDataPreparationStatusBuilder?
+    preparationStatus,
+  ) => _$this._preparationStatus = preparationStatus;
 
   EstimateDeliveryTime200ResponseDataBuilder() {
     EstimateDeliveryTime200ResponseData._defaults(this);
@@ -146,7 +148,8 @@ class EstimateDeliveryTime200ResponseDataBuilder
 
   @override
   void update(
-      void Function(EstimateDeliveryTime200ResponseDataBuilder)? updates) {
+    void Function(EstimateDeliveryTime200ResponseDataBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -156,7 +159,8 @@ class EstimateDeliveryTime200ResponseDataBuilder
   _$EstimateDeliveryTime200ResponseData _build() {
     _$EstimateDeliveryTime200ResponseData _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$EstimateDeliveryTime200ResponseData._(
             orderId: orderId,
             preparationTimeMinutes: preparationTimeMinutes,
@@ -171,8 +175,11 @@ class EstimateDeliveryTime200ResponseDataBuilder
         _$failedField = 'preparationStatus';
         _preparationStatus?.build();
       } catch (e) {
-        throw BuiltValueNestedFieldError(r'EstimateDeliveryTime200ResponseData',
-            _$failedField, e.toString());
+        throw BuiltValueNestedFieldError(
+          r'EstimateDeliveryTime200ResponseData',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

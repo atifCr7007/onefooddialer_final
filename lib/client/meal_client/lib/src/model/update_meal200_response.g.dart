@@ -14,15 +14,15 @@ class _$UpdateMeal200Response extends UpdateMeal200Response {
   @override
   final Meal? data;
 
-  factory _$UpdateMeal200Response(
-          [void Function(UpdateMeal200ResponseBuilder)? updates]) =>
-      (UpdateMeal200ResponseBuilder()..update(updates))._build();
+  factory _$UpdateMeal200Response([
+    void Function(UpdateMeal200ResponseBuilder)? updates,
+  ]) => (UpdateMeal200ResponseBuilder()..update(updates))._build();
 
   _$UpdateMeal200Response._({this.status, this.message, this.data}) : super._();
   @override
   UpdateMeal200Response rebuild(
-          void Function(UpdateMeal200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UpdateMeal200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateMeal200ResponseBuilder toBuilder() =>
@@ -104,7 +104,8 @@ class UpdateMeal200ResponseBuilder
   _$UpdateMeal200Response _build() {
     _$UpdateMeal200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$UpdateMeal200Response._(
             status: status,
             message: message,
@@ -117,7 +118,10 @@ class UpdateMeal200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'UpdateMeal200Response', _$failedField, e.toString());
+          r'UpdateMeal200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

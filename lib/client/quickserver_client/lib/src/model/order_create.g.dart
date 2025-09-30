@@ -43,24 +43,24 @@ class _$OrderCreate extends OrderCreate {
   factory _$OrderCreate([void Function(OrderCreateBuilder)? updates]) =>
       (OrderCreateBuilder()..update(updates))._build();
 
-  _$OrderCreate._(
-      {required this.customerCode,
-      required this.customerName,
-      required this.phone,
-      this.emailAddress,
-      required this.locationCode,
-      required this.locationName,
-      required this.productCode,
-      required this.productName,
-      required this.productType,
-      required this.quantity,
-      required this.amount,
-      this.tax,
-      this.deliveryCharges,
-      required this.orderDate,
-      required this.shipAddress,
-      required this.orderMenu})
-      : super._();
+  _$OrderCreate._({
+    required this.customerCode,
+    required this.customerName,
+    required this.phone,
+    this.emailAddress,
+    required this.locationCode,
+    required this.locationName,
+    required this.productCode,
+    required this.productName,
+    required this.productType,
+    required this.quantity,
+    required this.amount,
+    this.tax,
+    this.deliveryCharges,
+    required this.orderDate,
+    required this.shipAddress,
+    required this.orderMenu,
+  }) : super._();
   @override
   OrderCreate rebuild(void Function(OrderCreateBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -246,37 +246,77 @@ class OrderCreateBuilder implements Builder<OrderCreate, OrderCreateBuilder> {
   OrderCreate build() => _build();
 
   _$OrderCreate _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$OrderCreate._(
           customerCode: BuiltValueNullFieldError.checkNotNull(
-              customerCode, r'OrderCreate', 'customerCode'),
+            customerCode,
+            r'OrderCreate',
+            'customerCode',
+          ),
           customerName: BuiltValueNullFieldError.checkNotNull(
-              customerName, r'OrderCreate', 'customerName'),
+            customerName,
+            r'OrderCreate',
+            'customerName',
+          ),
           phone: BuiltValueNullFieldError.checkNotNull(
-              phone, r'OrderCreate', 'phone'),
+            phone,
+            r'OrderCreate',
+            'phone',
+          ),
           emailAddress: emailAddress,
           locationCode: BuiltValueNullFieldError.checkNotNull(
-              locationCode, r'OrderCreate', 'locationCode'),
+            locationCode,
+            r'OrderCreate',
+            'locationCode',
+          ),
           locationName: BuiltValueNullFieldError.checkNotNull(
-              locationName, r'OrderCreate', 'locationName'),
+            locationName,
+            r'OrderCreate',
+            'locationName',
+          ),
           productCode: BuiltValueNullFieldError.checkNotNull(
-              productCode, r'OrderCreate', 'productCode'),
+            productCode,
+            r'OrderCreate',
+            'productCode',
+          ),
           productName: BuiltValueNullFieldError.checkNotNull(
-              productName, r'OrderCreate', 'productName'),
+            productName,
+            r'OrderCreate',
+            'productName',
+          ),
           productType: BuiltValueNullFieldError.checkNotNull(
-              productType, r'OrderCreate', 'productType'),
+            productType,
+            r'OrderCreate',
+            'productType',
+          ),
           quantity: BuiltValueNullFieldError.checkNotNull(
-              quantity, r'OrderCreate', 'quantity'),
+            quantity,
+            r'OrderCreate',
+            'quantity',
+          ),
           amount: BuiltValueNullFieldError.checkNotNull(
-              amount, r'OrderCreate', 'amount'),
+            amount,
+            r'OrderCreate',
+            'amount',
+          ),
           tax: tax,
           deliveryCharges: deliveryCharges,
           orderDate: BuiltValueNullFieldError.checkNotNull(
-              orderDate, r'OrderCreate', 'orderDate'),
+            orderDate,
+            r'OrderCreate',
+            'orderDate',
+          ),
           shipAddress: BuiltValueNullFieldError.checkNotNull(
-              shipAddress, r'OrderCreate', 'shipAddress'),
+            shipAddress,
+            r'OrderCreate',
+            'shipAddress',
+          ),
           orderMenu: BuiltValueNullFieldError.checkNotNull(
-              orderMenu, r'OrderCreate', 'orderMenu'),
+            orderMenu,
+            r'OrderCreate',
+            'orderMenu',
+          ),
         );
     replace(_$result);
     return _$result;

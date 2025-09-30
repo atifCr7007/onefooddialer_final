@@ -141,9 +141,11 @@ class ValidationErrorResponseBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  ListBuilder<dynamic>? _errors;
-  ListBuilder<dynamic> get errors => _$this._errors ??= ListBuilder<dynamic>();
-  set errors(ListBuilder<dynamic>? errors) => _$this._errors = errors;
+  ListBuilder<ValidationErrorResponseErrorsInner>? _errors;
+  ListBuilder<ValidationErrorResponseErrorsInner> get errors =>
+      _$this._errors ??= ListBuilder<ValidationErrorResponseErrorsInner>();
+  set errors(ListBuilder<ValidationErrorResponseErrorsInner>? errors) =>
+      _$this._errors = errors;
 
   ValidationErrorResponseBuilder() {
     ValidationErrorResponse._defaults(this);
@@ -189,7 +191,7 @@ class ValidationErrorResponseBuilder
               r'ValidationErrorResponse',
               'message',
             ),
-            errors: errors.build() as BuiltList<ValidationErrorResponseErrorsInner>,
+            errors: errors.build(),
           );
     } catch (_) {
       late String _$failedField;

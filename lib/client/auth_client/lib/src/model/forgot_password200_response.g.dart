@@ -14,16 +14,16 @@ class _$ForgotPassword200Response extends ForgotPassword200Response {
   @override
   final ForgotPassword200ResponseData? data;
 
-  factory _$ForgotPassword200Response(
-          [void Function(ForgotPassword200ResponseBuilder)? updates]) =>
-      (ForgotPassword200ResponseBuilder()..update(updates))._build();
+  factory _$ForgotPassword200Response([
+    void Function(ForgotPassword200ResponseBuilder)? updates,
+  ]) => (ForgotPassword200ResponseBuilder()..update(updates))._build();
 
   _$ForgotPassword200Response._({this.status, this.message, this.data})
-      : super._();
+    : super._();
   @override
   ForgotPassword200Response rebuild(
-          void Function(ForgotPassword200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ForgotPassword200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ForgotPassword200ResponseBuilder toBuilder() =>
@@ -107,7 +107,8 @@ class ForgotPassword200ResponseBuilder
   _$ForgotPassword200Response _build() {
     _$ForgotPassword200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$ForgotPassword200Response._(
             status: status,
             message: message,
@@ -120,7 +121,10 @@ class ForgotPassword200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'ForgotPassword200Response', _$failedField, e.toString());
+          r'ForgotPassword200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

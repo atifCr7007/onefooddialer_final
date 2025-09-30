@@ -12,15 +12,15 @@ class _$GetSalesYears200Response extends GetSalesYears200Response {
   @override
   final BuiltList<int>? data;
 
-  factory _$GetSalesYears200Response(
-          [void Function(GetSalesYears200ResponseBuilder)? updates]) =>
-      (GetSalesYears200ResponseBuilder()..update(updates))._build();
+  factory _$GetSalesYears200Response([
+    void Function(GetSalesYears200ResponseBuilder)? updates,
+  ]) => (GetSalesYears200ResponseBuilder()..update(updates))._build();
 
   _$GetSalesYears200Response._({this.status, this.data}) : super._();
   @override
   GetSalesYears200Response rebuild(
-          void Function(GetSalesYears200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetSalesYears200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetSalesYears200ResponseBuilder toBuilder() =>
@@ -95,11 +95,9 @@ class GetSalesYears200ResponseBuilder
   _$GetSalesYears200Response _build() {
     _$GetSalesYears200Response _$result;
     try {
-      _$result = _$v ??
-          _$GetSalesYears200Response._(
-            status: status,
-            data: _data?.build(),
-          );
+      _$result =
+          _$v ??
+          _$GetSalesYears200Response._(status: status, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -107,7 +105,10 @@ class GetSalesYears200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetSalesYears200Response', _$failedField, e.toString());
+          r'GetSalesYears200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

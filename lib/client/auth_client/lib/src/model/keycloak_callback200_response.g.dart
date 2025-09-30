@@ -12,15 +12,15 @@ class _$KeycloakCallback200Response extends KeycloakCallback200Response {
   @override
   final KeycloakCallback200ResponseData? data;
 
-  factory _$KeycloakCallback200Response(
-          [void Function(KeycloakCallback200ResponseBuilder)? updates]) =>
-      (KeycloakCallback200ResponseBuilder()..update(updates))._build();
+  factory _$KeycloakCallback200Response([
+    void Function(KeycloakCallback200ResponseBuilder)? updates,
+  ]) => (KeycloakCallback200ResponseBuilder()..update(updates))._build();
 
   _$KeycloakCallback200Response._({this.status, this.data}) : super._();
   @override
   KeycloakCallback200Response rebuild(
-          void Function(KeycloakCallback200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(KeycloakCallback200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   KeycloakCallback200ResponseBuilder toBuilder() =>
@@ -54,8 +54,10 @@ class _$KeycloakCallback200Response extends KeycloakCallback200Response {
 
 class KeycloakCallback200ResponseBuilder
     implements
-        Builder<KeycloakCallback200Response,
-            KeycloakCallback200ResponseBuilder> {
+        Builder<
+          KeycloakCallback200Response,
+          KeycloakCallback200ResponseBuilder
+        > {
   _$KeycloakCallback200Response? _$v;
 
   String? _status;
@@ -97,11 +99,9 @@ class KeycloakCallback200ResponseBuilder
   _$KeycloakCallback200Response _build() {
     _$KeycloakCallback200Response _$result;
     try {
-      _$result = _$v ??
-          _$KeycloakCallback200Response._(
-            status: status,
-            data: _data?.build(),
-          );
+      _$result =
+          _$v ??
+          _$KeycloakCallback200Response._(status: status, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -109,7 +109,10 @@ class KeycloakCallback200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'KeycloakCallback200Response', _$failedField, e.toString());
+          r'KeycloakCallback200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

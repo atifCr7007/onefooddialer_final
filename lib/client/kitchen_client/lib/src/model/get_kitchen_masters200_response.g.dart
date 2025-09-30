@@ -54,9 +54,10 @@ class GetKitchenMasters200ResponseBuilder
         > {
   _$GetKitchenMasters200Response? _$v;
 
-  ListBuilder<dynamic>? _data;
-  ListBuilder<dynamic> get data => _$this._data ??= ListBuilder<dynamic>();
-  set data(ListBuilder<dynamic>? data) => _$this._data = data;
+  ListBuilder<KitchenMaster>? _data;
+  ListBuilder<KitchenMaster> get data =>
+      _$this._data ??= ListBuilder<KitchenMaster>();
+  set data(ListBuilder<KitchenMaster>? data) => _$this._data = data;
 
   GetKitchenMasters200ResponseBuilder() {
     GetKitchenMasters200Response._defaults(this);
@@ -87,7 +88,7 @@ class GetKitchenMasters200ResponseBuilder
   _$GetKitchenMasters200Response _build() {
     _$GetKitchenMasters200Response _$result;
     try {
-      _$result = _$v ?? _$GetKitchenMasters200Response._(data: _data?.build() as BuiltList<KitchenMaster>);
+      _$result = _$v ?? _$GetKitchenMasters200Response._(data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {

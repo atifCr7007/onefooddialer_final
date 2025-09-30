@@ -98,10 +98,10 @@ class StatisticsResponseDataBuilder
   set transactionsByGateway(Map<String, dynamic>? transactionsByGateway) =>
       _$this._transactionsByGateway = transactionsByGateway;
 
-  ListBuilder<dynamic>? _recentTransactions;
-  ListBuilder<dynamic> get recentTransactions =>
-      _$this._recentTransactions ??= ListBuilder<dynamic>();
-  set recentTransactions(ListBuilder<dynamic>? recentTransactions) =>
+  ListBuilder<TransactionSummary>? _recentTransactions;
+  ListBuilder<TransactionSummary> get recentTransactions =>
+      _$this._recentTransactions ??= ListBuilder<TransactionSummary>();
+  set recentTransactions(ListBuilder<TransactionSummary>? recentTransactions) =>
       _$this._recentTransactions = recentTransactions;
 
   StatisticsResponseDataBuilder() {
@@ -144,7 +144,7 @@ class StatisticsResponseDataBuilder
             totalAmount: totalAmount,
             transactionsByStatus: transactionsByStatus,
             transactionsByGateway: transactionsByGateway,
-            recentTransactions: _recentTransactions?.build() as BuiltList<TransactionSummary>,
+            recentTransactions: _recentTransactions?.build(),
           );
     } catch (_) {
       late String _$failedField;

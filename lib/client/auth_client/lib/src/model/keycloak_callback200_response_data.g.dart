@@ -17,17 +17,20 @@ class _$KeycloakCallback200ResponseData
   @override
   final KeycloakCallback200ResponseDataKeycloakTokens? keycloakTokens;
 
-  factory _$KeycloakCallback200ResponseData(
-          [void Function(KeycloakCallback200ResponseDataBuilder)? updates]) =>
-      (KeycloakCallback200ResponseDataBuilder()..update(updates))._build();
+  factory _$KeycloakCallback200ResponseData([
+    void Function(KeycloakCallback200ResponseDataBuilder)? updates,
+  ]) => (KeycloakCallback200ResponseDataBuilder()..update(updates))._build();
 
-  _$KeycloakCallback200ResponseData._(
-      {this.user, this.token, this.tokenType, this.keycloakTokens})
-      : super._();
+  _$KeycloakCallback200ResponseData._({
+    this.user,
+    this.token,
+    this.tokenType,
+    this.keycloakTokens,
+  }) : super._();
   @override
   KeycloakCallback200ResponseData rebuild(
-          void Function(KeycloakCallback200ResponseDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(KeycloakCallback200ResponseDataBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   KeycloakCallback200ResponseDataBuilder toBuilder() =>
@@ -67,8 +70,10 @@ class _$KeycloakCallback200ResponseData
 
 class KeycloakCallback200ResponseDataBuilder
     implements
-        Builder<KeycloakCallback200ResponseData,
-            KeycloakCallback200ResponseDataBuilder> {
+        Builder<
+          KeycloakCallback200ResponseData,
+          KeycloakCallback200ResponseDataBuilder
+        > {
   _$KeycloakCallback200ResponseData? _$v;
 
   UserBuilder? _user;
@@ -88,9 +93,8 @@ class KeycloakCallback200ResponseDataBuilder
       _$this._keycloakTokens ??=
           KeycloakCallback200ResponseDataKeycloakTokensBuilder();
   set keycloakTokens(
-          KeycloakCallback200ResponseDataKeycloakTokensBuilder?
-              keycloakTokens) =>
-      _$this._keycloakTokens = keycloakTokens;
+    KeycloakCallback200ResponseDataKeycloakTokensBuilder? keycloakTokens,
+  ) => _$this._keycloakTokens = keycloakTokens;
 
   KeycloakCallback200ResponseDataBuilder() {
     KeycloakCallback200ResponseData._defaults(this);
@@ -124,7 +128,8 @@ class KeycloakCallback200ResponseDataBuilder
   _$KeycloakCallback200ResponseData _build() {
     _$KeycloakCallback200ResponseData _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$KeycloakCallback200ResponseData._(
             user: _user?.build(),
             token: token,
@@ -141,7 +146,10 @@ class KeycloakCallback200ResponseDataBuilder
         _keycloakTokens?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'KeycloakCallback200ResponseData', _$failedField, e.toString());
+          r'KeycloakCallback200ResponseData',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

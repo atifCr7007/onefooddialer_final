@@ -14,16 +14,16 @@ class _$CreateCustomer201Response extends CreateCustomer201Response {
   @override
   final Customer? data;
 
-  factory _$CreateCustomer201Response(
-          [void Function(CreateCustomer201ResponseBuilder)? updates]) =>
-      (CreateCustomer201ResponseBuilder()..update(updates))._build();
+  factory _$CreateCustomer201Response([
+    void Function(CreateCustomer201ResponseBuilder)? updates,
+  ]) => (CreateCustomer201ResponseBuilder()..update(updates))._build();
 
   _$CreateCustomer201Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   CreateCustomer201Response rebuild(
-          void Function(CreateCustomer201ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CreateCustomer201ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CreateCustomer201ResponseBuilder toBuilder() =>
@@ -106,7 +106,8 @@ class CreateCustomer201ResponseBuilder
   _$CreateCustomer201Response _build() {
     _$CreateCustomer201Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$CreateCustomer201Response._(
             success: success,
             message: message,
@@ -119,7 +120,10 @@ class CreateCustomer201ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'CreateCustomer201Response', _$failedField, e.toString());
+          r'CreateCustomer201Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

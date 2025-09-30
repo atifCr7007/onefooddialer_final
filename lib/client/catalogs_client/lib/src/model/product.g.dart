@@ -28,10 +28,10 @@ ProductFoodTypeEnum _$productFoodTypeEnumValueOf(String name) {
 
 final BuiltSet<ProductFoodTypeEnum> _$productFoodTypeEnumValues =
     BuiltSet<ProductFoodTypeEnum>(const <ProductFoodTypeEnum>[
-  _$productFoodTypeEnum_veg,
-  _$productFoodTypeEnum_nonVeg,
-  _$productFoodTypeEnum_unknownDefaultOpenApi,
-]);
+      _$productFoodTypeEnum_veg,
+      _$productFoodTypeEnum_nonVeg,
+      _$productFoodTypeEnum_unknownDefaultOpenApi,
+    ]);
 
 Serializer<ProductFoodTypeEnum> _$productFoodTypeEnumSerializer =
     _$ProductFoodTypeEnumSerializer();
@@ -55,15 +55,20 @@ class _$ProductFoodTypeEnumSerializer
   final String wireName = 'ProductFoodTypeEnum';
 
   @override
-  Object serialize(Serializers serializers, ProductFoodTypeEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    ProductFoodTypeEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
-  ProductFoodTypeEnum deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      ProductFoodTypeEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+  ProductFoodTypeEnum deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => ProductFoodTypeEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$Product extends Product {
@@ -105,25 +110,25 @@ class _$Product extends Product {
   factory _$Product([void Function(ProductBuilder)? updates]) =>
       (ProductBuilder()..update(updates))._build();
 
-  _$Product._(
-      {this.id,
-      this.name,
-      this.description,
-      this.unitPrice,
-      this.foodType,
-      this.productCategoryId,
-      this.imagePath,
-      this.productSubtype,
-      this.swapWith,
-      this.swapCharges,
-      this.sequence,
-      this.status,
-      this.kitchenId,
-      this.createdAt,
-      this.updatedAt,
-      this.category,
-      this.kitchen})
-      : super._();
+  _$Product._({
+    this.id,
+    this.name,
+    this.description,
+    this.unitPrice,
+    this.foodType,
+    this.productCategoryId,
+    this.imagePath,
+    this.productSubtype,
+    this.swapWith,
+    this.swapCharges,
+    this.sequence,
+    this.status,
+    this.kitchenId,
+    this.createdAt,
+    this.updatedAt,
+    this.category,
+    this.kitchen,
+  }) : super._();
   @override
   Product rebuild(void Function(ProductBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -321,7 +326,8 @@ class ProductBuilder implements Builder<Product, ProductBuilder> {
   _$Product _build() {
     _$Product _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$Product._(
             id: id,
             name: name,
@@ -350,7 +356,10 @@ class ProductBuilder implements Builder<Product, ProductBuilder> {
         _kitchen?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'Product', _$failedField, e.toString());
+          r'Product',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

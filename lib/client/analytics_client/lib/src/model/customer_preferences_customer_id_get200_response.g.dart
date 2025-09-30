@@ -13,19 +13,17 @@ class _$CustomerPreferencesCustomerIdGet200Response
   @override
   final BuiltList<CustomerPreference>? data;
 
-  factory _$CustomerPreferencesCustomerIdGet200Response(
-          [void Function(CustomerPreferencesCustomerIdGet200ResponseBuilder)?
-              updates]) =>
-      (CustomerPreferencesCustomerIdGet200ResponseBuilder()..update(updates))
-          ._build();
+  factory _$CustomerPreferencesCustomerIdGet200Response([
+    void Function(CustomerPreferencesCustomerIdGet200ResponseBuilder)? updates,
+  ]) => (CustomerPreferencesCustomerIdGet200ResponseBuilder()..update(updates))
+      ._build();
 
   _$CustomerPreferencesCustomerIdGet200Response._({this.status, this.data})
-      : super._();
+    : super._();
   @override
   CustomerPreferencesCustomerIdGet200Response rebuild(
-          void Function(CustomerPreferencesCustomerIdGet200ResponseBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CustomerPreferencesCustomerIdGet200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CustomerPreferencesCustomerIdGet200ResponseBuilder toBuilder() =>
@@ -51,7 +49,8 @@ class _$CustomerPreferencesCustomerIdGet200Response
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'CustomerPreferencesCustomerIdGet200Response')
+            r'CustomerPreferencesCustomerIdGet200Response',
+          )
           ..add('status', status)
           ..add('data', data))
         .toString();
@@ -60,8 +59,10 @@ class _$CustomerPreferencesCustomerIdGet200Response
 
 class CustomerPreferencesCustomerIdGet200ResponseBuilder
     implements
-        Builder<CustomerPreferencesCustomerIdGet200Response,
-            CustomerPreferencesCustomerIdGet200ResponseBuilder> {
+        Builder<
+          CustomerPreferencesCustomerIdGet200Response,
+          CustomerPreferencesCustomerIdGet200ResponseBuilder
+        > {
   _$CustomerPreferencesCustomerIdGet200Response? _$v;
 
   String? _status;
@@ -94,8 +95,8 @@ class CustomerPreferencesCustomerIdGet200ResponseBuilder
 
   @override
   void update(
-      void Function(CustomerPreferencesCustomerIdGet200ResponseBuilder)?
-          updates) {
+    void Function(CustomerPreferencesCustomerIdGet200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -105,7 +106,8 @@ class CustomerPreferencesCustomerIdGet200ResponseBuilder
   _$CustomerPreferencesCustomerIdGet200Response _build() {
     _$CustomerPreferencesCustomerIdGet200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$CustomerPreferencesCustomerIdGet200Response._(
             status: status,
             data: _data?.build(),
@@ -117,9 +119,10 @@ class CustomerPreferencesCustomerIdGet200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'CustomerPreferencesCustomerIdGet200Response',
-            _$failedField,
-            e.toString());
+          r'CustomerPreferencesCustomerIdGet200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

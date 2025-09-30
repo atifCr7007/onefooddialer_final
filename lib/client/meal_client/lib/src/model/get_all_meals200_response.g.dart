@@ -60,9 +60,9 @@ class GetAllMeals200ResponseBuilder
   String? get status => _$this._status;
   set status(String? status) => _$this._status = status;
 
-  ListBuilder<dynamic>? _data;
-  ListBuilder<dynamic> get data => _$this._data ??= ListBuilder<dynamic>();
-  set data(ListBuilder<dynamic>? data) => _$this._data = data;
+  ListBuilder<Meal>? _data;
+  ListBuilder<Meal> get data => _$this._data ??= ListBuilder<Meal>();
+  set data(ListBuilder<Meal>? data) => _$this._data = data;
 
   GetAllMeals200ResponseBuilder() {
     GetAllMeals200Response._defaults(this);
@@ -96,7 +96,7 @@ class GetAllMeals200ResponseBuilder
     try {
       _$result =
           _$v ??
-          _$GetAllMeals200Response._(status: status, data: _data?.build() as BuiltList<Meal>);
+          _$GetAllMeals200Response._(status: status, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {

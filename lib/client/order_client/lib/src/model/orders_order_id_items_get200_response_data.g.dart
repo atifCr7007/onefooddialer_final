@@ -57,9 +57,10 @@ class OrdersOrderIdItemsGet200ResponseDataBuilder
         > {
   _$OrdersOrderIdItemsGet200ResponseData? _$v;
 
-  ListBuilder<dynamic>? _items;
-  ListBuilder<dynamic> get items => _$this._items ??= ListBuilder<dynamic>();
-  set items(ListBuilder<dynamic>? items) => _$this._items = items;
+  ListBuilder<OrderItem>? _items;
+  ListBuilder<OrderItem> get items =>
+      _$this._items ??= ListBuilder<OrderItem>();
+  set items(ListBuilder<OrderItem>? items) => _$this._items = items;
 
   OrdersOrderIdItemsGet200ResponseDataBuilder() {
     OrdersOrderIdItemsGet200ResponseData._defaults(this);
@@ -94,7 +95,7 @@ class OrdersOrderIdItemsGet200ResponseDataBuilder
     try {
       _$result =
           _$v ??
-          _$OrdersOrderIdItemsGet200ResponseData._(items: _items?.build()as BuiltList<OrderItem>);
+          _$OrdersOrderIdItemsGet200ResponseData._(items: _items?.build());
     } catch (_) {
       late String _$failedField;
       try {

@@ -71,9 +71,9 @@ class GetTimeslots200ResponseBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  ListBuilder<dynamic>? _data;
-  ListBuilder<dynamic> get data => _$this._data ??= ListBuilder<dynamic>();
-  set data(ListBuilder<dynamic>? data) => _$this._data = data;
+  ListBuilder<Timeslot>? _data;
+  ListBuilder<Timeslot> get data => _$this._data ??= ListBuilder<Timeslot>();
+  set data(ListBuilder<Timeslot>? data) => _$this._data = data;
 
   GetTimeslots200ResponseBuilder() {
     GetTimeslots200Response._defaults(this);
@@ -111,7 +111,7 @@ class GetTimeslots200ResponseBuilder
           _$GetTimeslots200Response._(
             success: success,
             message: message,
-            data: _data?.build() as BuiltList<Timeslot>,
+            data: _data?.build(),
           );
     } catch (_) {
       late String _$failedField;

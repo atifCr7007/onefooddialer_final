@@ -12,9 +12,9 @@ class _$Login200Response extends Login200Response {
   @override
   final Login200ResponseData? data;
 
-  factory _$Login200Response(
-          [void Function(Login200ResponseBuilder)? updates]) =>
-      (Login200ResponseBuilder()..update(updates))._build();
+  factory _$Login200Response([
+    void Function(Login200ResponseBuilder)? updates,
+  ]) => (Login200ResponseBuilder()..update(updates))._build();
 
   _$Login200Response._({this.status, this.data}) : super._();
   @override
@@ -94,11 +94,8 @@ class Login200ResponseBuilder
   _$Login200Response _build() {
     _$Login200Response _$result;
     try {
-      _$result = _$v ??
-          _$Login200Response._(
-            status: status,
-            data: _data?.build(),
-          );
+      _$result =
+          _$v ?? _$Login200Response._(status: status, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -106,7 +103,10 @@ class Login200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'Login200Response', _$failedField, e.toString());
+          r'Login200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

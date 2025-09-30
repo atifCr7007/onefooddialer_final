@@ -40,13 +40,13 @@ OrderItemStatusEnum _$orderItemStatusEnumValueOf(String name) {
 
 final BuiltSet<OrderItemStatusEnum> _$orderItemStatusEnumValues =
     BuiltSet<OrderItemStatusEnum>(const <OrderItemStatusEnum>[
-  _$orderItemStatusEnum_pending,
-  _$orderItemStatusEnum_confirmed,
-  _$orderItemStatusEnum_preparing,
-  _$orderItemStatusEnum_ready,
-  _$orderItemStatusEnum_served,
-  _$orderItemStatusEnum_unknownDefaultOpenApi,
-]);
+      _$orderItemStatusEnum_pending,
+      _$orderItemStatusEnum_confirmed,
+      _$orderItemStatusEnum_preparing,
+      _$orderItemStatusEnum_ready,
+      _$orderItemStatusEnum_served,
+      _$orderItemStatusEnum_unknownDefaultOpenApi,
+    ]);
 
 Serializer<OrderItemStatusEnum> _$orderItemStatusEnumSerializer =
     _$OrderItemStatusEnumSerializer();
@@ -76,15 +76,20 @@ class _$OrderItemStatusEnumSerializer
   final String wireName = 'OrderItemStatusEnum';
 
   @override
-  Object serialize(Serializers serializers, OrderItemStatusEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    OrderItemStatusEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
-  OrderItemStatusEnum deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      OrderItemStatusEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+  OrderItemStatusEnum deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => OrderItemStatusEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$OrderItem extends OrderItem {
@@ -122,23 +127,23 @@ class _$OrderItem extends OrderItem {
   factory _$OrderItem([void Function(OrderItemBuilder)? updates]) =>
       (OrderItemBuilder()..update(updates))._build();
 
-  _$OrderItem._(
-      {this.id,
-      this.orderId,
-      this.menuItemId,
-      this.name,
-      this.description,
-      this.quantity,
-      this.unitPrice,
-      this.totalPrice,
-      this.customizations,
-      this.specialInstructions,
-      this.status,
-      this.allergens,
-      this.nutritionalInfo,
-      this.createdAt,
-      this.updatedAt})
-      : super._();
+  _$OrderItem._({
+    this.id,
+    this.orderId,
+    this.menuItemId,
+    this.name,
+    this.description,
+    this.quantity,
+    this.unitPrice,
+    this.totalPrice,
+    this.customizations,
+    this.specialInstructions,
+    this.status,
+    this.allergens,
+    this.nutritionalInfo,
+    this.createdAt,
+    this.updatedAt,
+  }) : super._();
   @override
   OrderItem rebuild(void Function(OrderItemBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -324,7 +329,8 @@ class OrderItemBuilder implements Builder<OrderItem, OrderItemBuilder> {
   _$OrderItem _build() {
     _$OrderItem _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$OrderItem._(
             id: id,
             orderId: orderId,
@@ -354,7 +360,10 @@ class OrderItemBuilder implements Builder<OrderItem, OrderItemBuilder> {
         _nutritionalInfo?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'OrderItem', _$failedField, e.toString());
+          r'OrderItem',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

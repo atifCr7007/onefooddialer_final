@@ -12,15 +12,15 @@ class _$PaymentStatusResponse extends PaymentStatusResponse {
   @override
   final PaymentStatusResponseData? data;
 
-  factory _$PaymentStatusResponse(
-          [void Function(PaymentStatusResponseBuilder)? updates]) =>
-      (PaymentStatusResponseBuilder()..update(updates))._build();
+  factory _$PaymentStatusResponse([
+    void Function(PaymentStatusResponseBuilder)? updates,
+  ]) => (PaymentStatusResponseBuilder()..update(updates))._build();
 
   _$PaymentStatusResponse._({this.success, this.data}) : super._();
   @override
   PaymentStatusResponse rebuild(
-          void Function(PaymentStatusResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PaymentStatusResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PaymentStatusResponseBuilder toBuilder() =>
@@ -95,11 +95,9 @@ class PaymentStatusResponseBuilder
   _$PaymentStatusResponse _build() {
     _$PaymentStatusResponse _$result;
     try {
-      _$result = _$v ??
-          _$PaymentStatusResponse._(
-            success: success,
-            data: _data?.build(),
-          );
+      _$result =
+          _$v ??
+          _$PaymentStatusResponse._(success: success, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -107,7 +105,10 @@ class PaymentStatusResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'PaymentStatusResponse', _$failedField, e.toString());
+          r'PaymentStatusResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -12,15 +12,15 @@ class _$StatisticsResponse extends StatisticsResponse {
   @override
   final StatisticsResponseData? data;
 
-  factory _$StatisticsResponse(
-          [void Function(StatisticsResponseBuilder)? updates]) =>
-      (StatisticsResponseBuilder()..update(updates))._build();
+  factory _$StatisticsResponse([
+    void Function(StatisticsResponseBuilder)? updates,
+  ]) => (StatisticsResponseBuilder()..update(updates))._build();
 
   _$StatisticsResponse._({this.success, this.data}) : super._();
   @override
   StatisticsResponse rebuild(
-          void Function(StatisticsResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(StatisticsResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   StatisticsResponseBuilder toBuilder() =>
@@ -95,11 +95,8 @@ class StatisticsResponseBuilder
   _$StatisticsResponse _build() {
     _$StatisticsResponse _$result;
     try {
-      _$result = _$v ??
-          _$StatisticsResponse._(
-            success: success,
-            data: _data?.build(),
-          );
+      _$result =
+          _$v ?? _$StatisticsResponse._(success: success, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -107,7 +104,10 @@ class StatisticsResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'StatisticsResponse', _$failedField, e.toString());
+          r'StatisticsResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

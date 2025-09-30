@@ -14,16 +14,16 @@ class _$PaymentCallbackResponse extends PaymentCallbackResponse {
   @override
   final PaymentCallbackResponseData? data;
 
-  factory _$PaymentCallbackResponse(
-          [void Function(PaymentCallbackResponseBuilder)? updates]) =>
-      (PaymentCallbackResponseBuilder()..update(updates))._build();
+  factory _$PaymentCallbackResponse([
+    void Function(PaymentCallbackResponseBuilder)? updates,
+  ]) => (PaymentCallbackResponseBuilder()..update(updates))._build();
 
   _$PaymentCallbackResponse._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   PaymentCallbackResponse rebuild(
-          void Function(PaymentCallbackResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(PaymentCallbackResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   PaymentCallbackResponseBuilder toBuilder() =>
@@ -107,7 +107,8 @@ class PaymentCallbackResponseBuilder
   _$PaymentCallbackResponse _build() {
     _$PaymentCallbackResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$PaymentCallbackResponse._(
             success: success,
             message: message,
@@ -120,7 +121,10 @@ class PaymentCallbackResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'PaymentCallbackResponse', _$failedField, e.toString());
+          r'PaymentCallbackResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

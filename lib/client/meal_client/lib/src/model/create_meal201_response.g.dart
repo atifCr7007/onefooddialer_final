@@ -14,15 +14,15 @@ class _$CreateMeal201Response extends CreateMeal201Response {
   @override
   final Meal? data;
 
-  factory _$CreateMeal201Response(
-          [void Function(CreateMeal201ResponseBuilder)? updates]) =>
-      (CreateMeal201ResponseBuilder()..update(updates))._build();
+  factory _$CreateMeal201Response([
+    void Function(CreateMeal201ResponseBuilder)? updates,
+  ]) => (CreateMeal201ResponseBuilder()..update(updates))._build();
 
   _$CreateMeal201Response._({this.status, this.message, this.data}) : super._();
   @override
   CreateMeal201Response rebuild(
-          void Function(CreateMeal201ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CreateMeal201ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CreateMeal201ResponseBuilder toBuilder() =>
@@ -104,7 +104,8 @@ class CreateMeal201ResponseBuilder
   _$CreateMeal201Response _build() {
     _$CreateMeal201Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$CreateMeal201Response._(
             status: status,
             message: message,
@@ -117,7 +118,10 @@ class CreateMeal201ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'CreateMeal201Response', _$failedField, e.toString());
+          r'CreateMeal201Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -14,12 +14,12 @@ class _$CustomerSpending extends CustomerSpending {
   @override
   final double? monthly;
 
-  factory _$CustomerSpending(
-          [void Function(CustomerSpendingBuilder)? updates]) =>
-      (CustomerSpendingBuilder()..update(updates))._build();
+  factory _$CustomerSpending([
+    void Function(CustomerSpendingBuilder)? updates,
+  ]) => (CustomerSpendingBuilder()..update(updates))._build();
 
   _$CustomerSpending._({this.customerName, this.yearly, this.monthly})
-      : super._();
+    : super._();
   @override
   CustomerSpending rebuild(void Function(CustomerSpendingBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -102,7 +102,8 @@ class CustomerSpendingBuilder
   CustomerSpending build() => _build();
 
   _$CustomerSpending _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$CustomerSpending._(
           customerName: customerName,
           yearly: yearly,

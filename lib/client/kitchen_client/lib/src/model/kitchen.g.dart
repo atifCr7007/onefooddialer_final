@@ -41,23 +41,23 @@ class _$Kitchen extends Kitchen {
   factory _$Kitchen([void Function(KitchenBuilder)? updates]) =>
       (KitchenBuilder()..update(updates))._build();
 
-  _$Kitchen._(
-      {this.id,
-      this.companyId,
-      this.unitId,
-      this.productId,
-      this.kitchenId,
-      this.totalOrder,
-      this.prepared,
-      this.remainingOrders,
-      this.date,
-      this.orderMenu,
-      this.status,
-      this.product,
-      this.kitchenMaster,
-      this.createdAt,
-      this.updatedAt})
-      : super._();
+  _$Kitchen._({
+    this.id,
+    this.companyId,
+    this.unitId,
+    this.productId,
+    this.kitchenId,
+    this.totalOrder,
+    this.prepared,
+    this.remainingOrders,
+    this.date,
+    this.orderMenu,
+    this.status,
+    this.product,
+    this.kitchenMaster,
+    this.createdAt,
+    this.updatedAt,
+  }) : super._();
   @override
   Kitchen rebuild(void Function(KitchenBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -240,7 +240,8 @@ class KitchenBuilder implements Builder<Kitchen, KitchenBuilder> {
   _$Kitchen _build() {
     _$Kitchen _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$Kitchen._(
             id: id,
             companyId: companyId,
@@ -267,7 +268,10 @@ class KitchenBuilder implements Builder<Kitchen, KitchenBuilder> {
         _kitchenMaster?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'Kitchen', _$failedField, e.toString());
+          r'Kitchen',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

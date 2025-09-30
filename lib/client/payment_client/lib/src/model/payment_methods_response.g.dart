@@ -60,9 +60,10 @@ class PaymentMethodsResponseBuilder
   bool? get success => _$this._success;
   set success(bool? success) => _$this._success = success;
 
-  ListBuilder<dynamic>? _data;
-  ListBuilder<dynamic> get data => _$this._data ??= ListBuilder<dynamic>();
-  set data(ListBuilder<dynamic>? data) => _$this._data = data;
+  ListBuilder<PaymentMethod>? _data;
+  ListBuilder<PaymentMethod> get data =>
+      _$this._data ??= ListBuilder<PaymentMethod>();
+  set data(ListBuilder<PaymentMethod>? data) => _$this._data = data;
 
   PaymentMethodsResponseBuilder() {
     PaymentMethodsResponse._defaults(this);
@@ -96,7 +97,7 @@ class PaymentMethodsResponseBuilder
     try {
       _$result =
           _$v ??
-          _$PaymentMethodsResponse._(success: success, data: _data?.build()as BuiltList<PaymentMethod>);
+          _$PaymentMethodsResponse._(success: success, data: _data?.build());
     } catch (_) {
       late String _$failedField;
       try {

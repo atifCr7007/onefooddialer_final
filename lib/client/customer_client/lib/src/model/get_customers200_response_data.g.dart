@@ -75,9 +75,9 @@ class GetCustomers200ResponseDataBuilder
         > {
   _$GetCustomers200ResponseData? _$v;
 
-  ListBuilder<dynamic>? _data;
-  ListBuilder<dynamic> get data => _$this._data ??= ListBuilder<dynamic>();
-  set data(ListBuilder<dynamic>? data) => _$this._data = data;
+  ListBuilder<Customer>? _data;
+  ListBuilder<Customer> get data => _$this._data ??= ListBuilder<Customer>();
+  set data(ListBuilder<Customer>? data) => _$this._data = data;
 
   int? _currentPage;
   int? get currentPage => _$this._currentPage;
@@ -126,7 +126,7 @@ class GetCustomers200ResponseDataBuilder
       _$result =
           _$v ??
           _$GetCustomers200ResponseData._(
-            data: _data?.build() as BuiltList<Customer>?,
+            data: _data?.build(),
             currentPage: currentPage,
             perPage: perPage,
             total: total,

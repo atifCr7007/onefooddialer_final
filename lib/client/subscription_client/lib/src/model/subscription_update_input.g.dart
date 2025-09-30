@@ -26,25 +26,25 @@ class _$SubscriptionUpdateInput extends SubscriptionUpdateInput {
   @override
   final String? notes;
 
-  factory _$SubscriptionUpdateInput(
-          [void Function(SubscriptionUpdateInputBuilder)? updates]) =>
-      (SubscriptionUpdateInputBuilder()..update(updates))._build();
+  factory _$SubscriptionUpdateInput([
+    void Function(SubscriptionUpdateInputBuilder)? updates,
+  ]) => (SubscriptionUpdateInputBuilder()..update(updates))._build();
 
-  _$SubscriptionUpdateInput._(
-      {this.startDate,
-      this.endDate,
-      this.amount,
-      this.discount,
-      this.paymentMethod,
-      this.paymentStatus,
-      this.transactionId,
-      this.autoRenew,
-      this.notes})
-      : super._();
+  _$SubscriptionUpdateInput._({
+    this.startDate,
+    this.endDate,
+    this.amount,
+    this.discount,
+    this.paymentMethod,
+    this.paymentStatus,
+    this.transactionId,
+    this.autoRenew,
+    this.notes,
+  }) : super._();
   @override
   SubscriptionUpdateInput rebuild(
-          void Function(SubscriptionUpdateInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(SubscriptionUpdateInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   SubscriptionUpdateInputBuilder toBuilder() =>
@@ -176,7 +176,8 @@ class SubscriptionUpdateInputBuilder
   SubscriptionUpdateInput build() => _build();
 
   _$SubscriptionUpdateInput _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$SubscriptionUpdateInput._(
           startDate: startDate,
           endDate: endDate,

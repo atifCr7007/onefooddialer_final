@@ -13,15 +13,15 @@ class _$CatalogueProductsIdPut200Response
   @override
   final Product? data;
 
-  factory _$CatalogueProductsIdPut200Response(
-          [void Function(CatalogueProductsIdPut200ResponseBuilder)? updates]) =>
-      (CatalogueProductsIdPut200ResponseBuilder()..update(updates))._build();
+  factory _$CatalogueProductsIdPut200Response([
+    void Function(CatalogueProductsIdPut200ResponseBuilder)? updates,
+  ]) => (CatalogueProductsIdPut200ResponseBuilder()..update(updates))._build();
 
   _$CatalogueProductsIdPut200Response._({this.message, this.data}) : super._();
   @override
   CatalogueProductsIdPut200Response rebuild(
-          void Function(CatalogueProductsIdPut200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CatalogueProductsIdPut200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CatalogueProductsIdPut200ResponseBuilder toBuilder() =>
@@ -55,8 +55,10 @@ class _$CatalogueProductsIdPut200Response
 
 class CatalogueProductsIdPut200ResponseBuilder
     implements
-        Builder<CatalogueProductsIdPut200Response,
-            CatalogueProductsIdPut200ResponseBuilder> {
+        Builder<
+          CatalogueProductsIdPut200Response,
+          CatalogueProductsIdPut200ResponseBuilder
+        > {
   _$CatalogueProductsIdPut200Response? _$v;
 
   String? _message;
@@ -88,7 +90,8 @@ class CatalogueProductsIdPut200ResponseBuilder
 
   @override
   void update(
-      void Function(CatalogueProductsIdPut200ResponseBuilder)? updates) {
+    void Function(CatalogueProductsIdPut200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -98,7 +101,8 @@ class CatalogueProductsIdPut200ResponseBuilder
   _$CatalogueProductsIdPut200Response _build() {
     _$CatalogueProductsIdPut200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$CatalogueProductsIdPut200Response._(
             message: message,
             data: _data?.build(),
@@ -110,7 +114,10 @@ class CatalogueProductsIdPut200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'CatalogueProductsIdPut200Response', _$failedField, e.toString());
+          r'CatalogueProductsIdPut200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

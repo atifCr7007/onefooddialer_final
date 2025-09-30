@@ -36,12 +36,12 @@ OrderDeliveryStatusEnum _$orderDeliveryStatusEnumValueOf(String name) {
 
 final BuiltSet<OrderDeliveryStatusEnum> _$orderDeliveryStatusEnumValues =
     BuiltSet<OrderDeliveryStatusEnum>(const <OrderDeliveryStatusEnum>[
-  _$orderDeliveryStatusEnum_pending,
-  _$orderDeliveryStatusEnum_dispatched,
-  _$orderDeliveryStatusEnum_delivered,
-  _$orderDeliveryStatusEnum_failed,
-  _$orderDeliveryStatusEnum_unknownDefaultOpenApi,
-]);
+      _$orderDeliveryStatusEnum_pending,
+      _$orderDeliveryStatusEnum_dispatched,
+      _$orderDeliveryStatusEnum_delivered,
+      _$orderDeliveryStatusEnum_failed,
+      _$orderDeliveryStatusEnum_unknownDefaultOpenApi,
+    ]);
 
 const OrderOrderStatusEnum _$orderOrderStatusEnum_new_ =
     const OrderOrderStatusEnum._('new_');
@@ -73,12 +73,12 @@ OrderOrderStatusEnum _$orderOrderStatusEnumValueOf(String name) {
 
 final BuiltSet<OrderOrderStatusEnum> _$orderOrderStatusEnumValues =
     BuiltSet<OrderOrderStatusEnum>(const <OrderOrderStatusEnum>[
-  _$orderOrderStatusEnum_new_,
-  _$orderOrderStatusEnum_processing,
-  _$orderOrderStatusEnum_complete,
-  _$orderOrderStatusEnum_cancelled,
-  _$orderOrderStatusEnum_unknownDefaultOpenApi,
-]);
+      _$orderOrderStatusEnum_new_,
+      _$orderOrderStatusEnum_processing,
+      _$orderOrderStatusEnum_complete,
+      _$orderOrderStatusEnum_cancelled,
+      _$orderOrderStatusEnum_unknownDefaultOpenApi,
+    ]);
 
 const OrderOrderMenuEnum _$orderOrderMenuEnum_lunch =
     const OrderOrderMenuEnum._('lunch');
@@ -102,10 +102,10 @@ OrderOrderMenuEnum _$orderOrderMenuEnumValueOf(String name) {
 
 final BuiltSet<OrderOrderMenuEnum> _$orderOrderMenuEnumValues =
     BuiltSet<OrderOrderMenuEnum>(const <OrderOrderMenuEnum>[
-  _$orderOrderMenuEnum_lunch,
-  _$orderOrderMenuEnum_dinner,
-  _$orderOrderMenuEnum_unknownDefaultOpenApi,
-]);
+      _$orderOrderMenuEnum_lunch,
+      _$orderOrderMenuEnum_dinner,
+      _$orderOrderMenuEnum_unknownDefaultOpenApi,
+    ]);
 
 const OrderDeliveryTypeEnum _$orderDeliveryTypeEnum_delivery =
     const OrderDeliveryTypeEnum._('delivery');
@@ -129,10 +129,10 @@ OrderDeliveryTypeEnum _$orderDeliveryTypeEnumValueOf(String name) {
 
 final BuiltSet<OrderDeliveryTypeEnum> _$orderDeliveryTypeEnumValues =
     BuiltSet<OrderDeliveryTypeEnum>(const <OrderDeliveryTypeEnum>[
-  _$orderDeliveryTypeEnum_delivery,
-  _$orderDeliveryTypeEnum_pickup,
-  _$orderDeliveryTypeEnum_unknownDefaultOpenApi,
-]);
+      _$orderDeliveryTypeEnum_delivery,
+      _$orderDeliveryTypeEnum_pickup,
+      _$orderDeliveryTypeEnum_unknownDefaultOpenApi,
+    ]);
 
 Serializer<OrderDeliveryStatusEnum> _$orderDeliveryStatusEnumSerializer =
     _$OrderDeliveryStatusEnumSerializer();
@@ -166,16 +166,20 @@ class _$OrderDeliveryStatusEnumSerializer
   final String wireName = 'OrderDeliveryStatusEnum';
 
   @override
-  Object serialize(Serializers serializers, OrderDeliveryStatusEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    OrderDeliveryStatusEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   OrderDeliveryStatusEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      OrderDeliveryStatusEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => OrderDeliveryStatusEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$OrderOrderStatusEnumSerializer
@@ -201,15 +205,20 @@ class _$OrderOrderStatusEnumSerializer
   final String wireName = 'OrderOrderStatusEnum';
 
   @override
-  Object serialize(Serializers serializers, OrderOrderStatusEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    OrderOrderStatusEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
-  OrderOrderStatusEnum deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      OrderOrderStatusEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+  OrderOrderStatusEnum deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => OrderOrderStatusEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$OrderOrderMenuEnumSerializer
@@ -231,15 +240,20 @@ class _$OrderOrderMenuEnumSerializer
   final String wireName = 'OrderOrderMenuEnum';
 
   @override
-  Object serialize(Serializers serializers, OrderOrderMenuEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    OrderOrderMenuEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
-  OrderOrderMenuEnum deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      OrderOrderMenuEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+  OrderOrderMenuEnum deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => OrderOrderMenuEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$OrderDeliveryTypeEnumSerializer
@@ -261,15 +275,20 @@ class _$OrderDeliveryTypeEnumSerializer
   final String wireName = 'OrderDeliveryTypeEnum';
 
   @override
-  Object serialize(Serializers serializers, OrderDeliveryTypeEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    OrderDeliveryTypeEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
-  OrderDeliveryTypeEnum deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      OrderDeliveryTypeEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+  OrderDeliveryTypeEnum deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => OrderDeliveryTypeEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$Order extends Order {
@@ -327,33 +346,33 @@ class _$Order extends Order {
   factory _$Order([void Function(OrderBuilder)? updates]) =>
       (OrderBuilder()..update(updates))._build();
 
-  _$Order._(
-      {this.id,
-      this.orderNo,
-      this.customerCode,
-      this.customerName,
-      this.customerPhone,
-      this.shipAddress,
-      this.orderDate,
-      this.deliveryStatus,
-      this.orderStatus,
-      this.deliveryPerson,
-      this.locationCode,
-      this.location,
-      this.amount,
-      this.tax,
-      this.deliveryCharges,
-      this.appliedDiscount,
-      this.total,
-      this.paymentMode,
-      this.amountPaid,
-      this.fkKitchenCode,
-      this.orderMenu,
-      this.deliveryTime,
-      this.deliveryEndTime,
-      this.deliveryType,
-      this.tpDeliveryOrderId})
-      : super._();
+  _$Order._({
+    this.id,
+    this.orderNo,
+    this.customerCode,
+    this.customerName,
+    this.customerPhone,
+    this.shipAddress,
+    this.orderDate,
+    this.deliveryStatus,
+    this.orderStatus,
+    this.deliveryPerson,
+    this.locationCode,
+    this.location,
+    this.amount,
+    this.tax,
+    this.deliveryCharges,
+    this.appliedDiscount,
+    this.total,
+    this.paymentMode,
+    this.amountPaid,
+    this.fkKitchenCode,
+    this.orderMenu,
+    this.deliveryTime,
+    this.deliveryEndTime,
+    this.deliveryType,
+    this.tpDeliveryOrderId,
+  }) : super._();
   @override
   Order rebuild(void Function(OrderBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -624,7 +643,8 @@ class OrderBuilder implements Builder<Order, OrderBuilder> {
   _$Order _build() {
     _$Order _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$Order._(
             id: id,
             orderNo: orderNo,

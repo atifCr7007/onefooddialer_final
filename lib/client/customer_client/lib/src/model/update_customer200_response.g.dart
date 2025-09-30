@@ -14,16 +14,16 @@ class _$UpdateCustomer200Response extends UpdateCustomer200Response {
   @override
   final Customer? data;
 
-  factory _$UpdateCustomer200Response(
-          [void Function(UpdateCustomer200ResponseBuilder)? updates]) =>
-      (UpdateCustomer200ResponseBuilder()..update(updates))._build();
+  factory _$UpdateCustomer200Response([
+    void Function(UpdateCustomer200ResponseBuilder)? updates,
+  ]) => (UpdateCustomer200ResponseBuilder()..update(updates))._build();
 
   _$UpdateCustomer200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   UpdateCustomer200Response rebuild(
-          void Function(UpdateCustomer200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UpdateCustomer200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateCustomer200ResponseBuilder toBuilder() =>
@@ -106,7 +106,8 @@ class UpdateCustomer200ResponseBuilder
   _$UpdateCustomer200Response _build() {
     _$UpdateCustomer200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$UpdateCustomer200Response._(
             success: success,
             message: message,
@@ -119,7 +120,10 @@ class UpdateCustomer200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'UpdateCustomer200Response', _$failedField, e.toString());
+          r'UpdateCustomer200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

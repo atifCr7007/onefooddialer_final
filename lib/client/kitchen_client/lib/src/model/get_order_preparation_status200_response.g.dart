@@ -13,17 +13,17 @@ class _$GetOrderPreparationStatus200Response
   @override
   final GetOrderPreparationStatus200ResponseData? data;
 
-  factory _$GetOrderPreparationStatus200Response(
-          [void Function(GetOrderPreparationStatus200ResponseBuilder)?
-              updates]) =>
+  factory _$GetOrderPreparationStatus200Response([
+    void Function(GetOrderPreparationStatus200ResponseBuilder)? updates,
+  ]) =>
       (GetOrderPreparationStatus200ResponseBuilder()..update(updates))._build();
 
   _$GetOrderPreparationStatus200Response._({this.success, this.data})
-      : super._();
+    : super._();
   @override
   GetOrderPreparationStatus200Response rebuild(
-          void Function(GetOrderPreparationStatus200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetOrderPreparationStatus200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetOrderPreparationStatus200ResponseBuilder toBuilder() =>
@@ -57,8 +57,10 @@ class _$GetOrderPreparationStatus200Response
 
 class GetOrderPreparationStatus200ResponseBuilder
     implements
-        Builder<GetOrderPreparationStatus200Response,
-            GetOrderPreparationStatus200ResponseBuilder> {
+        Builder<
+          GetOrderPreparationStatus200Response,
+          GetOrderPreparationStatus200ResponseBuilder
+        > {
   _$GetOrderPreparationStatus200Response? _$v;
 
   bool? _success;
@@ -92,7 +94,8 @@ class GetOrderPreparationStatus200ResponseBuilder
 
   @override
   void update(
-      void Function(GetOrderPreparationStatus200ResponseBuilder)? updates) {
+    void Function(GetOrderPreparationStatus200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -102,7 +105,8 @@ class GetOrderPreparationStatus200ResponseBuilder
   _$GetOrderPreparationStatus200Response _build() {
     _$GetOrderPreparationStatus200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetOrderPreparationStatus200Response._(
             success: success,
             data: _data?.build(),
@@ -114,9 +118,10 @@ class GetOrderPreparationStatus200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetOrderPreparationStatus200Response',
-            _$failedField,
-            e.toString());
+          r'GetOrderPreparationStatus200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

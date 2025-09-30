@@ -15,16 +15,16 @@ class _$UpdateCustomerAddress200Response
   @override
   final Address? data;
 
-  factory _$UpdateCustomerAddress200Response(
-          [void Function(UpdateCustomerAddress200ResponseBuilder)? updates]) =>
-      (UpdateCustomerAddress200ResponseBuilder()..update(updates))._build();
+  factory _$UpdateCustomerAddress200Response([
+    void Function(UpdateCustomerAddress200ResponseBuilder)? updates,
+  ]) => (UpdateCustomerAddress200ResponseBuilder()..update(updates))._build();
 
   _$UpdateCustomerAddress200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   UpdateCustomerAddress200Response rebuild(
-          void Function(UpdateCustomerAddress200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UpdateCustomerAddress200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateCustomerAddress200ResponseBuilder toBuilder() =>
@@ -61,8 +61,10 @@ class _$UpdateCustomerAddress200Response
 
 class UpdateCustomerAddress200ResponseBuilder
     implements
-        Builder<UpdateCustomerAddress200Response,
-            UpdateCustomerAddress200ResponseBuilder> {
+        Builder<
+          UpdateCustomerAddress200Response,
+          UpdateCustomerAddress200ResponseBuilder
+        > {
   _$UpdateCustomerAddress200Response? _$v;
 
   bool? _success;
@@ -108,7 +110,8 @@ class UpdateCustomerAddress200ResponseBuilder
   _$UpdateCustomerAddress200Response _build() {
     _$UpdateCustomerAddress200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$UpdateCustomerAddress200Response._(
             success: success,
             message: message,
@@ -121,7 +124,10 @@ class UpdateCustomerAddress200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'UpdateCustomerAddress200Response', _$failedField, e.toString());
+          r'UpdateCustomerAddress200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

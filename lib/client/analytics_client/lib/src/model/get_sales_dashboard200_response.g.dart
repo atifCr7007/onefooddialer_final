@@ -12,15 +12,15 @@ class _$GetSalesDashboard200Response extends GetSalesDashboard200Response {
   @override
   final GetSalesDashboard200ResponseData? data;
 
-  factory _$GetSalesDashboard200Response(
-          [void Function(GetSalesDashboard200ResponseBuilder)? updates]) =>
-      (GetSalesDashboard200ResponseBuilder()..update(updates))._build();
+  factory _$GetSalesDashboard200Response([
+    void Function(GetSalesDashboard200ResponseBuilder)? updates,
+  ]) => (GetSalesDashboard200ResponseBuilder()..update(updates))._build();
 
   _$GetSalesDashboard200Response._({this.status, this.data}) : super._();
   @override
   GetSalesDashboard200Response rebuild(
-          void Function(GetSalesDashboard200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetSalesDashboard200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetSalesDashboard200ResponseBuilder toBuilder() =>
@@ -54,8 +54,10 @@ class _$GetSalesDashboard200Response extends GetSalesDashboard200Response {
 
 class GetSalesDashboard200ResponseBuilder
     implements
-        Builder<GetSalesDashboard200Response,
-            GetSalesDashboard200ResponseBuilder> {
+        Builder<
+          GetSalesDashboard200Response,
+          GetSalesDashboard200ResponseBuilder
+        > {
   _$GetSalesDashboard200Response? _$v;
 
   String? _status;
@@ -98,7 +100,8 @@ class GetSalesDashboard200ResponseBuilder
   _$GetSalesDashboard200Response _build() {
     _$GetSalesDashboard200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetSalesDashboard200Response._(
             status: status,
             data: _data?.build(),
@@ -110,7 +113,10 @@ class GetSalesDashboard200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetSalesDashboard200Response', _$failedField, e.toString());
+          r'GetSalesDashboard200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

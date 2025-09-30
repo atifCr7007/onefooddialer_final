@@ -13,16 +13,15 @@ class _$FoodPopularYearMonthGet200Response
   @override
   final BuiltList<MealPerformance>? data;
 
-  factory _$FoodPopularYearMonthGet200Response(
-          [void Function(FoodPopularYearMonthGet200ResponseBuilder)?
-              updates]) =>
-      (FoodPopularYearMonthGet200ResponseBuilder()..update(updates))._build();
+  factory _$FoodPopularYearMonthGet200Response([
+    void Function(FoodPopularYearMonthGet200ResponseBuilder)? updates,
+  ]) => (FoodPopularYearMonthGet200ResponseBuilder()..update(updates))._build();
 
   _$FoodPopularYearMonthGet200Response._({this.status, this.data}) : super._();
   @override
   FoodPopularYearMonthGet200Response rebuild(
-          void Function(FoodPopularYearMonthGet200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(FoodPopularYearMonthGet200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   FoodPopularYearMonthGet200ResponseBuilder toBuilder() =>
@@ -56,8 +55,10 @@ class _$FoodPopularYearMonthGet200Response
 
 class FoodPopularYearMonthGet200ResponseBuilder
     implements
-        Builder<FoodPopularYearMonthGet200Response,
-            FoodPopularYearMonthGet200ResponseBuilder> {
+        Builder<
+          FoodPopularYearMonthGet200Response,
+          FoodPopularYearMonthGet200ResponseBuilder
+        > {
   _$FoodPopularYearMonthGet200Response? _$v;
 
   String? _status;
@@ -90,7 +91,8 @@ class FoodPopularYearMonthGet200ResponseBuilder
 
   @override
   void update(
-      void Function(FoodPopularYearMonthGet200ResponseBuilder)? updates) {
+    void Function(FoodPopularYearMonthGet200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -100,7 +102,8 @@ class FoodPopularYearMonthGet200ResponseBuilder
   _$FoodPopularYearMonthGet200Response _build() {
     _$FoodPopularYearMonthGet200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$FoodPopularYearMonthGet200Response._(
             status: status,
             data: _data?.build(),
@@ -112,7 +115,10 @@ class FoodPopularYearMonthGet200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'FoodPopularYearMonthGet200Response', _$failedField, e.toString());
+          r'FoodPopularYearMonthGet200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

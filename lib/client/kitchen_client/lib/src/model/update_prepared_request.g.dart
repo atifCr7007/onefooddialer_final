@@ -14,15 +14,15 @@ class _$UpdatePreparedRequest extends UpdatePreparedRequest {
   @override
   final int? screen;
 
-  factory _$UpdatePreparedRequest(
-          [void Function(UpdatePreparedRequestBuilder)? updates]) =>
-      (UpdatePreparedRequestBuilder()..update(updates))._build();
+  factory _$UpdatePreparedRequest([
+    void Function(UpdatePreparedRequestBuilder)? updates,
+  ]) => (UpdatePreparedRequestBuilder()..update(updates))._build();
 
   _$UpdatePreparedRequest._({this.menu, this.date, this.screen}) : super._();
   @override
   UpdatePreparedRequest rebuild(
-          void Function(UpdatePreparedRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UpdatePreparedRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdatePreparedRequestBuilder toBuilder() =>
@@ -102,12 +102,9 @@ class UpdatePreparedRequestBuilder
   UpdatePreparedRequest build() => _build();
 
   _$UpdatePreparedRequest _build() {
-    final _$result = _$v ??
-        _$UpdatePreparedRequest._(
-          menu: menu,
-          date: date,
-          screen: screen,
-        );
+    final _$result =
+        _$v ??
+        _$UpdatePreparedRequest._(menu: menu, date: date, screen: screen);
     replace(_$result);
     return _$result;
   }

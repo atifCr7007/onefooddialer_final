@@ -13,19 +13,17 @@ class _$GetCustomerPreparationSummary200Response
   @override
   final GetCustomerPreparationSummary200ResponseData? data;
 
-  factory _$GetCustomerPreparationSummary200Response(
-          [void Function(GetCustomerPreparationSummary200ResponseBuilder)?
-              updates]) =>
-      (GetCustomerPreparationSummary200ResponseBuilder()..update(updates))
-          ._build();
+  factory _$GetCustomerPreparationSummary200Response([
+    void Function(GetCustomerPreparationSummary200ResponseBuilder)? updates,
+  ]) => (GetCustomerPreparationSummary200ResponseBuilder()..update(updates))
+      ._build();
 
   _$GetCustomerPreparationSummary200Response._({this.success, this.data})
-      : super._();
+    : super._();
   @override
   GetCustomerPreparationSummary200Response rebuild(
-          void Function(GetCustomerPreparationSummary200ResponseBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetCustomerPreparationSummary200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetCustomerPreparationSummary200ResponseBuilder toBuilder() =>
@@ -51,7 +49,8 @@ class _$GetCustomerPreparationSummary200Response
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GetCustomerPreparationSummary200Response')
+            r'GetCustomerPreparationSummary200Response',
+          )
           ..add('success', success)
           ..add('data', data))
         .toString();
@@ -60,8 +59,10 @@ class _$GetCustomerPreparationSummary200Response
 
 class GetCustomerPreparationSummary200ResponseBuilder
     implements
-        Builder<GetCustomerPreparationSummary200Response,
-            GetCustomerPreparationSummary200ResponseBuilder> {
+        Builder<
+          GetCustomerPreparationSummary200Response,
+          GetCustomerPreparationSummary200ResponseBuilder
+        > {
   _$GetCustomerPreparationSummary200Response? _$v;
 
   bool? _success;
@@ -95,7 +96,8 @@ class GetCustomerPreparationSummary200ResponseBuilder
 
   @override
   void update(
-      void Function(GetCustomerPreparationSummary200ResponseBuilder)? updates) {
+    void Function(GetCustomerPreparationSummary200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -105,7 +107,8 @@ class GetCustomerPreparationSummary200ResponseBuilder
   _$GetCustomerPreparationSummary200Response _build() {
     _$GetCustomerPreparationSummary200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetCustomerPreparationSummary200Response._(
             success: success,
             data: _data?.build(),
@@ -117,9 +120,10 @@ class GetCustomerPreparationSummary200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetCustomerPreparationSummary200Response',
-            _$failedField,
-            e.toString());
+          r'GetCustomerPreparationSummary200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

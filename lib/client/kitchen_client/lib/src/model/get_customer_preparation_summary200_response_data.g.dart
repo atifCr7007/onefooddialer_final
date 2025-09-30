@@ -22,28 +22,26 @@ class _$GetCustomerPreparationSummary200ResponseData
   final double? preparationPercentage;
   @override
   final BuiltList<GetCustomerPreparationSummary200ResponseDataOrdersInner>?
-      orders;
+  orders;
 
-  factory _$GetCustomerPreparationSummary200ResponseData(
-          [void Function(GetCustomerPreparationSummary200ResponseDataBuilder)?
-              updates]) =>
-      (GetCustomerPreparationSummary200ResponseDataBuilder()..update(updates))
-          ._build();
+  factory _$GetCustomerPreparationSummary200ResponseData([
+    void Function(GetCustomerPreparationSummary200ResponseDataBuilder)? updates,
+  ]) => (GetCustomerPreparationSummary200ResponseDataBuilder()..update(updates))
+      ._build();
 
-  _$GetCustomerPreparationSummary200ResponseData._(
-      {this.customerId,
-      this.date,
-      this.menu,
-      this.totalOrders,
-      this.preparedOrders,
-      this.preparationPercentage,
-      this.orders})
-      : super._();
+  _$GetCustomerPreparationSummary200ResponseData._({
+    this.customerId,
+    this.date,
+    this.menu,
+    this.totalOrders,
+    this.preparedOrders,
+    this.preparationPercentage,
+    this.orders,
+  }) : super._();
   @override
   GetCustomerPreparationSummary200ResponseData rebuild(
-          void Function(GetCustomerPreparationSummary200ResponseDataBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetCustomerPreparationSummary200ResponseDataBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetCustomerPreparationSummary200ResponseDataBuilder toBuilder() =>
@@ -79,7 +77,8 @@ class _$GetCustomerPreparationSummary200ResponseData
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GetCustomerPreparationSummary200ResponseData')
+            r'GetCustomerPreparationSummary200ResponseData',
+          )
           ..add('customerId', customerId)
           ..add('date', date)
           ..add('menu', menu)
@@ -93,8 +92,10 @@ class _$GetCustomerPreparationSummary200ResponseData
 
 class GetCustomerPreparationSummary200ResponseDataBuilder
     implements
-        Builder<GetCustomerPreparationSummary200ResponseData,
-            GetCustomerPreparationSummary200ResponseDataBuilder> {
+        Builder<
+          GetCustomerPreparationSummary200ResponseData,
+          GetCustomerPreparationSummary200ResponseDataBuilder
+        > {
   _$GetCustomerPreparationSummary200ResponseData? _$v;
 
   String? _customerId;
@@ -125,12 +126,12 @@ class GetCustomerPreparationSummary200ResponseDataBuilder
 
   ListBuilder<GetCustomerPreparationSummary200ResponseDataOrdersInner>? _orders;
   ListBuilder<GetCustomerPreparationSummary200ResponseDataOrdersInner>
-      get orders => _$this._orders ??= ListBuilder<
-          GetCustomerPreparationSummary200ResponseDataOrdersInner>();
+  get orders => _$this._orders ??=
+      ListBuilder<GetCustomerPreparationSummary200ResponseDataOrdersInner>();
   set orders(
-          ListBuilder<GetCustomerPreparationSummary200ResponseDataOrdersInner>?
-              orders) =>
-      _$this._orders = orders;
+    ListBuilder<GetCustomerPreparationSummary200ResponseDataOrdersInner>?
+    orders,
+  ) => _$this._orders = orders;
 
   GetCustomerPreparationSummary200ResponseDataBuilder() {
     GetCustomerPreparationSummary200ResponseData._defaults(this);
@@ -158,8 +159,8 @@ class GetCustomerPreparationSummary200ResponseDataBuilder
 
   @override
   void update(
-      void Function(GetCustomerPreparationSummary200ResponseDataBuilder)?
-          updates) {
+    void Function(GetCustomerPreparationSummary200ResponseDataBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -169,7 +170,8 @@ class GetCustomerPreparationSummary200ResponseDataBuilder
   _$GetCustomerPreparationSummary200ResponseData _build() {
     _$GetCustomerPreparationSummary200ResponseData _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetCustomerPreparationSummary200ResponseData._(
             customerId: customerId,
             date: date,
@@ -186,9 +188,10 @@ class GetCustomerPreparationSummary200ResponseDataBuilder
         _orders?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetCustomerPreparationSummary200ResponseData',
-            _$failedField,
-            e.toString());
+          r'GetCustomerPreparationSummary200ResponseData',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

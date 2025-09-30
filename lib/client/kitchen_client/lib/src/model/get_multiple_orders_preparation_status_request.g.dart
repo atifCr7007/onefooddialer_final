@@ -15,20 +15,20 @@ class _$GetMultipleOrdersPreparationStatusRequest
   @override
   final String? menu;
 
-  factory _$GetMultipleOrdersPreparationStatusRequest(
-          [void Function(GetMultipleOrdersPreparationStatusRequestBuilder)?
-              updates]) =>
-      (GetMultipleOrdersPreparationStatusRequestBuilder()..update(updates))
-          ._build();
+  factory _$GetMultipleOrdersPreparationStatusRequest([
+    void Function(GetMultipleOrdersPreparationStatusRequestBuilder)? updates,
+  ]) => (GetMultipleOrdersPreparationStatusRequestBuilder()..update(updates))
+      ._build();
 
-  _$GetMultipleOrdersPreparationStatusRequest._(
-      {required this.orderIds, this.date, this.menu})
-      : super._();
+  _$GetMultipleOrdersPreparationStatusRequest._({
+    required this.orderIds,
+    this.date,
+    this.menu,
+  }) : super._();
   @override
   GetMultipleOrdersPreparationStatusRequest rebuild(
-          void Function(GetMultipleOrdersPreparationStatusRequestBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetMultipleOrdersPreparationStatusRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetMultipleOrdersPreparationStatusRequestBuilder toBuilder() =>
@@ -56,7 +56,8 @@ class _$GetMultipleOrdersPreparationStatusRequest
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GetMultipleOrdersPreparationStatusRequest')
+            r'GetMultipleOrdersPreparationStatusRequest',
+          )
           ..add('orderIds', orderIds)
           ..add('date', date)
           ..add('menu', menu))
@@ -66,8 +67,10 @@ class _$GetMultipleOrdersPreparationStatusRequest
 
 class GetMultipleOrdersPreparationStatusRequestBuilder
     implements
-        Builder<GetMultipleOrdersPreparationStatusRequest,
-            GetMultipleOrdersPreparationStatusRequestBuilder> {
+        Builder<
+          GetMultipleOrdersPreparationStatusRequest,
+          GetMultipleOrdersPreparationStatusRequestBuilder
+        > {
   _$GetMultipleOrdersPreparationStatusRequest? _$v;
 
   ListBuilder<String>? _orderIds;
@@ -105,8 +108,8 @@ class GetMultipleOrdersPreparationStatusRequestBuilder
 
   @override
   void update(
-      void Function(GetMultipleOrdersPreparationStatusRequestBuilder)?
-          updates) {
+    void Function(GetMultipleOrdersPreparationStatusRequestBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -116,7 +119,8 @@ class GetMultipleOrdersPreparationStatusRequestBuilder
   _$GetMultipleOrdersPreparationStatusRequest _build() {
     _$GetMultipleOrdersPreparationStatusRequest _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetMultipleOrdersPreparationStatusRequest._(
             orderIds: orderIds.build(),
             date: date,
@@ -129,9 +133,10 @@ class GetMultipleOrdersPreparationStatusRequestBuilder
         orderIds.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetMultipleOrdersPreparationStatusRequest',
-            _$failedField,
-            e.toString());
+          r'GetMultipleOrdersPreparationStatusRequest',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

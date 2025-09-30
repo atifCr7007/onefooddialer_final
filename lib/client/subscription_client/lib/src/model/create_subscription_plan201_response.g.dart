@@ -15,16 +15,16 @@ class _$CreateSubscriptionPlan201Response
   @override
   final SubscriptionPlan? data;
 
-  factory _$CreateSubscriptionPlan201Response(
-          [void Function(CreateSubscriptionPlan201ResponseBuilder)? updates]) =>
-      (CreateSubscriptionPlan201ResponseBuilder()..update(updates))._build();
+  factory _$CreateSubscriptionPlan201Response([
+    void Function(CreateSubscriptionPlan201ResponseBuilder)? updates,
+  ]) => (CreateSubscriptionPlan201ResponseBuilder()..update(updates))._build();
 
   _$CreateSubscriptionPlan201Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   CreateSubscriptionPlan201Response rebuild(
-          void Function(CreateSubscriptionPlan201ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CreateSubscriptionPlan201ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CreateSubscriptionPlan201ResponseBuilder toBuilder() =>
@@ -61,8 +61,10 @@ class _$CreateSubscriptionPlan201Response
 
 class CreateSubscriptionPlan201ResponseBuilder
     implements
-        Builder<CreateSubscriptionPlan201Response,
-            CreateSubscriptionPlan201ResponseBuilder> {
+        Builder<
+          CreateSubscriptionPlan201Response,
+          CreateSubscriptionPlan201ResponseBuilder
+        > {
   _$CreateSubscriptionPlan201Response? _$v;
 
   bool? _success;
@@ -100,7 +102,8 @@ class CreateSubscriptionPlan201ResponseBuilder
 
   @override
   void update(
-      void Function(CreateSubscriptionPlan201ResponseBuilder)? updates) {
+    void Function(CreateSubscriptionPlan201ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -110,7 +113,8 @@ class CreateSubscriptionPlan201ResponseBuilder
   _$CreateSubscriptionPlan201Response _build() {
     _$CreateSubscriptionPlan201Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$CreateSubscriptionPlan201Response._(
             success: success,
             message: message,
@@ -123,7 +127,10 @@ class CreateSubscriptionPlan201ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'CreateSubscriptionPlan201Response', _$failedField, e.toString());
+          r'CreateSubscriptionPlan201Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

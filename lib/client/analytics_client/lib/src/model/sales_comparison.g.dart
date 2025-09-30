@@ -18,7 +18,7 @@ class _$SalesComparison extends SalesComparison {
       (SalesComparisonBuilder()..update(updates))._build();
 
   _$SalesComparison._({this.period, this.grossAmount, this.netAmount})
-      : super._();
+    : super._();
   @override
   SalesComparison rebuild(void Function(SalesComparisonBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -100,7 +100,8 @@ class SalesComparisonBuilder
   SalesComparison build() => _build();
 
   _$SalesComparison _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$SalesComparison._(
           period: period,
           grossAmount: grossAmount,
