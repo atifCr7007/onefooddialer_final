@@ -9,20 +9,20 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/api_util.dart';
-import 'package:openapi/src/model/date.dart';
-import 'package:openapi/src/model/error.dart';
-import 'package:openapi/src/model/estimate_delivery_time200_response.dart';
-import 'package:openapi/src/model/get_customer_preparation_summary200_response.dart';
-import 'package:openapi/src/model/get_multiple_orders_preparation_status200_response.dart';
-import 'package:openapi/src/model/get_multiple_orders_preparation_status_request.dart';
-import 'package:openapi/src/model/get_order_preparation_status200_response.dart';
-import 'package:openapi/src/model/get_order_preparation_status_for_delivery200_response.dart';
-import 'package:openapi/src/model/get_preparation_status200_response.dart';
-import 'package:openapi/src/model/get_preparation_summary200_response.dart';
-import 'package:openapi/src/model/notify_delivery_status_update200_response.dart';
-import 'package:openapi/src/model/notify_delivery_status_update_request.dart';
-import 'package:openapi/src/model/validation_error.dart';
+import 'package:kitchen_client/src/api_util.dart';
+import 'package:kitchen_client/src/model/date.dart';
+import 'package:kitchen_client/src/model/error.dart';
+import 'package:kitchen_client/src/model/estimate_delivery_time200_response.dart';
+import 'package:kitchen_client/src/model/get_customer_preparation_summary200_response.dart';
+import 'package:kitchen_client/src/model/get_multiple_orders_preparation_status200_response.dart';
+import 'package:kitchen_client/src/model/get_multiple_orders_preparation_status_request.dart';
+import 'package:kitchen_client/src/model/get_order_preparation_status200_response.dart';
+import 'package:kitchen_client/src/model/get_order_preparation_status_for_delivery200_response.dart';
+import 'package:kitchen_client/src/model/get_preparation_status200_response.dart';
+import 'package:kitchen_client/src/model/get_preparation_summary200_response.dart';
+import 'package:kitchen_client/src/model/notify_delivery_status_update200_response.dart';
+import 'package:kitchen_client/src/model/notify_delivery_status_update_request.dart';
+import 'package:kitchen_client/src/model/validation_error.dart';
 
 class IntegrationApi {
 

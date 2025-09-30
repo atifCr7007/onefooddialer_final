@@ -4,14 +4,14 @@ import 'providers.dart';
 import 'package:food_one/widgets/confirm_dialog.dart';
 import 'package:shimmer/shimmer.dart';
 
-class HealthListPage extends ConsumerStatefulWidget {
-  const HealthListPage({super.key});
+class KitchensListPage extends ConsumerStatefulWidget {
+  const KitchensListPage({super.key});
 
   @override
-  ConsumerState<HealthListPage> createState() => _HealthListPageState();
+  ConsumerState<KitchensListPage> createState() => _KitchensListPageState();
 }
 
-class _HealthListPageState extends ConsumerState<HealthListPage> {
+class _KitchensListPageState extends ConsumerState<KitchensListPage> {
   int page = 1;
   int perPage = 10;
   String q = '';
@@ -27,7 +27,7 @@ class _HealthListPageState extends ConsumerState<HealthListPage> {
   @override
   Widget build(BuildContext context) {
     final params = {'page': page, 'per_page': perPage, 'search': q};
-    final asyncData = ref.watch(healthListProvider(params));
+    final asyncData = ref.watch(kitchensListProvider(params));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -42,7 +42,7 @@ class _HealthListPageState extends ConsumerState<HealthListPage> {
                   controller: searchController,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.search),
-                    hintText: 'Search Health...',
+                    hintText: 'Search Kitchens...',
                     suffixIcon: q.isNotEmpty
                         ? IconButton(
                             icon: const Icon(Icons.clear),
@@ -261,7 +261,7 @@ class _HealthListPageState extends ConsumerState<HealthListPage> {
           ),
           const SizedBox(height: 16),
           Text(
-            'No Health found',
+            'No Kitchens found',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           const SizedBox(height: 8),

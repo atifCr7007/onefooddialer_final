@@ -4,19 +4,19 @@
 
 import 'package:dio/dio.dart';
 import 'package:built_value/serializer.dart';
-import 'package:openapi/src/serializers.dart';
-import 'package:openapi/src/auth/api_key_auth.dart';
-import 'package:openapi/src/auth/basic_auth.dart';
-import 'package:openapi/src/auth/bearer_auth.dart';
-import 'package:openapi/src/auth/oauth.dart';
-import 'package:openapi/src/api/customer_integration_api.dart';
-import 'package:openapi/src/api/delivery_integration_api.dart';
-import 'package:openapi/src/api/health_api.dart';
-import 'package:openapi/src/api/integration_api.dart';
-import 'package:openapi/src/api/kitchen_masters_api.dart';
-import 'package:openapi/src/api/kitchens_api.dart';
-import 'package:openapi/src/api/quick_serve_integration_api.dart';
-import 'package:openapi/src/api/recipes_api.dart';
+import 'package:kitchen_client/src/serializers.dart';
+import 'package:kitchen_client/src/auth/api_key_auth.dart';
+import 'package:kitchen_client/src/auth/basic_auth.dart';
+import 'package:kitchen_client/src/auth/bearer_auth.dart';
+import 'package:kitchen_client/src/auth/oauth.dart';
+import 'package:kitchen_client/src/api/customer_integration_api.dart';
+import 'package:kitchen_client/src/api/delivery_integration_api.dart';
+import 'package:kitchen_client/src/api/health_api.dart';
+import 'package:kitchen_client/src/api/integration_api.dart';
+import 'package:kitchen_client/src/api/kitchen_masters_api.dart';
+import 'package:kitchen_client/src/api/kitchens_api.dart';
+import 'package:kitchen_client/src/api/quick_serve_integration_api.dart';
+import 'package:kitchen_client/src/api/recipes_api.dart';
 
 class Openapi {
   static const String basePath = r'http://localhost:8000/api/v2';

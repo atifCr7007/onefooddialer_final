@@ -8,12 +8,12 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:openapi/src/api_util.dart';
-import 'package:openapi/src/model/date.dart';
-import 'package:openapi/src/model/error.dart';
-import 'package:openapi/src/model/get_kitchens200_response.dart';
-import 'package:openapi/src/model/kitchen.dart';
-import 'package:openapi/src/model/update_prepared_request.dart';
+import 'package:kitchen_client/src/api_util.dart';
+import 'package:kitchen_client/src/model/date.dart';
+import 'package:kitchen_client/src/model/error.dart';
+import 'package:kitchen_client/src/model/get_kitchens200_response.dart';
+import 'package:kitchen_client/src/model/kitchen.dart';
+import 'package:kitchen_client/src/model/update_prepared_request.dart';
 
 class KitchensApi {
 

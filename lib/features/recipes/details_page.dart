@@ -4,13 +4,13 @@ import 'providers.dart';
 import 'dart:convert';
 import 'package:shimmer/shimmer.dart';
 
-class HealthDetailsPage extends ConsumerWidget {
+class RecipesDetailsPage extends ConsumerWidget {
   final Object id;
-  const HealthDetailsPage({super.key, required this.id});
+  const RecipesDetailsPage({super.key, required this.id});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncData = ref.watch(healthGetProvider(id));
+    final asyncData = ref.watch(recipesGetProvider(id as int));
     return asyncData.when(
       loading: () => _buildLoadingSkeleton(context),
       error: (e, st) => _buildErrorState(context, e.toString()),
@@ -24,7 +24,7 @@ class HealthDetailsPage extends ConsumerWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'Health Details',
+                    'Recipes Details',
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                 ),

@@ -3,7 +3,7 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/estimate_delivery_time200_response_data.dart';
+import 'package:kitchen_client/src/model/estimate_delivery_time200_response_data.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

@@ -3,9 +3,9 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/kitchen_product.dart';
-import 'package:openapi/src/model/kitchen_kitchen_master.dart';
-import 'package:openapi/src/model/date.dart';
+import 'package:kitchen_client/src/model/kitchen_product.dart';
+import 'package:kitchen_client/src/model/kitchen_kitchen_master.dart';
+import 'package:kitchen_client/src/model/date.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

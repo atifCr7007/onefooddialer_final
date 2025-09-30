@@ -70,6 +70,8 @@ dependencies:
     path: lib/flutter-ui-codegen-pack-extended-fixed
   admin_client:
     path: lib/client/admin_client
+  kitchen_client:
+    path: lib/client/kitchen_client
 
 dev_dependencies:
   flutter_test:

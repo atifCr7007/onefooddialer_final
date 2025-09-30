@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-class HealthFormPage extends StatefulWidget {
+class RecipesFormPage extends StatefulWidget {
   final Map<String, dynamic>? initialData;
-  const HealthFormPage({super.key, this.initialData});
+  const RecipesFormPage({super.key, this.initialData});
 
   @override
-  State<HealthFormPage> createState() => _HealthFormPageState();
+  State<RecipesFormPage> createState() => _RecipesFormPageState();
 }
 
-class _HealthFormPageState extends State<HealthFormPage> {
+class _RecipesFormPageState extends State<RecipesFormPage> {
   final formKey = GlobalKey<FormBuilderState>();
   bool isSubmitting = false;
 
@@ -18,7 +18,7 @@ class _HealthFormPageState extends State<HealthFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.initialData == null ? 'Create Health' : 'Edit Health'),
+        title: Text(widget.initialData == null ? 'Create Recipes' : 'Edit Recipes'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),

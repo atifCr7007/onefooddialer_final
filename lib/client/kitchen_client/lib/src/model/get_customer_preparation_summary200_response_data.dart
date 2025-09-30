@@ -3,9 +3,9 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/get_customer_preparation_summary200_response_data_orders_inner.dart';
+import 'package:kitchen_client/src/model/get_customer_preparation_summary200_response_data_orders_inner.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/model/date.dart';
+import 'package:kitchen_client/src/model/date.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

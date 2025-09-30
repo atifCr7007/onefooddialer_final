@@ -24,6 +24,8 @@ dependencies:
     path: ../client/customer_client
   delivery_client:
     path: ../client/delivery_client
+  kitchen_client:
+    path: ../client/kitchen_client
 
   flutter:
     sdk: flutter

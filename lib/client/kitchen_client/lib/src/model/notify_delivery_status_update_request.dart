@@ -3,7 +3,7 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/notify_delivery_status_update_request_delivery_agent.dart';
+import 'package:kitchen_client/src/model/notify_delivery_status_update_request_delivery_agent.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
