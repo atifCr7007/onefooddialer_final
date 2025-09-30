@@ -3,7 +3,7 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/get_health_status503_response_details.dart';
+import 'package:analytics_client/src/model/get_health_status503_response_details.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

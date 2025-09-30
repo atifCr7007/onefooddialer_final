@@ -8,17 +8,17 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:openapi/src/api_util.dart';
-import 'package:openapi/src/model/customer_loyal_get200_response.dart';
-import 'package:openapi/src/model/customer_preferences_customer_id_get200_response.dart';
-import 'package:openapi/src/model/customer_spending_customer_id_get200_response.dart';
-import 'package:openapi/src/model/error.dart';
-import 'package:openapi/src/model/food_extras_get200_response.dart';
-import 'package:openapi/src/model/food_popular_year_month_get200_response.dart';
-import 'package:openapi/src/model/sales_avg_meal_year_month_get200_response.dart';
-import 'package:openapi/src/model/sales_comparison_year_type_get200_response.dart';
-import 'package:openapi/src/model/sales_payment_methods_get200_response.dart';
-import 'package:openapi/src/model/sales_revenue_year_month_get200_response.dart';
+import 'package:analytics_client/src/api_util.dart';
+import 'package:analytics_client/src/model/customer_loyal_get200_response.dart';
+import 'package:analytics_client/src/model/customer_preferences_customer_id_get200_response.dart';
+import 'package:analytics_client/src/model/customer_spending_customer_id_get200_response.dart';
+import 'package:analytics_client/src/model/error.dart';
+import 'package:analytics_client/src/model/food_extras_get200_response.dart';
+import 'package:analytics_client/src/model/food_popular_year_month_get200_response.dart';
+import 'package:analytics_client/src/model/sales_avg_meal_year_month_get200_response.dart';
+import 'package:analytics_client/src/model/sales_comparison_year_type_get200_response.dart';
+import 'package:analytics_client/src/model/sales_payment_methods_get200_response.dart';
+import 'package:analytics_client/src/model/sales_revenue_year_month_get200_response.dart';
 
 class DefaultApi {
 

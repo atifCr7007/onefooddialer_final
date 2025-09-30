@@ -20,6 +20,8 @@ dependencies:
     path: ../client/invoice_client
   admin_client:
     path: ../client/admin_client
+  analytics_client:
+    path: ../client/analytics_client
   customer_client:
     path: ../client/customer_client
   delivery_client:

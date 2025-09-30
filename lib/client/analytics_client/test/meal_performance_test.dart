@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:openapi/openapi.dart';
+import 'package:analytics_client/openapi.dart';
 
 // tests for MealPerformance
 void main() {

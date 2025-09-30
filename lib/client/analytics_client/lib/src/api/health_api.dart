@@ -8,8 +8,8 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:openapi/src/model/get_health_status503_response.dart';
-import 'package:openapi/src/model/health_check.dart';
+import 'package:analytics_client/src/model/get_health_status503_response.dart';
+import 'package:analytics_client/src/model/health_check.dart';
 
 class HealthApi {
 

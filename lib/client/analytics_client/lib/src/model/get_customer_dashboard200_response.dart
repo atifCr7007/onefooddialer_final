@@ -3,7 +3,7 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/get_customer_dashboard200_response_data.dart';
+import 'package:analytics_client/src/model/get_customer_dashboard200_response_data.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

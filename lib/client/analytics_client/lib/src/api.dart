@@ -4,16 +4,16 @@
 
 import 'package:dio/dio.dart';
 import 'package:built_value/serializer.dart';
-import 'package:openapi/src/serializers.dart';
-import 'package:openapi/src/auth/api_key_auth.dart';
-import 'package:openapi/src/auth/basic_auth.dart';
-import 'package:openapi/src/auth/bearer_auth.dart';
-import 'package:openapi/src/auth/oauth.dart';
-import 'package:openapi/src/api/customer_analytics_api.dart';
-import 'package:openapi/src/api/default_api.dart';
-import 'package:openapi/src/api/food_analytics_api.dart';
-import 'package:openapi/src/api/health_api.dart';
-import 'package:openapi/src/api/sales_analytics_api.dart';
+import 'package:analytics_client/src/serializers.dart';
+import 'package:analytics_client/src/auth/api_key_auth.dart';
+import 'package:analytics_client/src/auth/basic_auth.dart';
+import 'package:analytics_client/src/auth/bearer_auth.dart';
+import 'package:analytics_client/src/auth/oauth.dart';
+import 'package:analytics_client/src/api/customer_analytics_api.dart';
+import 'package:analytics_client/src/api/default_api.dart';
+import 'package:analytics_client/src/api/food_analytics_api.dart';
+import 'package:analytics_client/src/api/health_api.dart';
+import 'package:analytics_client/src/api/sales_analytics_api.dart';
 
 class Openapi {
   static const String basePath = r'https://api.onefooddialer.com/v2/analytics-service-v12';
