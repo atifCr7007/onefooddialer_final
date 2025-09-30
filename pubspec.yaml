@@ -62,6 +62,10 @@ dependencies:
   customer_client:
     path: lib/client/customer_client
 
+  # Delivery client dependency
+  delivery_client:
+    path: lib/client/delivery_client
+
   flutter_ui_codegen_pack_extended_fixed:
     path: lib/flutter-ui-codegen-pack-extended-fixed
   admin_client:

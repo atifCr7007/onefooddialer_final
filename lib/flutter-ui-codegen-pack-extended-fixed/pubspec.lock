@@ -71,6 +71,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0"
+  delivery_client:
+    dependency: "direct main"
+    description:
+      path: "../client/delivery_client"
+      relative: true
+    source: path
+    version: "1.0.0"
   dio:
     dependency: "direct main"
     description:

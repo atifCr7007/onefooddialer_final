@@ -2,7 +2,7 @@
 
 ## Load the API package
 ```dart
-import 'package:openapi/api.dart';
+import 'package:delivery_client/api.dart';
 ```
 
 All URIs are relative to *https://api.fooddialer.com/api/v2/delivery*
@@ -21,7 +21,7 @@ Returns a list of delivery locations for the authenticated user
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:delivery_client/api.dart';
 
 final api = Openapi().getLocationsApi();
 

@@ -3,7 +3,7 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/book_third_party_delivery200_response_data.dart';
+import 'package:delivery_client/src/model/book_third_party_delivery200_response_data.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

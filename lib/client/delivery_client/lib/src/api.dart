@@ -4,14 +4,14 @@
 
 import 'package:dio/dio.dart';
 import 'package:built_value/serializer.dart';
-import 'package:openapi/src/serializers.dart';
-import 'package:openapi/src/auth/api_key_auth.dart';
-import 'package:openapi/src/auth/basic_auth.dart';
-import 'package:openapi/src/auth/bearer_auth.dart';
-import 'package:openapi/src/auth/oauth.dart';
-import 'package:openapi/src/api/locations_api.dart';
-import 'package:openapi/src/api/orders_api.dart';
-import 'package:openapi/src/api/third_party_delivery_api.dart';
+import 'package:delivery_client/src/serializers.dart';
+import 'package:delivery_client/src/auth/api_key_auth.dart';
+import 'package:delivery_client/src/auth/basic_auth.dart';
+import 'package:delivery_client/src/auth/bearer_auth.dart';
+import 'package:delivery_client/src/auth/oauth.dart';
+import 'package:delivery_client/src/api/locations_api.dart';
+import 'package:delivery_client/src/api/orders_api.dart';
+import 'package:delivery_client/src/api/third_party_delivery_api.dart';
 
 class Openapi {
   static const String basePath = r'https://api.fooddialer.com/api/v2/delivery';

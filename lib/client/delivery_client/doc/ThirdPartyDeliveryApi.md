@@ -2,7 +2,7 @@
 
 ## Load the API package
 ```dart
-import 'package:openapi/api.dart';
+import 'package:delivery_client/api.dart';
 ```
 
 All URIs are relative to *https://api.fooddialer.com/api/v2/delivery*
@@ -23,7 +23,7 @@ Book a delivery with a third-party delivery service
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:delivery_client/api.dart';
 
 final api = Openapi().getThirdPartyDeliveryApi();
 final BookThirdPartyDeliveryRequest bookThirdPartyDeliveryRequest = ; // BookThirdPartyDeliveryRequest | 
@@ -66,7 +66,7 @@ Cancel a delivery with a third-party delivery service
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:delivery_client/api.dart';
 
 final api = Openapi().getThirdPartyDeliveryApi();
 final int orderId = 56; // int | ID of the order to cancel delivery for
@@ -109,7 +109,7 @@ Get the status of a delivery from a third-party delivery service
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:delivery_client/api.dart';
 
 final api = Openapi().getThirdPartyDeliveryApi();
 final int orderId = 56; // int | ID of the order to get delivery status for

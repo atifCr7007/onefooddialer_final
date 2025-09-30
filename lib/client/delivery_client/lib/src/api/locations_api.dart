@@ -8,9 +8,9 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:openapi/src/model/get_delivery_locations200_response.dart';
-import 'package:openapi/src/model/inline_object1.dart';
-import 'package:openapi/src/model/inline_object2.dart';
+import 'package:delivery_client/src/model/get_delivery_locations200_response.dart';
+import 'package:delivery_client/src/model/inline_object1.dart';
+import 'package:delivery_client/src/model/inline_object2.dart';
 
 class LocationsApi {
 

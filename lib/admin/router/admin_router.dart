@@ -13,6 +13,9 @@ import '../../features/admin/system_page.dart';
 // Import customer pages
 import '../../features/customer/customers_page.dart';
 
+// Import delivery pages
+import '../../features/delivery/deliveries_page.dart';
+
 
 
 /// Admin router configuration with shell routing
@@ -108,10 +111,7 @@ final adminRouter = GoRouter(
 
         GoRoute(
           path: '/features/deliveries',
-          builder: (context, state) => const PlaceholderPage(
-            title: 'Deliveries',
-            description: 'Delivery management will be generated here',
-          ),
+          builder: (context, state) => const DeliveriesPage(),
         ),
 
         GoRoute(

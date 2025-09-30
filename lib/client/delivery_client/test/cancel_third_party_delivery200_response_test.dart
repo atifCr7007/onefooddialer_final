@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:openapi/openapi.dart';
+import 'package:delivery_client/openapi.dart';
 
 // tests for CancelThirdPartyDelivery200Response
 void main() {

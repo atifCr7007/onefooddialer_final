@@ -8,15 +8,15 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:openapi/src/api_util.dart';
-import 'package:openapi/src/model/date.dart';
-import 'package:openapi/src/model/get_delivery_orders200_response.dart';
-import 'package:openapi/src/model/inline_object.dart';
-import 'package:openapi/src/model/inline_object1.dart';
-import 'package:openapi/src/model/inline_object2.dart';
-import 'package:openapi/src/model/inline_object3.dart';
-import 'package:openapi/src/model/update_delivery_status200_response.dart';
-import 'package:openapi/src/model/update_delivery_status_request.dart';
+import 'package:delivery_client/src/api_util.dart';
+import 'package:delivery_client/src/model/date.dart';
+import 'package:delivery_client/src/model/get_delivery_orders200_response.dart';
+import 'package:delivery_client/src/model/inline_object.dart';
+import 'package:delivery_client/src/model/inline_object1.dart';
+import 'package:delivery_client/src/model/inline_object2.dart';
+import 'package:delivery_client/src/model/inline_object3.dart';
+import 'package:delivery_client/src/model/update_delivery_status200_response.dart';
+import 'package:delivery_client/src/model/update_delivery_status_request.dart';
 
 class OrdersApi {
 

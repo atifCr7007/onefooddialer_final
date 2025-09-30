@@ -44,7 +44,7 @@ dependencies:
 Please follow the [installation procedure](#installation--usage) and then run the following:
 
 ```dart
-import 'package:openapi/openapi.dart';
+import 'package:delivery_client/openapi.dart';
 
 
 final api = Openapi().getLocationsApi();

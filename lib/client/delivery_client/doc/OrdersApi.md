@@ -2,7 +2,7 @@
 
 ## Load the API package
 ```dart
-import 'package:openapi/api.dart';
+import 'package:delivery_client/api.dart';
 ```
 
 All URIs are relative to *https://api.fooddialer.com/api/v2/delivery*
@@ -23,7 +23,7 @@ Returns a list of orders assigned for delivery
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:delivery_client/api.dart';
 
 final api = Openapi().getOrdersApi();
 final int locationId = 56; // int | Filter orders by location ID
@@ -68,7 +68,7 @@ Search for orders by order number or other criteria
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:delivery_client/api.dart';
 
 final api = Openapi().getOrdersApi();
 final String search = search_example; // String | Search term
@@ -113,7 +113,7 @@ Update the delivery status of an order
 
 ### Example
 ```dart
-import 'package:openapi/api.dart';
+import 'package:delivery_client/api.dart';
 
 final api = Openapi().getOrdersApi();
 final int orderId = 56; // int | ID of the order to update
