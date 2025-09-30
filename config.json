@@ -1,0 +1,15 @@
+{
+  "serializationLibrary": "built_value",
+  "useEnumExtension": true,
+  "enumUnknownDefaultCase": true,
+  "nullableFields": true,
+  "dateTimeFormat": "iso8601",
+  "dateLibrary": "core",
+  "typeMappings": {
+    "object": "JsonObject"
+  },
+  "importMappings": {
+    "BuiltList": "package:built_collection/built_collection.dart",
+    "JsonObject": "package:built_value/json_object.dart"
+  }
+}

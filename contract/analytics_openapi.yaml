@@ -1,0 +1,915 @@
+openapi: 3.1.0
+info:
+  title: OneFoodDialer 2025 - Analytics Service API
+  description: |
+    Advanced analytics and business intelligence service for OneFoodDialer 2025 platform.
+
+    ## Features
+    - Real-time analytics and reporting with live data streaming
+    - Business intelligence dashboards with interactive visualizations
+    - KPI monitoring and alerting with threshold-based notifications
+    - Predictive analytics and forecasting using machine learning
+    - Customer behavior analysis and segmentation
+    - Revenue and performance metrics with trend analysis
+    - Anomaly detection and automated insights
+    - Custom report generation with multiple export formats
+
+    ## Analytics Capabilities
+    - **Revenue Analytics** - Sales trends, revenue forecasting, profit analysis, ROI tracking
+    - **Customer Analytics** - Behavior patterns, segmentation, lifetime value, churn prediction
+    - **Operational Analytics** - Kitchen efficiency, delivery performance, order flow optimization
+    - **Marketing Analytics** - Campaign performance, conversion rates, attribution modeling
+    - **Predictive Analytics** - Demand forecasting, inventory optimization, price recommendations
+    - **Real-time Monitoring** - Live dashboards, alerts, performance tracking, SLA monitoring
+
+    ## Data Sources & Integration
+    - Order and transaction data from Order Service
+    - Customer interaction data from Customer Service
+    - Kitchen and delivery operations from Kitchen/Delivery Services
+    - Marketing campaign data from external platforms
+    - External market data and competitive intelligence
+    - Social media sentiment and review data
+
+    ## AI & Machine Learning
+    - Automated insight generation using natural language processing
+    - Predictive models for demand forecasting and customer behavior
+    - Anomaly detection using statistical and ML algorithms
+    - Recommendation engines for business optimization
+    - Sentiment analysis for customer feedback
+
+    ## Authentication & Security
+    Requires JWT authentication for all operations with role-based access control.
+
+    ## Rate Limiting
+    API requests are rate limited to 200 requests per minute per user.
+
+    ## Data Privacy & Compliance
+    All analytics data is anonymized and GDPR compliant with data retention policies.
+  version: 2.0.0
+  contact:
+    name: OneFoodDialer 2025 API Support
+    email: api-support@onefooddialer.com
+    url: https://docs.onefooddialer.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.onefooddialer.com/v2/analytics-service-v12
+    description: Production server
+  - url: https://staging-api.onefooddialer.com/v2/analytics-service-v12
+    description: Staging server
+  - url: http://localhost:8009/v2/analytics-service-v12
+    description: Development server
+
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Health
+    description: Health check endpoints for monitoring service status
+  - name: Dashboards
+    description: Analytics dashboard management and configuration
+  - name: Reports
+    description: Report generation, templates, and management
+  - name: KPI Metrics
+    description: Key Performance Indicator tracking and monitoring
+  - name: Business Intelligence
+    description: Advanced analytics, insights, and AI-powered recommendations
+  - name: Anomaly Detection
+    description: Anomaly detection, alerting, and pattern recognition
+  - name: Recommendations
+    description: AI-powered business recommendations and optimization
+  - name: Real-time Analytics
+    description: Live analytics, streaming data, and real-time monitoring
+  - name: Data Export
+    description: Data export, integration, and API access
+  - name: Sales Analytics
+    description: Sales analytics including revenue, payment methods, and sales comparison
+  - name: Food Analytics
+    description: Food analytics including popular meals, meal performance, and common extras
+  - name: Customer Analytics
+    description: Customer analytics including loyal customers, spending, and preferences
+  - name: Predictive Analytics
+    description: Forecasting, trend analysis, and predictive modeling
+  - name: Marketing Analytics
+    description: Campaign performance, conversion tracking, and attribution
+  - name: Operational Analytics
+    description: Kitchen efficiency, delivery performance, and operational metrics
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        JWT token obtained from the Auth Service. The token must be included in the Authorization header as a Bearer token.
+
+        Example:
+        ```
+        Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        ```
+
+        The JWT token contains the following claims:
+        - `sub`: User ID
+        - `name`: User name
+        - `role`: User role
+        - `company_id`: Company ID
+        - `kitchen_id`: Kitchen ID
+        - `kitchens`: List of kitchens the user has access to
+        - `exp`: Expiration time
+        - `iat`: Issued at time
+        - `nbf`: Not before time
+  schemas:
+    HealthCheck:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ok
+        service:
+          type: string
+          example: analytics-service
+        version:
+          type: string
+          example: 1.0.0
+        timestamp:
+          type: string
+          format: date-time
+
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        message:
+          type: string
+          example: An error occurred
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+
+    AvgMeal:
+      type: object
+      properties:
+        meal_name:
+          type: string
+          example: Chicken Curry
+        qty:
+          type: number
+          format: float
+          example: 2.5
+
+    PaymentMode:
+      type: object
+      properties:
+        payment_mode:
+          type: string
+          example: Credit Card
+        count:
+          type: integer
+          example: 150
+
+    RevenueShare:
+      type: object
+      properties:
+        gross_amount:
+          type: number
+          format: float
+          example: 25000.50
+
+    SalesComparison:
+      type: object
+      properties:
+        period:
+          type: string
+          example: "2023"
+        gross_amount:
+          type: number
+          format: float
+          example: 25000.50
+        net_amount:
+          type: number
+          format: float
+          example: 22500.25
+
+    MealPerformance:
+      type: object
+      properties:
+        product_name:
+          type: string
+          example: Chicken Curry
+        qty:
+          type: integer
+          example: 250
+
+    CommonExtra:
+      type: object
+      properties:
+        meal:
+          type: string
+          example: Chicken Curry
+        extra:
+          type: string
+          example: Extra Cheese
+        count:
+          type: integer
+          example: 50
+
+    LoyalCustomer:
+      type: object
+      properties:
+        customer_code:
+          type: string
+          example: CUST001
+        customer_name:
+          type: string
+          example: John Doe
+        net_amount:
+          type: number
+          format: float
+          example: 5000.75
+
+    CustomerSpending:
+      type: object
+      properties:
+        customer_name:
+          type: string
+          example: John Doe
+        yearly:
+          type: number
+          format: float
+          example: 5000.75
+        monthly:
+          type: number
+          format: float
+          example: 416.73
+
+    CustomerPreference:
+      type: object
+      properties:
+        customer_code:
+          type: string
+          example: CUST001
+        customer_name:
+          type: string
+          example: John Doe
+        product_name:
+          type: string
+          example: Chicken Curry
+        net_amount:
+          type: number
+          format: float
+          example: 2500.50
+
+paths:
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Health check endpoint
+      description: |
+        Returns the health status of the service. This endpoint is used by Kong API Gateway for health monitoring and by operations teams to verify service availability.
+
+        The endpoint checks:
+        - Database connectivity
+        - Cache availability
+        - RabbitMQ connection
+        - Overall service health
+
+        No authentication is required for this endpoint to allow for monitoring by external systems.
+      operationId: getHealthStatus
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheck'
+              example:
+                status: ok
+                service: analytics-service
+                version: 2.0.0
+                timestamp: "2023-06-15T12:34:56Z"
+        '503':
+          description: Service is unhealthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: Service is unhealthy
+                  details:
+                    type: object
+                    properties:
+                      database:
+                        type: string
+                        example: connected
+                      cache:
+                        type: string
+                        example: error
+                      rabbitmq:
+                        type: string
+                        example: connected
+
+  /sales:
+    get:
+      tags:
+        - Sales Analytics
+      summary: Get sales analytics dashboard data
+      operationId: getSalesDashboard
+      description: Returns data for the sales analytics dashboard
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Sales analytics dashboard data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      years:
+                        type: array
+                        items:
+                          type: integer
+                          example: 2023
+                      months:
+                        type: object
+                        additionalProperties:
+                          type: string
+                        example:
+                          "1": January
+                          "2": February
+                      payment_modes:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/PaymentMode'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /sales/years:
+    get:
+      tags:
+        - Sales Analytics
+      summary: Get years with order data
+      operationId: getSalesYears
+      description: Returns years with order data
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Years with order data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      type: integer
+                      example: 2023
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /sales/months/{year}:
+    get:
+      tags:
+        - Sales Analytics
+      summary: Get months with order data for a specific year
+      operationId: getSalesMonths
+      description: Returns months with order data for a specific year
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: year
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 2023
+      responses:
+        '200':
+          description: Months with order data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    additionalProperties:
+                      type: string
+                    example:
+                      "1": January
+                      "2": February
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /sales/payment-methods:
+    get:
+      summary: Get payment methods
+      description: Returns payment methods
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Payment methods
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PaymentMode'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /sales/revenue/{year}/{month}:
+    get:
+      summary: Get revenue for a specific year and month
+      description: Returns revenue for a specific year and month
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: year
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 2023
+        - name: month
+          in: path
+          required: false
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Revenue data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RevenueShare'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /sales/comparison/{year}/{type}:
+    get:
+      summary: Get sales comparison for a specific year
+      description: Returns sales comparison for a specific year
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: year
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 2023
+        - name: type
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [yearly, monthly]
+            example: monthly
+      responses:
+        '200':
+          description: Sales comparison data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SalesComparison'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /sales/avg-meal/{year}/{month}:
+    get:
+      summary: Get average meal per customer
+      description: Returns average meal per customer
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: year
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 2023
+        - name: month
+          in: path
+          required: false
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Average meal per customer data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AvgMeal'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /food:
+    get:
+      tags:
+        - Food Analytics
+      summary: Get food analytics dashboard data
+      operationId: getFoodDashboard
+      description: Returns data for the food analytics dashboard
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Food analytics dashboard data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      years:
+                        type: array
+                        items:
+                          type: integer
+                          example: 2023
+                      months:
+                        type: object
+                        additionalProperties:
+                          type: string
+                        example:
+                          "1": January
+                          "2": February
+                      menus:
+                        type: array
+                        items:
+                          type: string
+                          example: Breakfast
+                      common_extras:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/CommonExtra'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /food/popular/{year}/{month}:
+    get:
+      summary: Get popular meals
+      description: Returns popular meals
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: year
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 2023
+        - name: month
+          in: path
+          required: false
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Popular meals data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MealPerformance'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /food/performance/{year}/{month}/{type}:
+    get:
+      summary: Get meal performance
+      description: Returns meal performance
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: year
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 2023
+        - name: month
+          in: path
+          required: false
+          schema:
+            type: integer
+            example: 1
+        - name: type
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [best, worst]
+            example: best
+      responses:
+        '200':
+          description: Meal performance data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MealPerformance'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /food/extras:
+    get:
+      summary: Get common extras
+      description: Returns common extras
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Common extras data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CommonExtra'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /customer:
+    get:
+      tags:
+        - Customer Analytics
+      summary: Get customer analytics dashboard data
+      operationId: getCustomerDashboard
+      description: Returns data for the customer analytics dashboard
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Customer analytics dashboard data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      loyal_customers:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/LoyalCustomer'
+                      customer_preferences:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/CustomerPreference'
+                      customer_spending:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/CustomerSpending'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /customer/loyal:
+    get:
+      summary: Get loyal customers
+      description: Returns loyal customers
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            example: 10
+      responses:
+        '200':
+          description: Loyal customers data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LoyalCustomer'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /customer/spending/{customerId}:
+    get:
+      summary: Get customer spending
+      description: Returns customer spending
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: CUST001
+      responses:
+        '200':
+          description: Customer spending data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CustomerSpending'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /customer/preferences/{customerId}:
+    get:
+      summary: Get customer preferences
+      description: Returns customer preferences
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: CUST001
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            example: 10
+      responses:
+        '200':
+          description: Customer preferences data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CustomerPreference'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'

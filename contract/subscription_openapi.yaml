@@ -1,0 +1,1408 @@
+openapi: 3.1.0
+info:
+  title: Subscription Service API
+  description: API for managing subscription plans and subscriptions
+  version: 2.0.0
+  contact:
+    name: CubeOneBiz Support
+    email: support@cubeonebiz.com
+
+servers:
+  - url: /api/v2
+    description: API v2 endpoint
+  - url: /api
+    description: API server
+
+paths:
+  /subscription-plans:
+    get:
+      summary: Get all subscription plans
+      description: Returns a list of all subscription plans
+      operationId: getAllSubscriptionPlans
+      parameters:
+        - name: status
+          in: query
+          description: Filter by plan status
+          schema:
+            type: boolean
+        - name: type
+          in: query
+          description: Filter by plan type
+          schema:
+            type: string
+        - name: show_to_customer
+          in: query
+          description: Filter by visibility to customers
+          schema:
+            type: string
+            enum: [yes, no, admin]
+        - name: start_date
+          in: query
+          description: Filter by start date
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          description: Filter by end date
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SubscriptionPlan'
+        '500':
+          description: Server error
+    post:
+      summary: Create a new subscription plan
+      description: Creates a new subscription plan
+      operationId: createSubscriptionPlan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionPlanInput'
+      responses:
+        '201':
+          description: Subscription plan created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/SubscriptionPlan'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Server error
+
+  /subscription-plans/{id}:
+    get:
+      summary: Get a subscription plan by ID
+      description: Returns a single subscription plan
+      operationId: getSubscriptionPlanById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the subscription plan
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/SubscriptionPlan'
+        '404':
+          description: Subscription plan not found
+        '500':
+          description: Server error
+    put:
+      summary: Update a subscription plan
+      description: Updates an existing subscription plan
+      operationId: updateSubscriptionPlan
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the subscription plan
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionPlanUpdateInput'
+      responses:
+        '200':
+          description: Subscription plan updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/SubscriptionPlan'
+        '404':
+          description: Subscription plan not found
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Server error
+    delete:
+      summary: Delete a subscription plan
+      description: Deletes a subscription plan
+      operationId: deleteSubscriptionPlan
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the subscription plan
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Subscription plan deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '404':
+          description: Subscription plan not found
+        '500':
+          description: Server error
+
+  /subscription-plans/active:
+    get:
+      summary: Get active subscription plans
+      description: Returns a list of active subscription plans
+      operationId: getActiveSubscriptionPlans
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SubscriptionPlan'
+        '500':
+          description: Server error
+
+  /subscription-plans/customer:
+    get:
+      summary: Get subscription plans visible to customers
+      description: Returns a list of subscription plans visible to customers
+      operationId: getCustomerVisibleSubscriptionPlans
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SubscriptionPlan'
+        '500':
+          description: Server error
+
+  /subscription-plans/type/{type}:
+    get:
+      summary: Get subscription plans by type
+      description: Returns a list of subscription plans of a specific type
+      operationId: getSubscriptionPlansByType
+      parameters:
+        - name: type
+          in: path
+          required: true
+          description: Type of the subscription plans
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SubscriptionPlan'
+        '500':
+          description: Server error
+
+  /subscription-plans/{id}/activate:
+    put:
+      summary: Activate a subscription plan
+      description: Activates a subscription plan
+      operationId: activateSubscriptionPlan
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the subscription plan
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Subscription plan activated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/SubscriptionPlan'
+        '404':
+          description: Subscription plan not found
+        '500':
+          description: Server error
+
+  /subscription-plans/{id}/deactivate:
+    put:
+      summary: Deactivate a subscription plan
+      description: Deactivates a subscription plan
+      operationId: deactivateSubscriptionPlan
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the subscription plan
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Subscription plan deactivated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/SubscriptionPlan'
+        '404':
+          description: Subscription plan not found
+        '500':
+          description: Server error
+
+  /subscriptions:
+    get:
+      summary: Get all subscriptions
+      description: Returns a list of all subscriptions
+      operationId: getAllSubscriptions
+      parameters:
+        - name: status
+          in: query
+          description: Filter by subscription status
+          schema:
+            type: string
+            enum: [active, paused, cancelled, expired]
+        - name: customer_id
+          in: query
+          description: Filter by customer ID
+          schema:
+            type: integer
+        - name: plan_id
+          in: query
+          description: Filter by plan ID
+          schema:
+            type: integer
+        - name: start_date
+          in: query
+          description: Filter by start date
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          description: Filter by end date
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Subscription'
+        '500':
+          description: Server error
+    post:
+      summary: Create a new subscription
+      description: Creates a new subscription
+      operationId: createSubscription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionInput'
+      responses:
+        '201':
+          description: Subscription created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Subscription'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Server error
+
+  /subscriptions/{id}:
+    get:
+      summary: Get a subscription by ID
+      description: Returns a single subscription
+      operationId: getSubscriptionById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the subscription
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    $ref: '#/components/schemas/Subscription'
+        '404':
+          description: Subscription not found
+        '500':
+          description: Server error
+    put:
+      summary: Update a subscription
+      description: Updates an existing subscription
+      operationId: updateSubscription
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the subscription
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionUpdateInput'
+      responses:
+        '200':
+          description: Subscription updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Subscription'
+        '404':
+          description: Subscription not found
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Server error
+    delete:
+      summary: Delete a subscription
+      description: Deletes a subscription
+      operationId: deleteSubscription
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the subscription
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Subscription deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '404':
+          description: Subscription not found
+        '500':
+          description: Server error
+
+  /subscriptions/{id}/pause:
+    put:
+      summary: Pause a subscription
+      description: Pauses a subscription
+      operationId: pauseSubscription
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the subscription
+          schema:
+            type: integer
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                  description: Reason for pausing the subscription
+                resume_date:
+                  type: string
+                  format: date
+                  description: Date to automatically resume the subscription
+      responses:
+        '200':
+          description: Subscription paused
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Subscription'
+        '404':
+          description: Subscription not found
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Server error
+
+  /subscriptions/{id}/resume:
+    put:
+      summary: Resume a subscription
+      description: Resumes a paused subscription
+      operationId: resumeSubscription
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the subscription
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Subscription resumed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Subscription'
+        '404':
+          description: Subscription not found
+        '500':
+          description: Server error
+
+  /subscriptions/{id}/cancel:
+    put:
+      summary: Cancel a subscription
+      description: Cancels a subscription
+      operationId: cancelSubscription
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the subscription
+          schema:
+            type: integer
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                  description: Reason for cancelling the subscription
+      responses:
+        '200':
+          description: Subscription cancelled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Subscription'
+        '404':
+          description: Subscription not found
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Server error
+
+  /subscriptions/{id}/renew:
+    put:
+      summary: Renew a subscription
+      description: Renews a subscription
+      operationId: renewSubscription
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the subscription
+          schema:
+            type: integer
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                days:
+                  type: integer
+                  description: Number of days to renew the subscription for
+      responses:
+        '200':
+          description: Subscription renewed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Subscription'
+        '404':
+          description: Subscription not found
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Server error
+
+  /subscriptions/{id}/payment:
+    post:
+      summary: Process subscription payment
+      description: Processes a payment for a subscription
+      operationId: processSubscriptionPayment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the subscription
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - payment_method
+                - payment_status
+              properties:
+                payment_method:
+                  type: string
+                  description: Payment method
+                payment_status:
+                  type: string
+                  enum: [pending, completed, failed]
+                  description: Payment status
+                transaction_id:
+                  type: string
+                  description: Transaction ID
+                payment_details:
+                  type: object
+                  description: Additional payment details
+      responses:
+        '200':
+          description: Payment processed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Subscription'
+        '404':
+          description: Subscription not found
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Server error
+
+  /subscriptions/{id}/logs:
+    get:
+      summary: Get subscription logs
+      description: Returns logs for a subscription
+      operationId: getSubscriptionLogs
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the subscription
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SubscriptionLog'
+        '404':
+          description: Subscription not found
+        '500':
+          description: Server error
+
+  /subscriptions/customer/{customerId}:
+    get:
+      summary: Get customer subscriptions
+      description: Returns subscriptions for a customer
+      operationId: getCustomerSubscriptions
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: ID of the customer
+          schema:
+            type: integer
+        - name: status
+          in: query
+          description: Filter by subscription status
+          schema:
+            type: string
+            enum: [active, paused, cancelled, expired]
+        - name: plan_id
+          in: query
+          description: Filter by plan ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Subscription'
+        '404':
+          description: Customer not found
+        '500':
+          description: Server error
+
+  /subscriptions/customer/{customerId}/active:
+    get:
+      summary: Get active customer subscriptions
+      description: Returns active subscriptions for a customer
+      operationId: getActiveCustomerSubscriptions
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: ID of the customer
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Subscription'
+        '404':
+          description: Customer not found
+        '500':
+          description: Server error
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    SubscriptionPlan:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the subscription plan
+        company_id:
+          type: integer
+          description: Company ID
+        unit_id:
+          type: integer
+          description: Unit ID
+        plan_name:
+          type: string
+          description: Name of the subscription plan
+        plan_quantity:
+          type: integer
+          description: Number of days/weeks/months
+        plan_period:
+          type: string
+          description: Period type (day, week, month, year)
+          enum: [day, week, month, year]
+        plan_type:
+          type: string
+          description: Type of the subscription plan
+        plan_start_date:
+          type: string
+          format: date
+          description: Start date of the subscription plan
+        plan_end_date:
+          type: string
+          format: date
+          description: End date of the subscription plan
+        fk_promo_code:
+          type: integer
+          nullable: true
+          description: Promo code ID
+        plan_status:
+          type: boolean
+          description: Status of the subscription plan
+        show_to_customer:
+          type: string
+          enum: [yes, no, admin]
+          description: Visibility to customers
+        fk_kitchen_code:
+          type: integer
+          nullable: true
+          description: Kitchen code ID
+        price:
+          type: number
+          format: float
+          description: Price of the subscription plan
+        is_recurring:
+          type: boolean
+          description: Whether the subscription plan is recurring
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+
+    SubscriptionPlanInput:
+      type: object
+      required:
+        - plan_name
+        - plan_quantity
+        - plan_period
+        - plan_start_date
+        - plan_end_date
+        - price
+      properties:
+        company_id:
+          type: integer
+          description: Company ID
+        unit_id:
+          type: integer
+          description: Unit ID
+        plan_name:
+          type: string
+          description: Name of the subscription plan
+        plan_quantity:
+          type: integer
+          description: Number of days/weeks/months
+        plan_period:
+          type: string
+          description: Period type (day, week, month, year)
+          enum: [day, week, month, year]
+        plan_type:
+          type: string
+          description: Type of the subscription plan
+        plan_start_date:
+          type: string
+          format: date
+          description: Start date of the subscription plan
+        plan_end_date:
+          type: string
+          format: date
+          description: End date of the subscription plan
+        fk_promo_code:
+          type: integer
+          nullable: true
+          description: Promo code ID
+        plan_status:
+          type: boolean
+          description: Status of the subscription plan
+        show_to_customer:
+          type: string
+          enum: [yes, no, admin]
+          description: Visibility to customers
+        fk_kitchen_code:
+          type: integer
+          nullable: true
+          description: Kitchen code ID
+        price:
+          type: number
+          format: float
+          description: Price of the subscription plan
+        is_recurring:
+          type: boolean
+          description: Whether the subscription plan is recurring
+
+    SubscriptionPlanUpdateInput:
+      type: object
+      properties:
+        plan_name:
+          type: string
+          description: Name of the subscription plan
+        plan_quantity:
+          type: integer
+          description: Number of days/weeks/months
+        plan_period:
+          type: string
+          description: Period type (day, week, month, year)
+          enum: [day, week, month, year]
+        plan_type:
+          type: string
+          description: Type of the subscription plan
+        plan_start_date:
+          type: string
+          format: date
+          description: Start date of the subscription plan
+        plan_end_date:
+          type: string
+          format: date
+          description: End date of the subscription plan
+        fk_promo_code:
+          type: integer
+          nullable: true
+          description: Promo code ID
+        plan_status:
+          type: boolean
+          description: Status of the subscription plan
+        show_to_customer:
+          type: string
+          enum: [yes, no, admin]
+          description: Visibility to customers
+        fk_kitchen_code:
+          type: integer
+          nullable: true
+          description: Kitchen code ID
+        price:
+          type: number
+          format: float
+          description: Price of the subscription plan
+        is_recurring:
+          type: boolean
+          description: Whether the subscription plan is recurring
+
+    Subscription:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the subscription
+        company_id:
+          type: integer
+          description: Company ID
+        unit_id:
+          type: integer
+          description: Unit ID
+        customer_id:
+          type: integer
+          description: Customer ID
+        plan_id:
+          type: integer
+          description: Subscription plan ID
+        subscription_no:
+          type: string
+          description: Unique subscription number
+        start_date:
+          type: string
+          format: date
+          description: Start date of the subscription
+        end_date:
+          type: string
+          format: date
+          description: End date of the subscription
+        status:
+          type: string
+          enum: [active, paused, cancelled, expired]
+          description: Status of the subscription
+        amount:
+          type: number
+          format: float
+          description: Amount of the subscription
+        discount:
+          type: number
+          format: float
+          description: Discount amount
+        total:
+          type: number
+          format: float
+          description: Total amount
+        payment_method:
+          type: string
+          nullable: true
+          description: Payment method
+        payment_status:
+          type: string
+          description: Payment status
+        transaction_id:
+          type: string
+          nullable: true
+          description: Transaction ID
+        pause_history:
+          type: array
+          nullable: true
+          description: Pause history
+          items:
+            type: object
+            properties:
+              paused_at:
+                type: string
+                format: date-time
+                description: Pause timestamp
+              reason:
+                type: string
+                nullable: true
+                description: Reason for pausing
+              resume_date:
+                type: string
+                format: date
+                nullable: true
+                description: Date to automatically resume
+              resumed_at:
+                type: string
+                format: date-time
+                nullable: true
+                description: Resume timestamp
+        next_billing_date:
+          type: string
+          format: date
+          nullable: true
+          description: Next billing date
+        auto_renew:
+          type: boolean
+          description: Whether the subscription auto-renews
+        notes:
+          type: string
+          nullable: true
+          description: Notes
+        customer:
+          $ref: '#/components/schemas/Customer'
+        plan:
+          $ref: '#/components/schemas/SubscriptionPlan'
+        items:
+          type: array
+          description: Subscription items
+          items:
+            $ref: '#/components/schemas/SubscriptionItem'
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+
+    SubscriptionInput:
+      type: object
+      required:
+        - customer_id
+        - plan_id
+        - start_date
+        - end_date
+        - amount
+      properties:
+        company_id:
+          type: integer
+          description: Company ID
+        unit_id:
+          type: integer
+          description: Unit ID
+        customer_id:
+          type: integer
+          description: Customer ID
+        plan_id:
+          type: integer
+          description: Subscription plan ID
+        start_date:
+          type: string
+          format: date
+          description: Start date of the subscription
+        end_date:
+          type: string
+          format: date
+          description: End date of the subscription
+        amount:
+          type: number
+          format: float
+          description: Amount of the subscription
+        discount:
+          type: number
+          format: float
+          description: Discount amount
+        payment_method:
+          type: string
+          description: Payment method
+        payment_status:
+          type: string
+          description: Payment status
+        transaction_id:
+          type: string
+          description: Transaction ID
+        auto_renew:
+          type: boolean
+          description: Whether the subscription auto-renews
+        notes:
+          type: string
+          description: Notes
+        items:
+          type: array
+          description: Subscription items
+          items:
+            $ref: '#/components/schemas/SubscriptionItemInput'
+
+    SubscriptionUpdateInput:
+      type: object
+      properties:
+        start_date:
+          type: string
+          format: date
+          description: Start date of the subscription
+        end_date:
+          type: string
+          format: date
+          description: End date of the subscription
+        amount:
+          type: number
+          format: float
+          description: Amount of the subscription
+        discount:
+          type: number
+          format: float
+          description: Discount amount
+        payment_method:
+          type: string
+          description: Payment method
+        payment_status:
+          type: string
+          description: Payment status
+        transaction_id:
+          type: string
+          description: Transaction ID
+        auto_renew:
+          type: boolean
+          description: Whether the subscription auto-renews
+        notes:
+          type: string
+          description: Notes
+
+    SubscriptionItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the subscription item
+        company_id:
+          type: integer
+          description: Company ID
+        unit_id:
+          type: integer
+          description: Unit ID
+        subscription_id:
+          type: integer
+          description: Subscription ID
+        meal_id:
+          type: integer
+          description: Meal ID
+        meal_name:
+          type: string
+          description: Name of the meal
+        quantity:
+          type: integer
+          description: Quantity
+        price:
+          type: number
+          format: float
+          description: Price per item
+        total:
+          type: number
+          format: float
+          description: Total price
+        day_of_week:
+          type: string
+          nullable: true
+          description: Day of the week
+        meal_type:
+          type: string
+          nullable: true
+          description: Type of meal
+        is_swappable:
+          type: boolean
+          description: Whether the item is swappable
+        swap_options:
+          type: array
+          nullable: true
+          description: Swap options
+          items:
+            type: object
+        notes:
+          type: string
+          nullable: true
+          description: Notes
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+
+    SubscriptionItemInput:
+      type: object
+      required:
+        - meal_id
+        - meal_name
+        - quantity
+        - price
+      properties:
+        meal_id:
+          type: integer
+          description: Meal ID
+        meal_name:
+          type: string
+          description: Name of the meal
+        quantity:
+          type: integer
+          description: Quantity
+        price:
+          type: number
+          format: float
+          description: Price per item
+        day_of_week:
+          type: string
+          description: Day of the week
+        meal_type:
+          type: string
+          description: Type of meal
+        is_swappable:
+          type: boolean
+          description: Whether the item is swappable
+        swap_options:
+          type: array
+          description: Swap options
+          items:
+            type: object
+        notes:
+          type: string
+          description: Notes
+
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the customer
+        customer_name:
+          type: string
+          description: Name of the customer
+        phone:
+          type: string
+          description: Phone number
+        email_address:
+          type: string
+          description: Email address
+
+    SubscriptionLog:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the subscription log
+        subscription_id:
+          type: integer
+          description: Subscription ID
+        customer_id:
+          type: integer
+          description: Customer ID
+        action:
+          type: string
+          description: Action performed
+        description:
+          type: string
+          description: Description of the action
+        data:
+          type: object
+          description: Additional data
+        ip_address:
+          type: string
+          description: IP address
+        user_agent:
+          type: string
+          description: User agent
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          description: Error message
+
+    ValidationError:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string

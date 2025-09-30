@@ -1,0 +1,583 @@
+openapi: 3.1.0
+info:
+  title: OneFoodDialer 2025 - Auth Service API
+  description: |
+    Authentication and authorization service for OneFoodDialer 2025 platform.
+
+    ## Features
+    - Multi-provider authentication (Keycloak, legacy, social)
+    - JWT token management with refresh capabilities
+    - Role-based access control (RBAC)
+    - Multi-factor authentication (MFA)
+    - Session management and security
+    - Password policies and reset functionality
+    - OAuth 2.0 and OpenID Connect support
+    - Single Sign-On (SSO) integration
+
+    ## Authentication Methods
+    - **Keycloak SSO** - Primary authentication provider
+    - **Legacy Authentication** - Backward compatibility
+    - **Social Login** - Google, Facebook, Apple
+    - **API Keys** - Service-to-service authentication
+    - **Multi-Factor Authentication** - SMS, Email, TOTP
+
+    ## Security Features
+    - JWT tokens with RS256 signing
+    - Token rotation and blacklisting
+    - Rate limiting and brute force protection
+    - Session timeout and concurrent session limits
+    - Audit logging for all authentication events
+    - GDPR compliant user data handling
+
+    ## Integration
+    - Kong API Gateway integration for token validation
+    - Microservice authentication middleware
+    - Real-time session management
+    - Centralized user profile management
+
+    ## Rate Limiting
+    Authentication endpoints are rate limited to prevent abuse.
+  version: 2.0.0
+  contact:
+    name: OneFoodDialer 2025 API Support
+    email: api-support@onefooddialer.com
+    url: https://docs.onefooddialer.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.onefooddialer.com/v2/auth-service-v12
+    description: Production server
+  - url: https://staging-api.onefooddialer.com/v2/auth-service-v12
+    description: Staging server
+  - url: http://localhost:8000/v2/auth-service-v12
+    description: Development server
+
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Authentication
+    description: Core authentication operations
+  - name: Authorization
+    description: Role and permission management
+  - name: Token Management
+    description: JWT token operations
+  - name: Password Management
+    description: Password reset and policy management
+  - name: Multi-Factor Authentication
+    description: MFA setup and verification
+  - name: Social Authentication
+    description: Social login providers
+  - name: Session Management
+    description: User session operations
+  - name: User Profile
+    description: User profile and preferences
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the user
+        first_name:
+          type: string
+          description: First name of the user
+        last_name:
+          type: string
+          description: Last name of the user
+        email:
+          type: string
+          format: email
+          description: Email address of the user
+        role_id:
+          type: integer
+          description: Role ID of the user
+        auth_type:
+          type: string
+          description: Authentication type (legacy, keycloak, etc.)
+        full_name:
+          type: string
+          description: Full name of the user (first_name + last_name)
+
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Username or email address
+        password:
+          type: string
+          format: password
+          description: Password
+        rememberMe:
+          type: boolean
+          description: Whether to remember the user
+      required:
+        - username
+        - password
+
+    ForgotPasswordRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email address
+      required:
+        - email
+
+    ResetPasswordRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email address
+        token:
+          type: string
+          description: Reset token
+        password:
+          type: string
+          format: password
+          description: New password
+        password_confirmation:
+          type: string
+          format: password
+          description: Password confirmation
+      required:
+        - email
+        - token
+        - password
+        - password_confirmation
+
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Success status
+          example: false
+        message:
+          type: string
+          description: Error message
+          example: Invalid credentials
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /auth/login:
+    post:
+      summary: Login
+      description: Authenticates a user and returns a token
+      operationId: login
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      user:
+                        $ref: '#/components/schemas/User'
+                      token:
+                        type: string
+                        description: Authentication token
+                      token_type:
+                        type: string
+                        example: Bearer
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/logout:
+    post:
+      summary: Logout
+      description: Logs out a user
+      operationId: logout
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful logout
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Logged out successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/refresh-token:
+    post:
+      summary: Refresh Token
+      description: Refresh an authentication token
+      operationId: refreshToken
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refresh_token:
+                  type: string
+                  description: Refresh token
+              required:
+                - refresh_token
+      responses:
+        '200':
+          description: Token refreshed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      user:
+                        $ref: '#/components/schemas/User'
+                      token:
+                        type: string
+                        description: Authentication token
+                      token_type:
+                        type: string
+                        example: Bearer
+        '401':
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/forgot-password:
+    post:
+      summary: Forgot Password
+      description: Requests a password reset
+      operationId: forgotPassword
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForgotPasswordRequest'
+      responses:
+        '200':
+          description: Password reset requested
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Password reset link has been sent to your email
+                  data:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                        description: Reset token (only included in development)
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/reset-password:
+    post:
+      summary: Reset Password
+      description: Resets a user's password
+      operationId: resetPassword
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordRequest'
+      responses:
+        '200':
+          description: Password reset successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Password has been reset successfully
+        '401':
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/user:
+    get:
+      summary: Get User
+      description: Gets the authenticated user
+      operationId: getUser
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      user:
+                        $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/validate-token:
+    post:
+      summary: Validate Token
+      description: Validate an authentication token
+      operationId: validateToken
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: Authentication token
+      responses:
+        '200':
+          description: Token validation result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      valid:
+                        type: boolean
+                        example: true
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/keycloak/login:
+    get:
+      summary: Keycloak Login
+      description: Get the Keycloak login URL
+      operationId: keycloakLogin
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: Keycloak login URL
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      auth_url:
+                        type: string
+                        example: http://localhost:8080/auth/realms/master/protocol/openid-connect/auth?client_id=laravel&redirect_uri=http://localhost:8000/auth/callback&response_type=code&scope=openid+profile+email&state=abcdefghijklmnopqrstuvwxyz
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/keycloak/callback:
+    get:
+      summary: Keycloak Callback
+      description: Handle the Keycloak callback
+      operationId: keycloakCallback
+      tags:
+        - Auth
+      parameters:
+        - name: code
+          in: query
+          description: Authorization code
+          required: true
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: State parameter
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Keycloak authentication successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      user:
+                        $ref: '#/components/schemas/User'
+                      token:
+                        type: string
+                        description: Authentication token
+                      token_type:
+                        type: string
+                        example: Bearer
+                      keycloak_tokens:
+                        type: object
+                        properties:
+                          access_token:
+                            type: string
+                            description: Keycloak access token
+                          refresh_token:
+                            type: string
+                            description: Keycloak refresh token
+                          expires_in:
+                            type: integer
+                            description: Token expiration time in seconds
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'

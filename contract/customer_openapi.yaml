@@ -1,0 +1,834 @@
+openapi: 3.1.0
+info:
+  title: OneFoodDialer 2025 - Customer Service API
+  description: |
+    Customer management service for OneFoodDialer 2025 platform.
+
+    ## Features
+    - Customer registration and profile management
+    - Address management with geolocation support
+    - Preference and dietary restriction tracking
+    - Order history and analytics
+    - Loyalty program integration
+    - Customer support and feedback
+    - Real-time notifications and preferences
+    - Multi-language and accessibility support
+
+    ## Authentication
+    Supports both JWT authentication for admin access and customer tokens for self-service operations.
+
+    ## Rate Limiting
+    API requests are rate limited to 500 requests per minute per customer.
+
+    ## Data Privacy
+    All customer data is encrypted and GDPR compliant with data export and deletion capabilities.
+  version: 2.0.0
+  contact:
+    name: OneFoodDialer 2025 API Support
+    email: api-support@onefooddialer.com
+    url: https://docs.onefooddialer.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.onefooddialer.com/v2/customer-service-v12
+    description: Production server
+  - url: https://staging-api.onefooddialer.com/v2/customer-service-v12
+    description: Staging server
+  - url: http://localhost:8001/v2/customer-service-v12
+    description: Development server
+
+security:
+  - bearerAuth: []
+  - customerAuth: []
+
+tags:
+  - name: Customer Management
+    description: Customer profile and account operations
+  - name: Address Management
+    description: Customer address and location operations
+  - name: Preferences
+    description: Customer preferences and dietary restrictions
+  - name: Order History
+    description: Customer order history and analytics
+  - name: Loyalty Program
+    description: Loyalty points and rewards management
+  - name: Notifications
+    description: Customer notification preferences
+  - name: Support
+    description: Customer support and feedback
+
+paths:
+  /customers:
+    get:
+      summary: Get all customers
+      description: Returns a paginated list of customers with optional filtering
+      operationId: getCustomers
+      tags:
+        - Customers
+      parameters:
+        - name: status
+          in: query
+          description: Filter by customer status
+          schema:
+            type: boolean
+        - name: company_id
+          in: query
+          description: Filter by company ID
+          schema:
+            type: integer
+        - name: unit_id
+          in: query
+          description: Filter by unit ID
+          schema:
+            type: integer
+        - name: search
+          in: query
+          description: Search term for customer name, phone, or email
+          schema:
+            type: string
+        - name: order_by
+          in: query
+          description: Field to order by
+          schema:
+            type: string
+            default: pk_customer_code
+        - name: order_dir
+          in: query
+          description: Order direction
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: desc
+        - name: per_page
+          in: query
+          description: Number of items per page
+          schema:
+            type: integer
+            default: 15
+        - name: page
+          in: query
+          description: Page number
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: A paginated list of customers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Customer'
+                      current_page:
+                        type: integer
+                        example: 1
+                      per_page:
+                        type: integer
+                        example: 15
+                      total:
+                        type: integer
+                        example: 100
+        '500':
+          $ref: '#/components/responses/ServerError'
+      security:
+        - bearerAuth: []
+
+    post:
+      summary: Create a new customer
+      description: Creates a new customer in the system
+      operationId: createCustomer
+      tags:
+        - Customers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+      responses:
+        '201':
+          description: Customer created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Customer created successfully
+                  data:
+                    $ref: '#/components/schemas/Customer'
+        '409':
+          $ref: '#/components/responses/DuplicateError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+      security:
+        - bearerAuth: []
+
+  /customers/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Customer ID
+        schema:
+          type: integer
+
+    get:
+      summary: Get a customer by ID
+      description: Returns a single customer by ID
+      operationId: getCustomerById
+      tags:
+        - Customers
+      responses:
+        '200':
+          description: Customer details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/Customer'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+      security:
+        - bearerAuth: []
+
+    put:
+      summary: Update a customer
+      description: Updates an existing customer
+      operationId: updateCustomer
+      tags:
+        - Customers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerUpdate'
+      responses:
+        '200':
+          description: Customer updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Customer updated successfully
+                  data:
+                    $ref: '#/components/schemas/Customer'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '409':
+          $ref: '#/components/responses/DuplicateError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+      security:
+        - bearerAuth: []
+
+    delete:
+      summary: Delete a customer
+      description: Deletes a customer from the system
+      operationId: deleteCustomer
+      tags:
+        - Customers
+      responses:
+        '200':
+          description: Customer deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Customer deleted successfully
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+      security:
+        - bearerAuth: []
+
+  /customers/{id}/addresses:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Customer ID
+        schema:
+          type: integer
+
+    post:
+      summary: Add an address to a customer
+      description: Adds a new address to a customer
+      operationId: addCustomerAddress
+      tags:
+        - Customer Addresses
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressCreate'
+      responses:
+        '201':
+          description: Address added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Address added successfully
+                  data:
+                    $ref: '#/components/schemas/Address'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+      security:
+        - bearerAuth: []
+
+  /customers/{id}/addresses/{addressId}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Customer ID
+        schema:
+          type: integer
+      - name: addressId
+        in: path
+        required: true
+        description: Address ID
+        schema:
+          type: integer
+
+    put:
+      summary: Update a customer address
+      description: Updates an existing customer address
+      operationId: updateCustomerAddress
+      tags:
+        - Customer Addresses
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressUpdate'
+      responses:
+        '200':
+          description: Address updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Address updated successfully
+                  data:
+                    $ref: '#/components/schemas/Address'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+      security:
+        - bearerAuth: []
+
+    delete:
+      summary: Delete a customer address
+      description: Deletes a customer address from the system
+      operationId: deleteCustomerAddress
+      tags:
+        - Customer Addresses
+      responses:
+        '200':
+          description: Address deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Address deleted successfully
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+      security:
+        - bearerAuth: []
+
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        pk_customer_code:
+          type: integer
+          example: 1
+        customer_name:
+          type: string
+          example: John Doe
+        phone:
+          type: string
+          example: '1234567890'
+        email_address:
+          type: string
+          format: email
+          example: john@example.com
+        customer_Address:
+          type: string
+          nullable: true
+          example: 123 Main St, New York
+        location_code:
+          type: string
+          nullable: true
+          example: LOC123
+        location_name:
+          type: string
+          nullable: true
+          example: Manhattan
+        food_preference:
+          type: string
+          nullable: true
+          example: Veg
+        city:
+          type: string
+          nullable: true
+          example: New York
+        city_name:
+          type: string
+          nullable: true
+          example: New York City
+        company_name:
+          type: string
+          nullable: true
+          example: Acme Inc
+        status:
+          type: boolean
+          example: true
+        phone_verified:
+          type: boolean
+          example: true
+        email_verified:
+          type: boolean
+          example: true
+        registered_on:
+          type: string
+          format: date-time
+          example: '2023-01-01T12:00:00Z'
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-01-01T12:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2023-01-01T12:00:00Z'
+
+    CustomerCreate:
+      type: object
+      required:
+        - customer_name
+        - phone
+      properties:
+        customer_name:
+          type: string
+          example: John Doe
+        phone:
+          type: string
+          example: '1234567890'
+        email_address:
+          type: string
+          format: email
+          example: john@example.com
+        customer_address:
+          type: string
+          example: 123 Main St, New York
+        location_code:
+          type: string
+          example: LOC123
+        location_name:
+          type: string
+          example: Manhattan
+        food_preference:
+          type: string
+          example: Veg
+        city:
+          type: string
+          example: New York
+        city_name:
+          type: string
+          example: New York City
+        company_name:
+          type: string
+          example: Acme Inc
+        password:
+          type: string
+          format: password
+          example: password123
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+        is_guest:
+          type: boolean
+          example: false
+
+    CustomerUpdate:
+      type: object
+      required:
+        - customer_name
+        - phone
+      properties:
+        customer_name:
+          type: string
+          example: John Doe
+        phone:
+          type: string
+          example: '1234567890'
+        email_address:
+          type: string
+          format: email
+          example: john@example.com
+        customer_address:
+          type: string
+          example: 123 Main St, New York
+        location_code:
+          type: string
+          example: LOC123
+        location_name:
+          type: string
+          example: Manhattan
+        food_preference:
+          type: string
+          example: Veg
+        city:
+          type: string
+          example: New York
+        city_name:
+          type: string
+          example: New York City
+        company_name:
+          type: string
+          example: Acme Inc
+        password:
+          type: string
+          format: password
+          example: password123
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+        is_guest:
+          type: boolean
+          example: false
+        status:
+          type: boolean
+          example: true
+
+    Address:
+      type: object
+      properties:
+        pk_customer_address_code:
+          type: integer
+          example: 1
+        customer_code:
+          type: integer
+          example: 1
+        address_type:
+          type: string
+          example: Home
+        address_name:
+          type: string
+          nullable: true
+          example: My Home
+        address_line1:
+          type: string
+          example: 123 Main St
+        address_line2:
+          type: string
+          nullable: true
+          example: Apt 4B
+        landmark:
+          type: string
+          nullable: true
+          example: Near Central Park
+        city:
+          type: string
+          example: New York
+        state:
+          type: string
+          nullable: true
+          example: NY
+        country:
+          type: string
+          nullable: true
+          example: USA
+        pincode:
+          type: string
+          nullable: true
+          example: '10001'
+        latitude:
+          type: number
+          format: float
+          nullable: true
+          example: 40.7128
+        longitude:
+          type: number
+          format: float
+          nullable: true
+          example: -74.0060
+        is_default:
+          type: boolean
+          example: true
+        status:
+          type: boolean
+          example: true
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-01-01T12:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2023-01-01T12:00:00Z'
+
+    AddressCreate:
+      type: object
+      required:
+        - address_type
+        - address_line1
+        - city
+      properties:
+        address_type:
+          type: string
+          example: Home
+        address_name:
+          type: string
+          example: My Home
+        address_line1:
+          type: string
+          example: 123 Main St
+        address_line2:
+          type: string
+          example: Apt 4B
+        landmark:
+          type: string
+          example: Near Central Park
+        city:
+          type: string
+          example: New York
+        state:
+          type: string
+          example: NY
+        country:
+          type: string
+          example: USA
+        pincode:
+          type: string
+          example: '10001'
+        latitude:
+          type: number
+          format: float
+          example: 40.7128
+        longitude:
+          type: number
+          format: float
+          example: -74.0060
+        is_default:
+          type: boolean
+          example: true
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+
+    AddressUpdate:
+      type: object
+      required:
+        - address_type
+        - address_line1
+        - city
+      properties:
+        address_type:
+          type: string
+          example: Home
+        address_name:
+          type: string
+          example: My Home
+        address_line1:
+          type: string
+          example: 123 Main St
+        address_line2:
+          type: string
+          example: Apt 4B
+        landmark:
+          type: string
+          example: Near Central Park
+        city:
+          type: string
+          example: New York
+        state:
+          type: string
+          example: NY
+        country:
+          type: string
+          example: USA
+        pincode:
+          type: string
+          example: '10001'
+        latitude:
+          type: number
+          format: float
+          example: 40.7128
+        longitude:
+          type: number
+          format: float
+          example: -74.0060
+        is_default:
+          type: boolean
+          example: true
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+
+  responses:
+    NotFoundError:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: Resource not found
+
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: The given data was invalid
+              errors:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+                example:
+                  customer_name: ["The customer name field is required."]
+                  phone: ["The phone field is required."]
+
+    DuplicateError:
+      description: Duplicate resource error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: Resource already exists
+
+    ServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: An error occurred while processing your request
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,1807 @@
+openapi: 3.0.0
+info:
+  title: OneFoodDialer 2025 - Admin Service API
+  description: |
+    Comprehensive admin service for OneFoodDialer 2025 platform management.
+
+    ## Features
+    - Dashboard & Analytics with real-time metrics
+    - User & Role Management with granular permissions
+    - Cloud Kitchen Management with approval workflows
+    - Order Management & Tracking with status updates
+    - System Settings & Configuration management
+    - Reports & Business Intelligence with AI insights
+    - Real-time Monitoring & Health checks
+    - Backup & Maintenance operations
+
+    ## Authentication
+    All endpoints require JWT authentication via Bearer token.
+
+    ## Rate Limiting
+    API requests are rate limited to 1000 requests per minute per user.
+
+    ## Error Handling
+    All errors follow RFC 7807 Problem Details format.
+  version: 2.0.0
+  contact:
+    name: OneFoodDialer 2025 API Support
+    email: api-support@onefooddialer.com
+    url: https://docs.onefooddialer.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: https://api.onefooddialer.com/v2/admin-service-v12
+    description: Production server
+  - url: https://staging-api.onefooddialer.com/v2/admin-service-v12
+    description: Staging server
+  - url: http://localhost:8000/v2/admin-service-v12
+    description: Development server
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  parameters:
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+      description: Page number for pagination
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: Number of items per page
+    Search:
+      name: search
+      in: query
+      schema:
+        type: string
+      description: Search query string
+    UserId:
+      name: userId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Unique identifier for the user
+    RoleId:
+      name: roleId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Unique identifier for the role
+    KitchenId:
+      name: kitchenId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Unique identifier for the cloud kitchen
+    OrderId:
+      name: orderId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Unique identifier for the order
+
+  responses:
+    BadRequest:
+      description: Bad request - Invalid input parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized - Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Forbidden - Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: Resource conflict - Duplicate or constraint violation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ValidationError:
+      description: Validation error - Invalid data format
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationErrorResponse'
+
+  schemas:
+    # Common Response Schemas
+    ErrorResponse:
+      type: object
+      required: [status, message]
+      properties:
+        status:
+          type: string
+          enum: [error]
+          example: error
+        message:
+          type: string
+          example: An error occurred
+        code:
+          type: string
+          example: VALIDATION_ERROR
+        timestamp:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:00:00Z"
+        path:
+          type: string
+          example: "/v2/admin-service-v12/users"
+
+    ValidationErrorResponse:
+      type: object
+      required: [status, message, errors]
+      properties:
+        status:
+          type: string
+          enum: [error]
+          example: error
+        message:
+          type: string
+          example: Validation failed
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                example: email
+              message:
+                type: string
+                example: The email field is required
+              code:
+                type: string
+                example: REQUIRED
+
+    SuccessResponse:
+      type: object
+      required: [status, message]
+      properties:
+        status:
+          type: string
+          enum: [success]
+          example: success
+        message:
+          type: string
+          example: Operation completed successfully
+        timestamp:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:00:00Z"
+
+    PaginationMeta:
+      type: object
+      properties:
+        page:
+          type: integer
+          example: 1
+        limit:
+          type: integer
+          example: 20
+        total:
+          type: integer
+          example: 150
+        totalPages:
+          type: integer
+          example: 8
+        hasNext:
+          type: boolean
+          example: true
+        hasPrev:
+          type: boolean
+          example: false
+
+    # Dashboard Schemas
+    DashboardResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [success]
+          example: success
+        data:
+          type: object
+          properties:
+            overview:
+              $ref: '#/components/schemas/OverviewMetrics'
+            quickStats:
+              $ref: '#/components/schemas/QuickStats'
+            charts:
+              type: array
+              items:
+                $ref: '#/components/schemas/ChartData'
+            systemHealth:
+              $ref: '#/components/schemas/SystemHealth'
+            alerts:
+              type: array
+              items:
+                $ref: '#/components/schemas/Alert'
+            recentActivity:
+              type: array
+              items:
+                $ref: '#/components/schemas/ActivityItem'
+
+    OverviewMetrics:
+      type: object
+      properties:
+        totalUsers:
+          type: integer
+          example: 1250
+          description: Total number of registered users
+        totalOrders:
+          type: integer
+          example: 5420
+          description: Total number of orders
+        totalRevenue:
+          type: number
+          format: float
+          example: 125000.50
+          description: Total revenue in base currency
+        growthRate:
+          type: number
+          format: float
+          example: 12.5
+          description: Growth rate percentage
+        activeKitchens:
+          type: integer
+          example: 45
+          description: Number of active cloud kitchens
+        pendingApprovals:
+          type: integer
+          example: 8
+          description: Number of pending kitchen approvals
+
+    QuickStats:
+      type: object
+      properties:
+        activeUsers:
+          type: integer
+          example: 320
+          description: Currently active users
+        pendingOrders:
+          type: integer
+          example: 25
+          description: Orders pending processing
+        systemAlerts:
+          type: integer
+          example: 3
+          description: Active system alerts
+        revenue24h:
+          type: number
+          format: float
+          example: 8500.75
+          description: Revenue in last 24 hours
+        orderSuccess:
+          type: number
+          format: float
+          example: 98.5
+          description: Order success rate percentage
+        avgResponseTime:
+          type: number
+          format: float
+          example: 150.5
+          description: Average API response time in milliseconds
+
+    # System Health & Monitoring Schemas
+    SystemHealth:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [healthy, warning, critical]
+          example: healthy
+          description: Overall system health status
+        uptime:
+          type: integer
+          example: 86400
+          description: System uptime in seconds
+        cpu:
+          type: object
+          properties:
+            usage:
+              type: number
+              format: float
+              example: 45.2
+              description: CPU usage percentage
+            cores:
+              type: integer
+              example: 8
+              description: Number of CPU cores
+        memory:
+          type: object
+          properties:
+            usage:
+              type: number
+              format: float
+              example: 65.8
+              description: Memory usage percentage
+            used:
+              type: integer
+              example: 6442450944
+              description: Used memory in bytes
+            total:
+              type: integer
+              example: 17179869184
+              description: Total memory in bytes
+        disk:
+          type: object
+          properties:
+            usage:
+              type: number
+              format: float
+              example: 35.4
+              description: Disk usage percentage
+            used:
+              type: integer
+              example: 107374182400
+              description: Used disk space in bytes
+            total:
+              type: integer
+              example: 322122547200
+              description: Total disk space in bytes
+        services:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: database
+              status:
+                type: string
+                enum: [healthy, warning, critical]
+                example: healthy
+              responseTime:
+                type: number
+                format: float
+                example: 25.5
+                description: Service response time in milliseconds
+
+    ChartData:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [line, bar, pie, doughnut, area, scatter]
+          example: line
+          description: Chart visualization type
+        title:
+          type: string
+          example: Revenue Trend
+          description: Chart title
+        data:
+          type: object
+          description: Chart data in format specific to chart type
+          example:
+            labels: ["Jan", "Feb", "Mar", "Apr", "May"]
+            datasets:
+              - label: Revenue
+                data: [12000, 15000, 18000, 16000, 20000]
+                borderColor: "#3B82F6"
+        options:
+          type: object
+          description: Chart configuration options
+          example:
+            responsive: true
+            maintainAspectRatio: false
+
+    Alert:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        type:
+          type: string
+          enum: [info, warning, error, success]
+          example: warning
+        title:
+          type: string
+          example: High CPU Usage
+        message:
+          type: string
+          example: CPU usage has exceeded 80% for the last 10 minutes
+        severity:
+          type: string
+          enum: [low, medium, high, critical]
+          example: high
+        timestamp:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:00:00Z"
+        acknowledged:
+          type: boolean
+          example: false
+        acknowledgedBy:
+          type: string
+          example: admin-user-123
+        acknowledgedAt:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:05:00Z"
+
+    ActivityItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        type:
+          type: string
+          enum: [user_login, order_created, kitchen_approved, system_alert]
+          example: order_created
+        description:
+          type: string
+          example: New order #12345 created by customer John Doe
+        userId:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440001"
+        userName:
+          type: string
+          example: John Doe
+        timestamp:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:00:00Z"
+        metadata:
+          type: object
+          description: Additional activity-specific data
+          example:
+            orderId: "order-123"
+            amount: 25.50
+
+    # User Management Schemas
+    AdminUser:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        name:
+          type: string
+          example: John Doe
+          description: Full name of the admin user
+        email:
+          type: string
+          format: email
+          example: john.doe@onefooddialer.com
+          description: Email address (unique)
+        role:
+          $ref: '#/components/schemas/AdminRole'
+        status:
+          type: string
+          enum: [active, inactive, suspended]
+          example: active
+          description: Current user status
+        permissions:
+          type: array
+          items:
+            type: string
+          example: ["users.read", "users.write", "orders.read"]
+          description: Direct permissions assigned to user
+        lastLoginAt:
+          type: string
+          format: date-time
+          example: "2024-01-15T09:30:00Z"
+          description: Last login timestamp
+        loginCount:
+          type: integer
+          example: 42
+          description: Total number of logins
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-01T10:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:00:00Z"
+        createdBy:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440001"
+          description: ID of user who created this account
+
+    AdminRole:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        name:
+          type: string
+          example: admin
+          description: Role name (unique)
+        displayName:
+          type: string
+          example: Administrator
+          description: Human-readable role name
+        description:
+          type: string
+          example: Full system administrator with all permissions
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminPermission'
+        isSystem:
+          type: boolean
+          example: true
+          description: Whether this is a system-defined role
+        userCount:
+          type: integer
+          example: 5
+          description: Number of users with this role
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-01T10:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:00:00Z"
+
+    AdminPermission:
+      type: object
+      properties:
+        id:
+          type: string
+          example: users.read
+          description: Permission identifier
+        name:
+          type: string
+          example: View Users
+          description: Human-readable permission name
+        description:
+          type: string
+          example: Allows viewing user information and lists
+        resource:
+          type: string
+          example: users
+          description: Resource this permission applies to
+        action:
+          type: string
+          example: read
+          description: Action allowed on the resource
+        module:
+          type: string
+          example: user_management
+          description: Module this permission belongs to
+        isSystem:
+          type: boolean
+          example: true
+          description: Whether this is a system-defined permission
+
+    # Missing schemas that were referenced
+    UsersResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [success]
+          example: success
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminUser'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+
+    CreateUserRequest:
+      type: object
+      required: [name, email, roleId, password]
+      properties:
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          format: email
+          example: john.doe@example.com
+        roleId:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        password:
+          type: string
+          minLength: 8
+          example: securePassword123
+        status:
+          type: string
+          enum: [active, inactive]
+          default: active
+        permissions:
+          type: array
+          items:
+            type: string
+          example: ["users.read", "users.write"]
+
+    UpdateUserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          format: email
+          example: john.doe@example.com
+        roleId:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        status:
+          type: string
+          enum: [active, inactive, suspended]
+        permissions:
+          type: array
+          items:
+            type: string
+          example: ["users.read", "users.write"]
+        password:
+          type: string
+          minLength: 8
+          example: newSecurePassword123
+
+    # V2 Admin Schemas (for the /v2/admin endpoints)
+    V2Setting:
+      type: object
+      properties:
+        setting_key:
+          type: string
+          example: MERCHANT_COMPANY_NAME
+        setting_value:
+          type: string
+          example: Demo Company
+        setting_group:
+          type: string
+          example: company
+        setting_type:
+          type: string
+          example: string
+        is_system:
+          type: boolean
+          example: false
+        is_public:
+          type: boolean
+          example: true
+        description:
+          type: string
+          example: Company name
+
+    V2Role:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: admin
+        display_name:
+          type: string
+          example: Administrator
+        description:
+          type: string
+          example: System administrator with full access
+        is_system:
+          type: boolean
+          example: true
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2Permission'
+
+    V2Permission:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: view_settings
+        display_name:
+          type: string
+          example: View Settings
+        description:
+          type: string
+          example: Can view system settings
+        module:
+          type: string
+          example: config
+        is_system:
+          type: boolean
+          example: true
+
+    V2SetupWizardStatus:
+      type: object
+      properties:
+        completed:
+          type: boolean
+          example: false
+        current_step:
+          type: integer
+          example: 1
+
+    # Remove duplicate schemas
+    # Error and Success schemas were duplicated, keeping the more comprehensive ones
+
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Dashboard
+    description: Admin dashboard and overview operations
+  - name: User Management
+    description: Admin user management operations
+  - name: Role Management
+    description: Role and permission management
+  - name: Cloud Kitchen Management
+    description: Cloud kitchen approval and management
+  - name: Order Management
+    description: Order tracking and management
+  - name: System Settings
+    description: System configuration and settings
+  - name: Reports & Analytics
+    description: Reporting and analytics operations
+  - name: Maintenance
+    description: System maintenance and backup operations
+  - name: Health
+    description: Health check and monitoring
+
+paths:
+  # Dashboard & Overview Endpoints
+  /dashboard:
+    get:
+      summary: Get admin dashboard overview
+      description: Retrieve comprehensive dashboard data including metrics, charts, and system health
+      tags: [Dashboard]
+      parameters:
+        - name: timeRange
+          in: query
+          schema:
+            type: string
+            enum: [24h, 7d, 30d, 90d]
+            default: 7d
+          description: Time range for dashboard metrics
+      responses:
+        '200':
+          description: Dashboard data retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /dashboard/overview:
+    get:
+      summary: Get dashboard overview metrics
+      description: Get high-level overview metrics for the dashboard
+      tags: [Dashboard]
+      responses:
+        '200':
+          description: Overview metrics retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OverviewMetrics'
+
+  /dashboard/quick-stats:
+    get:
+      summary: Get quick statistics
+      description: Get real-time quick statistics for dashboard
+      tags: [Dashboard]
+      responses:
+        '200':
+          description: Quick stats retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuickStats'
+
+  /dashboard/system-health:
+    get:
+      summary: Get system health status
+      description: Get current system health and performance metrics
+      tags: [Dashboard]
+      responses:
+        '200':
+          description: System health retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemHealth'
+
+  # User Management Endpoints
+  /users:
+    get:
+      summary: List admin users
+      description: Retrieve paginated list of admin users with filtering and search
+      tags: [User Management]
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Search'
+        - name: role
+          in: query
+          schema:
+            type: string
+          description: Filter by role name
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [active, inactive, suspended]
+          description: Filter by user status
+      responses:
+        '200':
+          description: Users retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersResponse'
+
+    post:
+      summary: Create new admin user
+      description: Create a new admin user with specified role and permissions
+      tags: [User Management]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminUser'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          $ref: '#/components/responses/Conflict'
+
+  /users/{userId}:
+    get:
+      summary: Get admin user by ID
+      description: Retrieve detailed information about a specific admin user
+      tags: [User Management]
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: User retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminUser'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    put:
+      summary: Update admin user
+      description: Update admin user information, role, or permissions
+      tags: [User Management]
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminUser'
+
+    delete:
+      summary: Delete admin user
+      description: Permanently delete an admin user account
+      tags: [User Management]
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '204':
+          description: User deleted successfully
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /users/{userId}/suspend:
+    post:
+      summary: Suspend admin user
+      description: Temporarily suspend an admin user account
+      tags: [User Management]
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                  description: Reason for suspension
+                duration:
+                  type: integer
+                  description: Suspension duration in days
+      responses:
+        '200':
+          description: User suspended successfully
+
+  /users/{userId}/activate:
+    post:
+      summary: Activate admin user
+      description: Activate a suspended or inactive admin user
+      tags: [User Management]
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: User activated successfully
+
+  # V2 Admin Endpoints
+  /v2/admin/user:
+    get:
+      summary: Get current user information
+      description: Returns information about the authenticated user
+      tags: [User Management]
+      responses:
+        '200':
+          description: User information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: John Doe
+                      email:
+                        type: string
+                        example: john@example.com
+                      roles:
+                        type: array
+                        items:
+                          type: string
+                        example: [admin, manager]
+                      permissions:
+                        type: array
+                        items:
+                          type: string
+                        example: [view_settings, edit_settings]
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v2/admin/health:
+    get:
+      summary: Health check endpoint
+      description: Returns the health status of the service
+      tags: [Health]
+      security: []
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Service is healthy
+                  timestamp:
+                    type: string
+                    format: date-time
+                    example: "2023-05-20T12:34:56Z"
+
+  /v2/admin/config:
+    get:
+      summary: Get all configuration values
+      description: Returns all configuration values
+      tags: [System Settings]
+      parameters:
+        - name: company_id
+          in: query
+          schema:
+            type: integer
+          description: Company ID
+        - name: unit_id
+          in: query
+          schema:
+            type: integer
+          description: Unit ID
+      responses:
+        '200':
+          description: Configuration values
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    additionalProperties:
+                      type: string
+                    example:
+                      MERCHANT_COMPANY_NAME: Demo Company
+                      GLOBAL_CURRENCY: USD
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /v2/admin/config/{key}:
+    get:
+      summary: Get a specific configuration value
+      description: Returns a specific configuration value
+      tags: [System Settings]
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Configuration key
+        - name: company_id
+          in: query
+          schema:
+            type: integer
+          description: Company ID
+        - name: unit_id
+          in: query
+          schema:
+            type: integer
+          description: Unit ID
+      responses:
+        '200':
+          description: Configuration value
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      key:
+                        type: string
+                        example: MERCHANT_COMPANY_NAME
+                      value:
+                        type: string
+                        example: Demo Company
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    put:
+      summary: Update a configuration value
+      description: Updates a specific configuration value
+      tags: [System Settings]
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Configuration key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+                  example: New Company Name
+                type:
+                  type: string
+                  enum: [string, boolean, integer, float, json, array]
+                  example: string
+                group:
+                  type: string
+                  example: company
+                is_system:
+                  type: boolean
+                  example: false
+                is_public:
+                  type: boolean
+                  example: true
+                description:
+                  type: string
+                  example: Company name
+                company_id:
+                  type: integer
+                  example: 1
+                unit_id:
+                  type: integer
+                  example: 1
+              required:
+                - value
+      responses:
+        '200':
+          description: Configuration value updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Configuration key 'MERCHANT_COMPANY_NAME' updated successfully.
+                  data:
+                    type: object
+                    properties:
+                      key:
+                        type: string
+                        example: MERCHANT_COMPANY_NAME
+                      value:
+                        type: string
+                        example: New Company Name
+        '422':
+          $ref: '#/components/responses/ValidationError'
+
+    delete:
+      summary: Delete a configuration value
+      description: Deletes a specific configuration value
+      tags: [System Settings]
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Configuration key
+        - name: company_id
+          in: query
+          schema:
+            type: integer
+          description: Company ID
+        - name: unit_id
+          in: query
+          schema:
+            type: integer
+          description: Unit ID
+      responses:
+        '200':
+          description: Configuration value deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Configuration key 'MERCHANT_COMPANY_NAME' deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /v2/admin/config/group/{group}:
+    get:
+      summary: Get settings by group
+      description: Returns configuration values for a specific group
+      tags: [System Settings]
+      parameters:
+        - name: group
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Setting group
+        - name: company_id
+          in: query
+          schema:
+            type: integer
+          description: Company ID
+        - name: unit_id
+          in: query
+          schema:
+            type: integer
+          description: Unit ID
+      responses:
+        '200':
+          description: Configuration values for the group
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    additionalProperties:
+                      type: string
+                    example:
+                      MERCHANT_COMPANY_NAME: Demo Company
+                      MERCHANT_POSTAL_ADDRESS: 123 Main St
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /v2/admin/roles:
+    get:
+      summary: Get all roles
+      description: Returns all roles
+      tags: [Role Management]
+      parameters:
+        - name: company_id
+          in: query
+          schema:
+            type: integer
+          description: Company ID
+        - name: unit_id
+          in: query
+          schema:
+            type: integer
+          description: Unit ID
+      responses:
+        '200':
+          description: Roles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/V2Role'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+    post:
+      summary: Create a new role
+      description: Creates a new role
+      tags: [Role Management]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: editor
+                display_name:
+                  type: string
+                  example: Editor
+                description:
+                  type: string
+                  example: Can edit content
+                permissions:
+                  type: array
+                  items:
+                    type: integer
+                  example: [1, 2, 3]
+                is_system:
+                  type: boolean
+                  example: false
+                company_id:
+                  type: integer
+                  example: 1
+                unit_id:
+                  type: integer
+                  example: 1
+              required:
+                - name
+      responses:
+        '201':
+          description: Role created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Role created successfully
+                  data:
+                    $ref: '#/components/schemas/V2Role'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+
+  /v2/admin/roles/{id}:
+    get:
+      summary: Get a specific role
+      description: Returns a specific role
+      tags: [Role Management]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Role ID
+      responses:
+        '200':
+          description: Role
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    $ref: '#/components/schemas/V2Role'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    put:
+      summary: Update a role
+      description: Updates a specific role
+      tags: [Role Management]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Role ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: editor
+                display_name:
+                  type: string
+                  example: Content Editor
+                description:
+                  type: string
+                  example: Can edit content
+                permissions:
+                  type: array
+                  items:
+                    type: integer
+                  example: [1, 2, 3, 4]
+                is_system:
+                  type: boolean
+                  example: false
+      responses:
+        '200':
+          description: Role updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Role updated successfully
+                  data:
+                    $ref: '#/components/schemas/V2Role'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+
+    delete:
+      summary: Delete a role
+      description: Deletes a specific role
+      tags: [Role Management]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Role ID
+      responses:
+        '200':
+          description: Role deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Role deleted successfully
+        '403':
+          description: Cannot delete system role
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: Cannot delete system role.
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /v2/admin/permissions:
+    get:
+      summary: Get all permissions
+      description: Returns all permissions
+      tags: [Role Management]
+      responses:
+        '200':
+          description: Permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/V2Permission'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /v2/admin/permissions/module/{module}:
+    get:
+      summary: Get permissions by module
+      description: Returns permissions for a specific module
+      tags: [Role Management]
+      parameters:
+        - name: module
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Module name
+      responses:
+        '200':
+          description: Permissions for the module
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/V2Permission'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /v2/admin/setup-wizard/status:
+    get:
+      summary: Get setup wizard status
+      description: Returns the current status of the setup wizard
+      tags: [System Settings]
+      responses:
+        '200':
+          description: Setup wizard status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    $ref: '#/components/schemas/V2SetupWizardStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+    put:
+      summary: Update setup wizard status
+      description: Updates the status of the setup wizard
+      tags: [System Settings]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                completed:
+                  type: boolean
+                  example: true
+                current_step:
+                  type: integer
+                  example: 3
+                company_id:
+                  type: integer
+                  example: 1
+                unit_id:
+                  type: integer
+                  example: 1
+      responses:
+        '200':
+          description: Setup wizard status updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Setup wizard status updated successfully
+                  data:
+                    $ref: '#/components/schemas/V2SetupWizardStatus'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+
+  /v2/admin/setup-wizard/company-profile:
+    post:
+      summary: Setup company profile
+      description: Sets up the company profile
+      tags: [System Settings]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company_name:
+                  type: string
+                  example: Demo Company
+                postal_address:
+                  type: string
+                  example: 123 Main St, Anytown, CA 12345
+                support_email:
+                  type: string
+                  example: support@example.com
+                phone:
+                  type: string
+                  example: 555-1234
+                sender_id:
+                  type: string
+                  example: DEMO
+                company_id:
+                  type: integer
+                  example: 1
+                unit_id:
+                  type: integer
+                  example: 1
+              required:
+                - company_name
+                - postal_address
+                - support_email
+                - phone
+                - sender_id
+      responses:
+        '200':
+          description: Company profile setup completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Company profile setup completed successfully
+                  data:
+                    type: object
+                    properties:
+                      current_step:
+                        type: integer
+                        example: 2
+        '422':
+          $ref: '#/components/responses/ValidationError'
+
+  /v2/admin/setup-wizard/system-settings:
+    post:
+      summary: Setup system settings
+      description: Sets up the system settings
+      tags: [System Settings]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                locale:
+                  type: string
+                  example: en_US
+                currency:
+                  type: string
+                  example: USD
+                currency_symbol:
+                  type: string
+                  example: $
+                time_zone:
+                  type: string
+                  example: UTC
+                company_id:
+                  type: integer
+                  example: 1
+                unit_id:
+                  type: integer
+                  example: 1
+              required:
+                - locale
+                - currency
+                - currency_symbol
+                - time_zone
+      responses:
+        '200':
+          description: System settings setup completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: System settings setup completed successfully
+                  data:
+                    type: object
+                    properties:
+                      current_step:
+                        type: integer
+                        example: 3
+        '422':
+          $ref: '#/components/responses/ValidationError'
+
+  /v2/admin/setup-wizard/complete:
+    post:
+      summary: Complete setup wizard
+      description: Completes the setup wizard
+      tags: [System Settings]
+      parameters:
+        - name: company_id
+          in: query
+          schema:
+            type: integer
+          description: Company ID
+        - name: unit_id
+          in: query
+          schema:
+            type: integer
+          description: Unit ID
+      responses:
+        '200':
+          description: Setup wizard completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Setup wizard completed successfully
+                  data:
+                    type: object
+                    properties:
+                      completed:
+                        type: boolean
+                        example: true
+                      current_step:
+                        type: integer
+                        example: 5
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'

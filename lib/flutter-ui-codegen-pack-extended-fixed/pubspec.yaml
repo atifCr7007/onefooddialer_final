@@ -1,0 +1,33 @@
+name: flutter_ui_codegen_pack_extended_fixed
+description: OneFoodDialer Admin scaffolding + view generator from OpenAPI
+version: 0.2.1
+publish_to: 'none'
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+dependencies:
+  dio: ^5.4.0
+  flutter_riverpod: ^2.4.9
+  riverpod: ^2.4.9
+  go_router: ^14.2.0
+  intl: ^0.20.2
+  shared_preferences: ^2.2.3
+  yaml: ^3.1.2
+  recase: ^4.1.0
+  mustache_template: ^2.0.0
+  path: ^1.9.0
+  #Generated Api Client
+  openapi:
+    path: ../client/invoice_client
+  admin_client:
+    path: ../client/admin_client
+  customer_client:
+    path: ../client/customer_client
+
+  flutter:
+    sdk: flutter
+  flutter_form_builder: ^10.2.0
+  form_builder_validators: ^11.2.0
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lints: ^3.0.0

@@ -1,0 +1,1399 @@
+openapi: 3.1.0
+info:
+  title: Kitchen Service API
+  description: API for managing kitchen operations
+  version: 1.0.0
+  contact:
+    name: Support Team
+    email: support@example.com
+
+servers:
+  - url: http://localhost:8000/api/v2
+    description: Local development server
+  - url: https://tenant.cubeonebiz.com/api/v2
+    description: Production server
+
+tags:
+  - name: Health
+    description: Health check endpoints
+  - name: Kitchens
+    description: Kitchen operations
+  - name: Recipes
+    description: Recipe management
+  - name: Kitchen Masters
+    description: Kitchen master management
+  - name: Integration
+    description: Integration endpoints for other services
+  - name: QuickServe Integration
+    description: Integration endpoints for QuickServe service
+  - name: Delivery Integration
+    description: Integration endpoints for Delivery service
+  - name: Customer Integration
+    description: Integration endpoints for Customer service
+
+paths:
+  /health:
+    get:
+      summary: Check service health
+      description: Returns the health status of the service
+      operationId: healthCheck
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  service:
+                    type: string
+                    example: kitchen-service
+                  version:
+                    type: string
+                    example: 1.0.0
+                  timestamp:
+                    type: string
+                    format: date-time
+                  database:
+                    type: string
+                    example: ok
+
+  /kitchens:
+    get:
+      summary: Get all kitchens
+      description: Returns a list of all kitchens with optional filtering
+      operationId: getKitchens
+      tags:
+        - Kitchens
+      parameters:
+        - name: date
+          in: query
+          description: Filter by date (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: menu
+          in: query
+          description: Filter by menu
+          schema:
+            type: string
+        - name: kitchen_id
+          in: query
+          description: Filter by kitchen ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A list of kitchens
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Kitchen'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /kitchens/{id}:
+    get:
+      summary: Get a kitchen by ID
+      description: Returns a kitchen by ID
+      operationId: getKitchenById
+      tags:
+        - Kitchens
+      parameters:
+        - name: id
+          in: path
+          description: Kitchen ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A kitchen
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Kitchen'
+        '404':
+          description: Kitchen not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /kitchens/{id}/prepared:
+    post:
+      summary: Update prepared count
+      description: Updates the prepared count for a kitchen
+      operationId: updatePrepared
+      tags:
+        - Kitchens
+      parameters:
+        - name: id
+          in: path
+          description: Kitchen ID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                menu:
+                  type: string
+                  description: Menu type
+                date:
+                  type: string
+                  format: date
+                  description: Date (YYYY-MM-DD)
+                screen:
+                  type: integer
+                  description: Screen ID
+      responses:
+        '200':
+          description: Prepared count updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Kitchen'
+        '404':
+          description: Kitchen not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /kitchens/{id}/prepared/all:
+    post:
+      summary: Update all prepared count
+      description: Updates all prepared count for a kitchen
+      operationId: updateAllPrepared
+      tags:
+        - Kitchens
+      parameters:
+        - name: id
+          in: path
+          description: Kitchen ID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                menu:
+                  type: string
+                  description: Menu type
+                date:
+                  type: string
+                  format: date
+                  description: Date (YYYY-MM-DD)
+                screen:
+                  type: integer
+                  description: Screen ID
+      responses:
+        '200':
+          description: All prepared count updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Kitchen'
+        '404':
+          description: Kitchen not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /recipes/{id}:
+    get:
+      summary: Get a recipe by ID
+      description: Returns a recipe by ID
+      operationId: getRecipeById
+      tags:
+        - Recipes
+      parameters:
+        - name: id
+          in: path
+          description: Product ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A recipe
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Vegetable Meal
+                      recipe:
+                        type: string
+                        example: <p>Recipe instructions...</p>
+        '404':
+          description: Recipe not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /kitchen-masters:
+    get:
+      summary: Get all kitchen masters
+      description: Returns a list of all kitchen masters with optional filtering
+      operationId: getKitchenMasters
+      tags:
+        - Kitchen Masters
+      parameters:
+        - name: status
+          in: query
+          description: Filter by status
+          schema:
+            type: boolean
+        - name: company_id
+          in: query
+          description: Filter by company ID
+          schema:
+            type: integer
+        - name: unit_id
+          in: query
+          description: Filter by unit ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A list of kitchen masters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/KitchenMaster'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    post:
+      summary: Create a kitchen master
+      description: Creates a new kitchen master
+      operationId: createKitchenMaster
+      tags:
+        - Kitchen Masters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KitchenMasterInput'
+      responses:
+        '200':
+          description: Kitchen master created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KitchenMaster'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /kitchen-masters/{id}:
+    get:
+      summary: Get a kitchen master by ID
+      description: Returns a kitchen master by ID
+      operationId: getKitchenMasterById
+      tags:
+        - Kitchen Masters
+      parameters:
+        - name: id
+          in: path
+          description: Kitchen master ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A kitchen master
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KitchenMaster'
+        '404':
+          description: Kitchen master not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      summary: Update a kitchen master
+      description: Updates a kitchen master
+      operationId: updateKitchenMaster
+      tags:
+        - Kitchen Masters
+      parameters:
+        - name: id
+          in: path
+          description: Kitchen master ID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KitchenMasterInput'
+      responses:
+        '200':
+          description: Kitchen master updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KitchenMaster'
+        '404':
+          description: Kitchen master not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      summary: Delete a kitchen master
+      description: Deletes a kitchen master
+      operationId: deleteKitchenMaster
+      tags:
+        - Kitchen Masters
+      parameters:
+        - name: id
+          in: path
+          description: Kitchen master ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Kitchen master deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Kitchen master deleted successfully
+        '404':
+          description: Kitchen master not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+# Integration endpoints
+  /integration/preparation-status:
+    get:
+      summary: Get preparation status for products
+      description: Returns preparation status for products
+      operationId: getPreparationStatus
+      tags:
+        - Integration
+        - QuickServe Integration
+      parameters:
+        - name: product_ids
+          in: query
+          description: Product IDs
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+        - name: kitchen_id
+          in: query
+          description: Kitchen ID
+          required: false
+          schema:
+            type: integer
+        - name: date
+          in: query
+          description: Date (YYYY-MM-DD)
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: menu
+          in: query
+          description: Menu (e.g., lunch, dinner)
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Preparation status for products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/KitchenPreparationResource'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /integration/orders/{orderId}/preparation-status:
+    get:
+      summary: Get preparation status for an order
+      description: Returns preparation status for an order
+      operationId: getOrderPreparationStatus
+      tags:
+        - Integration
+        - QuickServe Integration
+      parameters:
+        - name: orderId
+          in: path
+          description: Order ID
+          required: true
+          schema:
+            type: string
+        - name: date
+          in: query
+          description: Date (YYYY-MM-DD)
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: menu
+          in: query
+          description: Menu (e.g., lunch, dinner)
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Preparation status for an order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      order_id:
+                        type: string
+                        example: ORD-001
+                      date:
+                        type: string
+                        format: date
+                        example: '2023-06-01'
+                      menu:
+                        type: string
+                        example: lunch
+                      is_fully_prepared:
+                        type: boolean
+                        example: false
+                      preparation_percentage:
+                        type: number
+                        format: float
+                        example: 50
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/KitchenPreparationResource'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /integration/preparation-summary:
+    get:
+      summary: Get preparation summary
+      description: Returns preparation summary for a date and menu
+      operationId: getPreparationSummary
+      tags:
+        - Integration
+        - QuickServe Integration
+      parameters:
+        - name: kitchen_id
+          in: query
+          description: Kitchen ID
+          required: false
+          schema:
+            type: integer
+        - name: date
+          in: query
+          description: Date (YYYY-MM-DD)
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: menu
+          in: query
+          description: Menu (e.g., lunch, dinner)
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Preparation summary
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      date:
+                        type: string
+                        format: date
+                        example: '2023-06-01'
+                      menu:
+                        type: string
+                        example: lunch
+                      kitchen_id:
+                        type: integer
+                        nullable: true
+                        example: 1
+                      total_orders:
+                        type: integer
+                        example: 10
+                      total_prepared:
+                        type: integer
+                        example: 5
+                      remaining:
+                        type: integer
+                        example: 5
+                      preparation_percentage:
+                        type: number
+                        format: float
+                        example: 50
+                      is_fully_prepared:
+                        type: boolean
+                        example: false
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # Delivery Integration endpoints
+  /integration/delivery/orders/{orderId}/preparation-status:
+    get:
+      summary: Get preparation status for an order (Delivery)
+      description: Returns preparation status for an order for the Delivery service
+      operationId: getOrderPreparationStatusForDelivery
+      tags:
+        - Integration
+        - Delivery Integration
+      parameters:
+        - name: orderId
+          in: path
+          description: Order ID
+          required: true
+          schema:
+            type: string
+        - name: date
+          in: query
+          description: Date (YYYY-MM-DD)
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: menu
+          in: query
+          description: Menu (e.g., lunch, dinner)
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Preparation status for an order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      order_id:
+                        type: string
+                        example: ORD-001
+                      date:
+                        type: string
+                        format: date
+                        example: '2023-06-01'
+                      menu:
+                        type: string
+                        example: lunch
+                      is_fully_prepared:
+                        type: boolean
+                        example: false
+                      preparation_percentage:
+                        type: number
+                        format: float
+                        example: 50
+                      status:
+                        type: string
+                        example: preparing
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /integration/delivery/orders/{orderId}/estimate-delivery-time:
+    get:
+      summary: Estimate delivery time for an order
+      description: Returns estimated delivery time for an order
+      operationId: estimateDeliveryTime
+      tags:
+        - Integration
+        - Delivery Integration
+      parameters:
+        - name: orderId
+          in: path
+          description: Order ID
+          required: true
+          schema:
+            type: string
+        - name: date
+          in: query
+          description: Date (YYYY-MM-DD)
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: menu
+          in: query
+          description: Menu (e.g., lunch, dinner)
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Estimated delivery time
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      order_id:
+                        type: string
+                        example: ORD-001
+                      preparation_time_minutes:
+                        type: integer
+                        example: 15
+                      delivery_time_minutes:
+                        type: integer
+                        example: 30
+                      total_estimated_time_minutes:
+                        type: integer
+                        example: 45
+                      estimated_delivery_time:
+                        type: string
+                        format: date-time
+                        example: '2023-06-01T12:45:00Z'
+                      preparation_status:
+                        type: object
+                        properties:
+                          is_fully_prepared:
+                            type: boolean
+                            example: false
+                          preparation_percentage:
+                            type: number
+                            format: float
+                            example: 50
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /integration/delivery/status-update:
+    post:
+      summary: Notify delivery status update
+      description: Notifies the kitchen about a delivery status update
+      operationId: notifyDeliveryStatusUpdate
+      tags:
+        - Integration
+        - Delivery Integration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                order_id:
+                  type: string
+                  example: ORD-001
+                status:
+                  type: string
+                  example: delivered
+                timestamp:
+                  type: string
+                  format: date-time
+                  example: '2023-06-01T12:30:00Z'
+                delivery_agent:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: John Doe
+              required:
+                - order_id
+                - status
+      responses:
+        '200':
+          description: Delivery status update received
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Delivery status update received
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # Customer Integration endpoints
+  /integration/customer/orders/{orderId}/preparation-status:
+    get:
+      summary: Get preparation status for an order (Customer)
+      description: Returns preparation status for an order for the Customer service
+      operationId: getOrderPreparationStatusForCustomer
+      tags:
+        - Integration
+        - Customer Integration
+      parameters:
+        - name: orderId
+          in: path
+          description: Order ID
+          required: true
+          schema:
+            type: string
+        - name: date
+          in: query
+          description: Date (YYYY-MM-DD)
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: menu
+          in: query
+          description: Menu (e.g., lunch, dinner)
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Preparation status for an order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      order_id:
+                        type: string
+                        example: ORD-001
+                      date:
+                        type: string
+                        format: date
+                        example: '2023-06-01'
+                      menu:
+                        type: string
+                        example: lunch
+                      is_fully_prepared:
+                        type: boolean
+                        example: false
+                      preparation_percentage:
+                        type: number
+                        format: float
+                        example: 50
+                      status:
+                        type: string
+                        example: preparing
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /integration/customer/orders/preparation-status:
+    post:
+      summary: Get preparation status for multiple orders
+      description: Returns preparation status for multiple orders
+      operationId: getMultipleOrdersPreparationStatus
+      tags:
+        - Integration
+        - Customer Integration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                order_ids:
+                  type: array
+                  items:
+                    type: string
+                  example: ['ORD-001', 'ORD-002']
+                date:
+                  type: string
+                  format: date
+                  example: '2023-06-01'
+                menu:
+                  type: string
+                  example: lunch
+              required:
+                - order_ids
+      responses:
+        '200':
+          description: Preparation status for multiple orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          format: date
+                          example: '2023-06-01'
+                        menu:
+                          type: string
+                          example: lunch
+                        is_fully_prepared:
+                          type: boolean
+                          example: false
+                        preparation_percentage:
+                          type: number
+                          format: float
+                          example: 50
+                        status:
+                          type: string
+                          example: preparing
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /integration/customer/{customerId}/preparation-summary:
+    get:
+      summary: Get preparation summary for a customer
+      description: Returns preparation summary for a customer
+      operationId: getCustomerPreparationSummary
+      tags:
+        - Integration
+        - Customer Integration
+      parameters:
+        - name: customerId
+          in: path
+          description: Customer ID
+          required: true
+          schema:
+            type: string
+        - name: date
+          in: query
+          description: Date (YYYY-MM-DD)
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: menu
+          in: query
+          description: Menu (e.g., lunch, dinner)
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Preparation summary for a customer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      customer_id:
+                        type: string
+                        example: CUST-001
+                      date:
+                        type: string
+                        format: date
+                        example: '2023-06-01'
+                      menu:
+                        type: string
+                        example: lunch
+                      total_orders:
+                        type: integer
+                        example: 2
+                      prepared_orders:
+                        type: integer
+                        example: 1
+                      preparation_percentage:
+                        type: number
+                        format: float
+                        example: 50
+                      orders:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            order_id:
+                              type: string
+                              example: ORD-001
+                            is_fully_prepared:
+                              type: boolean
+                              example: true
+                            preparation_percentage:
+                              type: number
+                              format: float
+                              example: 100
+                            status:
+                              type: string
+                              example: ready_for_delivery
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Kitchen:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+        product_id:
+          type: integer
+          example: 1
+        kitchen_id:
+          type: integer
+          example: 1
+        total_order:
+          type: integer
+          example: 10
+        prepared:
+          type: integer
+          example: 5
+        remaining_orders:
+          type: integer
+          example: 5
+        date:
+          type: string
+          format: date
+          example: 2023-05-18
+        order_menu:
+          type: string
+          example: lunch
+        status:
+          type: boolean
+          example: true
+        product:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: Vegetable Meal
+            kitchen_code:
+              type: string
+              example: VM001
+            quantity:
+              type: number
+              format: float
+              example: 1.0
+            unit:
+              type: string
+              example: plate
+            screen:
+              type: integer
+              example: 1
+        kitchen_master:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: Main Kitchen
+            alias:
+              type: string
+              example: MK
+            location:
+              type: string
+              example: Downtown
+        created_at:
+          type: string
+          format: date-time
+          example: 2023-05-18T12:00:00Z
+        updated_at:
+          type: string
+          format: date-time
+          example: 2023-05-18T12:00:00Z
+
+    KitchenMaster:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+        kitchen_name:
+          type: string
+          example: Main Kitchen
+        kitchen_alias:
+          type: string
+          example: MK
+        location:
+          type: string
+          example: Downtown
+        location_id:
+          type: integer
+          example: 1
+        city_id:
+          type: integer
+          example: 1
+        base_kitchen:
+          type: boolean
+          example: true
+        kitchen_address:
+          type: string
+          example: 123 Main St, Downtown
+        created_by:
+          type: integer
+          example: 1
+        updated_by:
+          type: integer
+          example: 1
+        status:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+          example: 2023-05-18T12:00:00Z
+        updated_at:
+          type: string
+          format: date-time
+          example: 2023-05-18T12:00:00Z
+
+    KitchenMasterInput:
+      type: object
+      required:
+        - kitchen_name
+      properties:
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+        kitchen_name:
+          type: string
+          example: Main Kitchen
+        kitchen_alias:
+          type: string
+          example: MK
+        location:
+          type: string
+          example: Downtown
+        location_id:
+          type: integer
+          example: 1
+        city_id:
+          type: integer
+          example: 1
+        base_kitchen:
+          type: boolean
+          example: true
+        kitchen_address:
+          type: string
+          example: 123 Main St, Downtown
+        created_by:
+          type: integer
+          example: 1
+        updated_by:
+          type: integer
+          example: 1
+        status:
+          type: boolean
+          example: true
+
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: An error occurred
+
+    ValidationError:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: The given data was invalid
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          example:
+            kitchen_name:
+              - The kitchen name field is required.
+
+    KitchenPreparationResource:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        product_id:
+          type: integer
+          example: 1
+        kitchen_id:
+          type: integer
+          example: 1
+        total_order:
+          type: integer
+          example: 10
+        prepared:
+          type: integer
+          example: 5
+        remaining:
+          type: integer
+          example: 5
+        preparation_percentage:
+          type: number
+          format: float
+          example: 50
+        is_fully_prepared:
+          type: boolean
+          example: false
+        date:
+          type: string
+          format: date
+          example: '2023-06-01'
+        menu:
+          type: string
+          example: lunch
+        product:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: Chicken Curry
+            kitchen_code:
+              type: string
+              example: KC001
+        kitchen_master:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: Main Kitchen
+            alias:
+              type: string
+              example: MK
+            location:
+              type: string
+              example: Downtown

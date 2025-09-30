@@ -1,0 +1,54 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code settings (usually not committed)
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio build artifacts
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Built_value generated files
+lib/src/model/*.g.dart
+lib/src/model/*.g.dart.part
+lib/src/model/*.g.dart.lock
+lib/src/model/*.g.dart.tmp
+
+# Invoice SDK / generated API client
+lib/src/model/*.g.dart
+lib/src/api_client/lib/src/*.g.dart
+lib/src/api_client/lib/src/*.g.dart.lock

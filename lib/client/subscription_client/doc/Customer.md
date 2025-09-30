@@ -1,0 +1,18 @@
+# openapi.model.Customer
+
+## Load the model package
+```dart
+import 'package:openapi/api.dart';
+```
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **int** | Unique identifier for the customer | [optional] 
+**customerName** | **String** | Name of the customer | [optional] 
+**phone** | **String** | Phone number | [optional] 
+**emailAddress** | **String** | Email address | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

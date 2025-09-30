@@ -1,0 +1,983 @@
+openapi: 3.0.3
+info:
+  title: OneFoodDialer 2025 Invoice Service API
+  description: |
+    Invoice Service for OneFoodDialer 2025 - A Laravel 12 microservice for invoice generation and management.
+    
+    This service provides comprehensive invoice management capabilities including:
+    - Invoice creation and management
+    - PDF generation with customizable templates
+    - Invoice status tracking and updates
+    - Payment integration
+    - Statistics and reporting
+    
+    ## Authentication
+    This API uses JWT Bearer token authentication. Include the token in the Authorization header:
+    ```
+    Authorization: Bearer <your-jwt-token>
+    ```
+    
+    ## Rate Limiting
+    - 100 requests per minute
+    - 2000 requests per hour
+    
+    ## Response Format
+    All responses follow a consistent format:
+    ```json
+    {
+      "success": true|false,
+      "message": "Description of the result",
+      "data": {...},
+      "errors": {...}
+    }
+    ```
+  version: 1.0.0
+  contact:
+    name: OneFoodDialer Support
+    email: support@onefooddialer.com
+    url: https://onefooddialer.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.onefooddialer.com/v2/invoice
+    description: Production server
+  - url: https://staging-api.onefooddialer.com/v2/invoice
+    description: Staging server
+  - url: http://localhost:8000/v2
+    description: Local development server
+
+paths:
+  /health:
+    get:
+      summary: Health check
+      description: Check if the invoice service is healthy
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: healthy
+                  service:
+                    type: string
+                    example: invoice-service-v12
+                  timestamp:
+                    type: string
+                    format: date-time
+                  version:
+                    type: string
+                    example: 1.0.0
+
+  /invoices:
+    get:
+      summary: List invoices
+      description: Retrieve a paginated list of invoices with optional filtering
+      tags:
+        - Invoices
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: customer_id
+          in: query
+          description: Filter by customer ID
+          schema:
+            type: integer
+        - name: status
+          in: query
+          description: Filter by invoice status
+          schema:
+            type: string
+            enum: [draft, sent, paid, overdue, cancelled]
+        - name: type
+          in: query
+          description: Filter by invoice type
+          schema:
+            type: string
+            enum: [order, subscription, refund, adjustment]
+        - name: company_id
+          in: query
+          description: Filter by company ID
+          schema:
+            type: integer
+        - name: date_from
+          in: query
+          description: Filter invoices from this date
+          schema:
+            type: string
+            format: date
+        - name: date_to
+          in: query
+          description: Filter invoices to this date
+          schema:
+            type: string
+            format: date
+        - name: per_page
+          in: query
+          description: Number of items per page
+          schema:
+            type: integer
+            default: 15
+            minimum: 1
+            maximum: 100
+      responses:
+        '200':
+          description: Invoices retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Invoices retrieved successfully
+                  data:
+                    type: object
+                    required:
+                      - data
+                      - current_page
+                      - last_page
+                      - per_page
+                      - total
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Invoice'
+                      current_page:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 10
+                      per_page:
+                        type: integer
+                        example: 15
+                      total:
+                        type: integer
+                        example: 150
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    post:
+      summary: Create invoice
+      description: Create a new invoice with items
+      tags:
+        - Invoices
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInvoiceRequest'
+      responses:
+        '201':
+          description: Invoice created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Invoice created successfully
+                  data:
+                    $ref: '#/components/schemas/Invoice'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /invoices/{id}:
+    get:
+      summary: Get invoice
+      description: Retrieve a specific invoice by ID
+      tags:
+        - Invoices
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Invoice ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Invoice retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Invoice retrieved successfully
+                  data:
+                    $ref: '#/components/schemas/Invoice'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    put:
+      summary: Update invoice
+      description: Update invoice status and related information
+      tags:
+        - Invoices
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Invoice ID
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInvoiceRequest'
+      responses:
+        '200':
+          description: Invoice updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Invoice updated successfully
+                  data:
+                    $ref: '#/components/schemas/Invoice'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    delete:
+      summary: Delete invoice
+      description: Soft delete an invoice
+      tags:
+        - Invoices
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Invoice ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Invoice deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Invoice deleted successfully
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /invoices/{id}/pdf:
+    get:
+      summary: Download invoice PDF
+      description: Generate and download invoice as PDF
+      tags:
+        - Invoices
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Invoice ID
+          schema:
+            type: integer
+        - name: download
+          in: query
+          description: Force download instead of inline display
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: PDF generated successfully
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /invoices/{id}/mark-paid:
+    post:
+      summary: Mark invoice as paid
+      description: Mark an invoice as paid with payment details
+      tags:
+        - Invoices
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Invoice ID
+          schema:
+            type: integer
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payment_method:
+                  type: string
+                  description: Payment method used
+                  example: credit_card
+                payment_reference:
+                  type: string
+                  description: Payment reference or transaction ID
+                  example: TXN123456789
+      responses:
+        '200':
+          description: Invoice marked as paid successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Invoice marked as paid successfully
+                  data:
+                    $ref: '#/components/schemas/Invoice'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /invoices/statistics:
+    get:
+      summary: Get invoice statistics
+      description: Retrieve invoice statistics and metrics
+      tags:
+        - Statistics
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: company_id
+          in: query
+          description: Filter by company ID
+          schema:
+            type: integer
+        - name: date_from
+          in: query
+          description: Statistics from this date
+          schema:
+            type: string
+            format: date
+        - name: date_to
+          in: query
+          description: Statistics to this date
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Statistics retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - data
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Invoice statistics retrieved successfully
+                  data:
+                    $ref: '#/components/schemas/InvoiceStatistics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Invoice:
+      type: object
+      required:
+        - id
+        - invoice_number
+        - customer_id
+        - customer_name
+        - customer_email
+        - subtotal
+        - tax_amount
+        - discount_amount
+        - total_amount
+        - currency
+        - status
+        - type
+        - due_date
+        - company_id
+      properties:
+        id:
+          type: integer
+          example: 1
+        invoice_number:
+          type: string
+          example: INV-202406-0001
+        customer_id:
+          type: integer
+          example: 123
+        order_id:
+          type: integer
+          nullable: true
+          example: 456
+        subscription_id:
+          type: integer
+          nullable: true
+          example: 789
+        customer_name:
+          type: string
+          example: John Doe
+        customer_email:
+          type: string
+          format: email
+          example: john.doe@example.com
+        customer_phone:
+          type: string
+          nullable: true
+          example: +91 98765 43210
+        billing_address:
+          $ref: '#/components/schemas/Address'
+        shipping_address:
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/Address'
+        subtotal:
+          type: number
+          format: double
+          example: 1000.00
+        tax_amount:
+          type: number
+          format: double
+          example: 180.00
+        discount_amount:
+          type: number
+          format: double
+          example: 50.00
+        total_amount:
+          type: number
+          format: double
+          example: 1130.00
+        currency:
+          type: string
+          example: INR
+        status:
+          type: string
+          enum: [draft, sent, paid, overdue, cancelled]
+          example: sent
+        type:
+          type: string
+          enum: [order, subscription, refund, adjustment]
+          example: order
+        due_date:
+          type: string
+          format: date
+          example: 2024-07-01
+        paid_at:
+          type: string
+          format: date-time
+          nullable: true
+          example: 2024-06-15T10:30:00Z
+        payment_method:
+          type: string
+          nullable: true
+          example: credit_card
+        payment_reference:
+          type: string
+          nullable: true
+          example: TXN123456789
+        notes:
+          type: string
+          nullable: true
+          example: Thank you for your business
+        metadata:
+          type: object
+          nullable: true
+          additionalProperties: true
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          nullable: true
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          example: 2024-06-01T10:00:00Z
+        updated_at:
+          type: string
+          format: date-time
+          example: 2024-06-01T10:00:00Z
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceItem'
+
+    InvoiceItem:
+      type: object
+      required:
+        - id
+        - invoice_id
+        - description
+        - quantity
+        - unit_price
+        - total_price
+      properties:
+        id:
+          type: integer
+          example: 1
+        invoice_id:
+          type: integer
+          example: 1
+        product_id:
+          type: integer
+          nullable: true
+          example: 100
+        description:
+          type: string
+          example: Premium Food Package
+        quantity:
+          type: number
+          format: double
+          example: 2
+        unit_price:
+          type: number
+          format: double
+          example: 500.00
+        tax_rate:
+          type: number
+          format: double
+          example: 18.00
+        discount_amount:
+          type: number
+          format: double
+          example: 25.00
+        total_price:
+          type: number
+          format: double
+          example: 975.00
+        created_at:
+          type: string
+          format: date-time
+          example: 2024-06-01T10:00:00Z
+        updated_at:
+          type: string
+          format: date-time
+          example: 2024-06-01T10:00:00Z
+
+    Address:
+      type: object
+      required:
+        - line1
+        - city
+        - state
+        - postal_code
+        - country
+      properties:
+        line1:
+          type: string
+          example: 123 Main Street
+        line2:
+          type: string
+          nullable: true
+          example: Apartment 4B
+        city:
+          type: string
+          example: Mumbai
+        state:
+          type: string
+          example: Maharashtra
+        postal_code:
+          type: string
+          example: 400001
+        country:
+          type: string
+          example: India
+
+    InvoiceStatistics:
+      type: object
+      required:
+        - total_invoices
+        - total_amount
+        - paid_amount
+        - pending_amount
+        - overdue_amount
+        - draft_count
+        - sent_count
+        - paid_count
+        - overdue_count
+        - cancelled_count
+        - currency
+      properties:
+        total_invoices:
+          type: integer
+          example: 150
+        total_amount:
+          type: number
+          format: double
+          example: 250000.00
+        paid_amount:
+          type: number
+          format: double
+          example: 180000.00
+        pending_amount:
+          type: number
+          format: double
+          example: 50000.00
+        overdue_amount:
+          type: number
+          format: double
+          example: 20000.00
+        draft_count:
+          type: integer
+          example: 5
+        sent_count:
+          type: integer
+          example: 30
+        paid_count:
+          type: integer
+          example: 100
+        overdue_count:
+          type: integer
+          example: 10
+        cancelled_count:
+          type: integer
+          example: 5
+        currency:
+          type: string
+          example: INR
+
+    CreateInvoiceRequest:
+      type: object
+      required:
+        - customer_id
+        - customer_name
+        - customer_email
+        - billing_address
+        - due_date
+        - currency
+        - type
+        - items
+      properties:
+        customer_id:
+          type: integer
+          example: 123
+        order_id:
+          type: integer
+          nullable: true
+          example: 456
+        subscription_id:
+          type: integer
+          nullable: true
+          example: 789
+        customer_name:
+          type: string
+          example: John Doe
+        customer_email:
+          type: string
+          format: email
+          example: john.doe@example.com
+        customer_phone:
+          type: string
+          nullable: true
+          example: +91 98765 43210
+        billing_address:
+          $ref: '#/components/schemas/Address'
+        shipping_address:
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/Address'
+        due_date:
+          type: string
+          format: date
+          example: 2024-07-01
+        currency:
+          type: string
+          example: INR
+          default: INR
+        type:
+          type: string
+          enum: [order, subscription, refund, adjustment]
+          example: order
+        notes:
+          type: string
+          nullable: true
+          example: Thank you for your business
+        metadata:
+          type: object
+          nullable: true
+          additionalProperties: true
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          nullable: true
+          example: 1
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/CreateInvoiceItemRequest'
+
+    CreateInvoiceItemRequest:
+      type: object
+      required:
+        - description
+        - quantity
+        - unit_price
+      properties:
+        product_id:
+          type: integer
+          nullable: true
+          example: 100
+        description:
+          type: string
+          example: Premium Food Package
+        quantity:
+          type: number
+          format: double
+          example: 2
+          minimum: 0.01
+        unit_price:
+          type: number
+          format: double
+          example: 500.00
+          minimum: 0
+        tax_rate:
+          type: number
+          format: double
+          example: 18.00
+          minimum: 0
+          maximum: 100
+          default: 0
+        discount_amount:
+          type: number
+          format: double
+          example: 25.00
+          minimum: 0
+          default: 0
+
+    UpdateInvoiceRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [draft, sent, paid, overdue, cancelled]
+          example: sent
+        customer_name:
+          type: string
+          example: John Doe
+        customer_email:
+          type: string
+          format: email
+          example: john.doe@example.com
+        customer_phone:
+          type: string
+          nullable: true
+          example: +91 98765 43210
+        billing_address:
+          $ref: '#/components/schemas/Address'
+        shipping_address:
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/Address'
+        due_date:
+          type: string
+          format: date
+          example: 2024-07-01
+        notes:
+          type: string
+          nullable: true
+          example: Thank you for your business
+        metadata:
+          type: object
+          nullable: true
+          additionalProperties: true
+
+    ErrorResponse:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: An error occurred
+        errors:
+          type: object
+          nullable: true
+          additionalProperties: true
+
+    ValidationErrorResponse:
+      type: object
+      required:
+        - success
+        - message
+        - errors
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: Validation failed
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          example:
+            customer_email:
+              - The customer email field is required.
+            items:
+              - The items field must contain at least 1 item.
+
+  responses:
+    Unauthorized:
+      description: Unauthorized - Invalid or missing authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            message: Unauthorized
+
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            message: Invoice not found
+
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationErrorResponse'
+
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            message: An internal server error occurred

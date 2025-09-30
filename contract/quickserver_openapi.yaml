@@ -1,0 +1,1945 @@
+openapi: 3.1.0
+info:
+  title: QuickServe Service API
+  description: API for managing orders, products, and customers in the QuickServe microservice
+  version: 1.0.0
+  contact:
+    name: CubeOneBiz
+    url: https://cubeonebiz.com
+servers:
+  - url: /api/v2/quickserve
+    description: QuickServe API v2
+  - url: /api/v1/quickserve
+    description: QuickServe API v1 (Legacy)
+paths:
+  /health:
+    get:
+      summary: Health check endpoint
+      description: Returns the health status of the QuickServe service
+      operationId: healthCheck
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  service:
+                    type: string
+                    example: quickserve-service
+                  version:
+                    type: string
+                    example: 12.0
+                  timestamp:
+                    type: string
+                    format: date-time
+                    example: 2023-05-17T12:00:00Z
+  /orders:
+    get:
+      summary: Get all orders
+      description: Returns a list of all orders with optional filtering
+      operationId: getOrders
+      tags:
+        - Orders
+      parameters:
+        - name: order_status
+          in: query
+          description: Filter by order status
+          schema:
+            type: string
+        - name: delivery_status
+          in: query
+          description: Filter by delivery status
+          schema:
+            type: string
+        - name: order_menu
+          in: query
+          description: Filter by order menu
+          schema:
+            type: string
+        - name: from_date
+          in: query
+          description: Filter by order date (from)
+          schema:
+            type: string
+            format: date
+        - name: to_date
+          in: query
+          description: Filter by order date (to)
+          schema:
+            type: string
+            format: date
+        - name: per_page
+          in: query
+          description: Number of items per page
+          schema:
+            type: integer
+            default: 15
+        - name: page
+          in: query
+          description: Page number
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: A list of orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Operation successful
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+    post:
+      summary: Create a new order
+      description: Creates a new order with the provided data
+      operationId: createOrder
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderCreate'
+      responses:
+        '200':
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Order created successfully
+                  data:
+                    $ref: '#/components/schemas/Order'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+  /orders/{id}:
+    get:
+      summary: Get order by ID
+      description: Returns a single order by ID
+      operationId: getOrderById
+      tags:
+        - Orders
+      parameters:
+        - name: id
+          in: path
+          description: Order ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Order found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Operation successful
+                  data:
+                    $ref: '#/components/schemas/Order'
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update order
+      description: Updates an existing order
+      operationId: updateOrder
+      tags:
+        - Orders
+      parameters:
+        - name: id
+          in: path
+          description: Order ID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderUpdate'
+      responses:
+        '200':
+          description: Order updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Order updated successfully
+                  data:
+                    $ref: '#/components/schemas/Order'
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+    delete:
+      summary: Delete order
+      description: Deletes an existing order
+      operationId: deleteOrder
+      tags:
+        - Orders
+      parameters:
+        - name: id
+          in: path
+          description: Order ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Order deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Order deleted successfully
+                  data:
+                    type: null
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /config:
+    get:
+      summary: Get all configuration values
+      description: Returns all configuration values
+      operationId: getAllConfig
+      tags:
+        - Config
+      responses:
+        '200':
+          description: Configuration retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Configuration retrieved successfully
+                  data:
+                    type: object
+                    additionalProperties:
+                      type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /config/settings:
+    get:
+      summary: Get all settings
+      description: Returns all settings from the database
+      operationId: getAllSettings
+      tags:
+        - Config
+      responses:
+        '200':
+          description: Settings retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Settings retrieved successfully
+                  data:
+                    type: object
+                    additionalProperties:
+                      type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /config/{key}:
+    get:
+      summary: Get a specific configuration value
+      description: Returns a specific configuration value by key
+      operationId: getConfigByKey
+      tags:
+        - Config
+      parameters:
+        - name: key
+          in: path
+          description: Configuration key
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Configuration retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Configuration retrieved successfully
+                  data:
+                    type: object
+                    properties:
+                      key:
+                        type: string
+                        example: site_name
+                      value:
+                        type: string
+                        example: CubeOneBiz Food Delivery
+        '404':
+          description: Configuration key not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a configuration value
+      description: Updates a specific configuration value by key
+      operationId: updateConfigByKey
+      tags:
+        - Config
+      parameters:
+        - name: key
+          in: path
+          description: Configuration key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - value
+              properties:
+                value:
+                  type: string
+                  example: New Value
+      responses:
+        '200':
+          description: Configuration updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Configuration updated successfully
+                  data:
+                    type: object
+                    properties:
+                      key:
+                        type: string
+                        example: site_name
+                      value:
+                        type: string
+                        example: New Value
+        '404':
+          description: Configuration key not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+  /timeslots:
+    get:
+      summary: Get all timeslots
+      description: Returns a list of all timeslots with optional filtering
+      operationId: getTimeslots
+      tags:
+        - Timeslots
+      parameters:
+        - name: day
+          in: query
+          description: Filter by day
+          schema:
+            type: string
+        - name: menu_type
+          in: query
+          description: Filter by menu type
+          schema:
+            type: string
+        - name: kitchen
+          in: query
+          description: Filter by kitchen
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by status
+          schema:
+            type: integer
+            enum: [0, 1]
+      responses:
+        '200':
+          description: A list of timeslots
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Operation successful
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Timeslot'
+    post:
+      summary: Create a new timeslot
+      description: Creates a new timeslot with the provided data
+      operationId: createTimeslot
+      tags:
+        - Timeslots
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeslotCreate'
+      responses:
+        '200':
+          description: Timeslot created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Timeslot created successfully
+                  data:
+                    $ref: '#/components/schemas/Timeslot'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+  /timeslots/available:
+    get:
+      summary: Get available timeslots
+      description: Returns a list of available timeslots for a specific day, menu type, and kitchen
+      operationId: getAvailableTimeslots
+      tags:
+        - Timeslots
+      parameters:
+        - name: day
+          in: query
+          description: Day of the week
+          required: true
+          schema:
+            type: string
+        - name: menu_type
+          in: query
+          description: Menu type
+          required: true
+          schema:
+            type: string
+        - name: kitchen
+          in: query
+          description: Kitchen
+          required: true
+          schema:
+            type: string
+        - name: order_date
+          in: query
+          description: Order date
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: A list of available timeslots
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Operation successful
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Timeslot'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+  /timeslots/{id}:
+    get:
+      summary: Get timeslot by ID
+      description: Returns a single timeslot by ID
+      operationId: getTimeslotById
+      tags:
+        - Timeslots
+      parameters:
+        - name: id
+          in: path
+          description: Timeslot ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Timeslot found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Operation successful
+                  data:
+                    $ref: '#/components/schemas/Timeslot'
+        '404':
+          description: Timeslot not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update timeslot
+      description: Updates an existing timeslot
+      operationId: updateTimeslot
+      tags:
+        - Timeslots
+      parameters:
+        - name: id
+          in: path
+          description: Timeslot ID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeslotUpdate'
+      responses:
+        '200':
+          description: Timeslot updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Timeslot updated successfully
+                  data:
+                    $ref: '#/components/schemas/Timeslot'
+        '404':
+          description: Timeslot not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+    delete:
+      summary: Delete timeslot
+      description: Deletes an existing timeslot
+      operationId: deleteTimeslot
+      tags:
+        - Timeslots
+      parameters:
+        - name: id
+          in: path
+          description: Timeslot ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Timeslot deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Timeslot deleted successfully
+                  data:
+                    type: null
+        '404':
+          description: Timeslot not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /locations:
+    get:
+      summary: Get all location mappings
+      description: Returns a list of all location mappings with optional filtering
+      operationId: getLocationMappings
+      tags:
+        - Locations
+      parameters:
+        - name: city_code
+          in: query
+          description: Filter by city code
+          schema:
+            type: string
+        - name: kitchen_code
+          in: query
+          description: Filter by kitchen code
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by status
+          schema:
+            type: integer
+            enum: [0, 1]
+        - name: search
+          in: query
+          description: Search by location name, city name, or kitchen name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of location mappings
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Operation successful
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LocationMapping'
+    post:
+      summary: Create a new location mapping
+      description: Creates a new location mapping with the provided data
+      operationId: createLocationMapping
+      tags:
+        - Locations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationMappingCreate'
+      responses:
+        '200':
+          description: Location mapping created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Location mapping created successfully
+                  data:
+                    $ref: '#/components/schemas/LocationMapping'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+  /locations/by-city:
+    get:
+      summary: Get locations by city
+      description: Returns a list of locations for a specific city
+      operationId: getLocationsByCity
+      tags:
+        - Locations
+      parameters:
+        - name: city_code
+          in: query
+          description: City code
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of locations for the specified city
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Operation successful
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LocationMapping'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+  /locations/by-kitchen:
+    get:
+      summary: Get locations by kitchen
+      description: Returns a list of locations for a specific kitchen
+      operationId: getLocationsByKitchen
+      tags:
+        - Locations
+      parameters:
+        - name: kitchen_code
+          in: query
+          description: Kitchen code
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of locations for the specified kitchen
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Operation successful
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LocationMapping'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+  /locations/{id}:
+    get:
+      summary: Get location mapping by ID
+      description: Returns a single location mapping by ID
+      operationId: getLocationMappingById
+      tags:
+        - Locations
+      parameters:
+        - name: id
+          in: path
+          description: Location Mapping ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Location mapping found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Operation successful
+                  data:
+                    $ref: '#/components/schemas/LocationMapping'
+        '404':
+          description: Location mapping not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update location mapping
+      description: Updates an existing location mapping
+      operationId: updateLocationMapping
+      tags:
+        - Locations
+      parameters:
+        - name: id
+          in: path
+          description: Location Mapping ID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationMappingUpdate'
+      responses:
+        '200':
+          description: Location mapping updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Location mapping updated successfully
+                  data:
+                    $ref: '#/components/schemas/LocationMapping'
+        '404':
+          description: Location mapping not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+    delete:
+      summary: Delete location mapping
+      description: Deletes an existing location mapping
+      operationId: deleteLocationMapping
+      tags:
+        - Locations
+      parameters:
+        - name: id
+          in: path
+          description: Location Mapping ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Location mapping deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Location mapping deleted successfully
+                  data:
+                    type: null
+        '404':
+          description: Location mapping not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /backorders:
+    get:
+      summary: Get all backorders
+      description: Returns a list of all backorders with optional filtering
+      operationId: getBackorders
+      tags:
+        - Backorders
+      parameters:
+        - name: customer_id
+          in: query
+          description: Filter by customer ID
+          schema:
+            type: integer
+        - name: order_id
+          in: query
+          description: Filter by order ID
+          schema:
+            type: integer
+        - name: product_id
+          in: query
+          description: Filter by product ID
+          schema:
+            type: integer
+        - name: status
+          in: query
+          description: Filter by status
+          schema:
+            type: string
+            enum: [pending, completed, cancelled]
+        - name: order_date
+          in: query
+          description: Filter by order date
+          schema:
+            type: string
+            format: date
+        - name: start_date
+          in: query
+          description: Filter by start date
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          description: Filter by end date
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: A list of backorders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Operation successful
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Backorder'
+    post:
+      summary: Create a new backorder
+      description: Creates a new backorder with the provided data
+      operationId: createBackorder
+      tags:
+        - Backorders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BackorderCreate'
+      responses:
+        '200':
+          description: Backorder created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Backorder created successfully
+                  data:
+                    $ref: '#/components/schemas/Backorder'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+  /backorders/from-order:
+    post:
+      summary: Create a backorder from an order
+      description: Creates a new backorder from an existing order
+      operationId: createBackorderFromOrder
+      tags:
+        - Backorders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - order_id
+                - reason
+              properties:
+                order_id:
+                  type: integer
+                  example: 1
+                reason:
+                  type: string
+                  example: Out of stock
+      responses:
+        '200':
+          description: Backorder created successfully from order
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Backorder created successfully from order
+                  data:
+                    $ref: '#/components/schemas/Backorder'
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+  /backorders/{id}:
+    get:
+      summary: Get backorder by ID
+      description: Returns a single backorder by ID
+      operationId: getBackorderById
+      tags:
+        - Backorders
+      parameters:
+        - name: id
+          in: path
+          description: Backorder ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Backorder found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Operation successful
+                  data:
+                    $ref: '#/components/schemas/Backorder'
+        '404':
+          description: Backorder not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update backorder
+      description: Updates an existing backorder
+      operationId: updateBackorder
+      tags:
+        - Backorders
+      parameters:
+        - name: id
+          in: path
+          description: Backorder ID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BackorderUpdate'
+      responses:
+        '200':
+          description: Backorder updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Backorder updated successfully
+                  data:
+                    $ref: '#/components/schemas/Backorder'
+        '404':
+          description: Backorder not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+    delete:
+      summary: Delete backorder
+      description: Deletes an existing backorder
+      operationId: deleteBackorder
+      tags:
+        - Backorders
+      parameters:
+        - name: id
+          in: path
+          description: Backorder ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Backorder deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Backorder deleted successfully
+                  data:
+                    type: null
+        '404':
+          description: Backorder not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /backorders/{id}/complete:
+    put:
+      summary: Complete a backorder
+      description: Marks a backorder as completed
+      operationId: completeBackorder
+      tags:
+        - Backorders
+      parameters:
+        - name: id
+          in: path
+          description: Backorder ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Backorder completed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Backorder completed successfully
+                  data:
+                    $ref: '#/components/schemas/Backorder'
+        '404':
+          description: Backorder not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /backorders/{id}/cancel:
+    put:
+      summary: Cancel a backorder
+      description: Marks a backorder as cancelled
+      operationId: cancelBackorder
+      tags:
+        - Backorders
+      parameters:
+        - name: id
+          in: path
+          description: Backorder ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Backorder cancelled successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Backorder cancelled successfully
+                  data:
+                    $ref: '#/components/schemas/Backorder'
+        '404':
+          description: Backorder not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        order_no:
+          type: string
+          example: ORD20230517120000
+        customer:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: John Doe
+            phone:
+              type: string
+              example: "1234567890"
+            email:
+              type: string
+              example: john@example.com
+        product:
+          type: object
+          properties:
+            code:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: Vegetable Meal
+            description:
+              type: string
+              example: A healthy vegetable meal
+            type:
+              type: string
+              example: Meal
+        quantity:
+          type: integer
+          example: 1
+        amount:
+          type: number
+          format: float
+          example: 100.00
+        tax:
+          type: number
+          format: float
+          example: 10.00
+        delivery_charges:
+          type: number
+          format: float
+          example: 20.00
+        net_amount:
+          type: number
+          format: float
+          example: 130.00
+        order_status:
+          type: string
+          example: New
+        delivery_status:
+          type: string
+          example: Pending
+        order_date:
+          type: string
+          format: date
+          example: 2023-05-17
+    OrderCreate:
+      type: object
+      required:
+        - customer_code
+        - customer_name
+        - phone
+        - location_code
+        - location_name
+        - product_code
+        - product_name
+        - product_type
+        - quantity
+        - amount
+        - order_date
+        - ship_address
+        - order_menu
+      properties:
+        customer_code:
+          type: integer
+          example: 1
+        customer_name:
+          type: string
+          example: John Doe
+        phone:
+          type: string
+          example: "1234567890"
+        email_address:
+          type: string
+          example: john@example.com
+        location_code:
+          type: integer
+          example: 1
+        location_name:
+          type: string
+          example: Office
+        product_code:
+          type: integer
+          example: 1
+        product_name:
+          type: string
+          example: Vegetable Meal
+        product_type:
+          type: string
+          example: Meal
+        quantity:
+          type: integer
+          example: 1
+        amount:
+          type: number
+          format: float
+          example: 100.00
+        tax:
+          type: number
+          format: float
+          example: 10.00
+        delivery_charges:
+          type: number
+          format: float
+          example: 20.00
+        order_date:
+          type: string
+          format: date
+          example: 2023-05-17
+        ship_address:
+          type: string
+          example: 123 Main St, City
+        order_menu:
+          type: string
+          example: Lunch
+    OrderUpdate:
+      type: object
+      properties:
+        customer_name:
+          type: string
+          example: John Doe
+        phone:
+          type: string
+          example: "1234567890"
+        email_address:
+          type: string
+          example: john@example.com
+        quantity:
+          type: integer
+          example: 2
+        amount:
+          type: number
+          format: float
+          example: 200.00
+        tax:
+          type: number
+          format: float
+          example: 20.00
+        delivery_charges:
+          type: number
+          format: float
+          example: 20.00
+        order_status:
+          type: string
+          example: Processing
+        delivery_status:
+          type: string
+          example: Dispatched
+        ship_address:
+          type: string
+          example: 456 New St, City
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: Resource not found
+    ValidationError:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: Validation Error
+        errors:
+          type: object
+          example:
+            customer_code: ["The customer code field is required."]
+            product_code: ["The product code field is required."]
+
+    Timeslot:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+        starttime:
+          type: string
+          example: "08:00:00"
+        endtime:
+          type: string
+          example: "10:00:00"
+        day:
+          type: string
+          example: "Monday"
+        menu_type:
+          type: string
+          example: "Breakfast"
+        kitchen:
+          type: string
+          example: "Main"
+        status:
+          type: integer
+          example: 1
+        formatted_start_time:
+          type: string
+          example: "08:00 AM"
+        formatted_end_time:
+          type: string
+          example: "10:00 AM"
+        display_slot:
+          type: string
+          example: "08:00 AM to 10:00 AM"
+        created_at:
+          type: string
+          format: date-time
+          example: "2023-05-17T12:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2023-05-17T12:00:00Z"
+
+    TimeslotCreate:
+      type: object
+      required:
+        - starttime
+        - endtime
+        - day
+        - menu_type
+        - kitchen
+      properties:
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+        starttime:
+          type: string
+          example: "08:00:00"
+        endtime:
+          type: string
+          example: "10:00:00"
+        day:
+          type: string
+          example: "Monday"
+        menu_type:
+          type: string
+          example: "Breakfast"
+        kitchen:
+          type: string
+          example: "Main"
+        status:
+          type: integer
+          example: 1
+
+    TimeslotUpdate:
+      type: object
+      properties:
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+        starttime:
+          type: string
+          example: "08:00:00"
+        endtime:
+          type: string
+          example: "10:00:00"
+        day:
+          type: string
+          example: "Monday"
+        menu_type:
+          type: string
+          example: "Breakfast"
+        kitchen:
+          type: string
+          example: "Main"
+        status:
+          type: integer
+          example: 1
+
+    LocationMapping:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+        location_code:
+          type: string
+          example: "LOC001"
+        location_name:
+          type: string
+          example: "Downtown"
+        city_code:
+          type: string
+          example: "CITY001"
+        city_name:
+          type: string
+          example: "New York"
+        delivery_charges:
+          type: number
+          format: float
+          example: 10.00
+        delivery_time:
+          type: string
+          example: "30"
+        kitchen_code:
+          type: string
+          example: "KITCHEN001"
+        kitchen_name:
+          type: string
+          example: "Main Kitchen"
+        description:
+          type: string
+          example: "Downtown location"
+        status:
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          example: "2023-05-17T12:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2023-05-17T12:00:00Z"
+
+    LocationMappingCreate:
+      type: object
+      required:
+        - location_code
+        - location_name
+      properties:
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+        location_code:
+          type: string
+          example: "LOC001"
+        location_name:
+          type: string
+          example: "Downtown"
+        city_code:
+          type: string
+          example: "CITY001"
+        city_name:
+          type: string
+          example: "New York"
+        delivery_charges:
+          type: number
+          format: float
+          example: 10.00
+        delivery_time:
+          type: string
+          example: "30"
+        kitchen_code:
+          type: string
+          example: "KITCHEN001"
+        kitchen_name:
+          type: string
+          example: "Main Kitchen"
+        description:
+          type: string
+          example: "Downtown location"
+        status:
+          type: integer
+          example: 1
+
+    LocationMappingUpdate:
+      type: object
+      properties:
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+        location_code:
+          type: string
+          example: "LOC001"
+        location_name:
+          type: string
+          example: "Downtown"
+        city_code:
+          type: string
+          example: "CITY001"
+        city_name:
+          type: string
+          example: "New York"
+        delivery_charges:
+          type: number
+          format: float
+          example: 10.00
+        delivery_time:
+          type: string
+          example: "30"
+        kitchen_code:
+          type: string
+          example: "KITCHEN001"
+        kitchen_name:
+          type: string
+          example: "Main Kitchen"
+        description:
+          type: string
+          example: "Downtown location"
+        status:
+          type: integer
+          example: 1
+
+    Backorder:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+        order_id:
+          type: integer
+          example: 1
+        order_no:
+          type: string
+          example: "ORD20230517120000"
+        customer_id:
+          type: integer
+          example: 1
+        customer:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: "John Doe"
+            phone:
+              type: string
+              example: "1234567890"
+            email:
+              type: string
+              example: "john@example.com"
+        product_id:
+          type: integer
+          example: 1
+        product_name:
+          type: string
+          example: "Vegetable Meal"
+        product:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: "Vegetable Meal"
+            type:
+              type: string
+              example: "Meal"
+        quantity:
+          type: integer
+          example: 1
+        amount:
+          type: number
+          format: float
+          example: 100.00
+        order_date:
+          type: string
+          format: date
+          example: "2023-05-17"
+        order_menu:
+          type: string
+          example: "Lunch"
+        reason:
+          type: string
+          example: "Out of stock"
+        status:
+          type: string
+          example: "pending"
+        created_at:
+          type: string
+          format: date-time
+          example: "2023-05-17T12:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2023-05-17T12:00:00Z"
+
+    BackorderCreate:
+      type: object
+      required:
+        - order_id
+        - order_no
+        - customer_id
+        - product_id
+        - product_name
+        - quantity
+        - amount
+        - order_date
+        - order_menu
+        - reason
+      properties:
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+        order_id:
+          type: integer
+          example: 1
+        order_no:
+          type: string
+          example: "ORD20230517120000"
+        customer_id:
+          type: integer
+          example: 1
+        product_id:
+          type: integer
+          example: 1
+        product_name:
+          type: string
+          example: "Vegetable Meal"
+        quantity:
+          type: integer
+          example: 1
+        amount:
+          type: number
+          format: float
+          example: 100.00
+        order_date:
+          type: string
+          format: date
+          example: "2023-05-17"
+        order_menu:
+          type: string
+          example: "Lunch"
+        reason:
+          type: string
+          example: "Out of stock"
+        status:
+          type: string
+          example: "pending"
+
+    BackorderUpdate:
+      type: object
+      properties:
+        company_id:
+          type: integer
+          example: 1
+        unit_id:
+          type: integer
+          example: 1
+        order_id:
+          type: integer
+          example: 1
+        order_no:
+          type: string
+          example: "ORD20230517120000"
+        customer_id:
+          type: integer
+          example: 1
+        product_id:
+          type: integer
+          example: 1
+        product_name:
+          type: string
+          example: "Vegetable Meal"
+        quantity:
+          type: integer
+          example: 1
+        amount:
+          type: number
+          format: float
+          example: 100.00
+        order_date:
+          type: string
+          format: date
+          example: "2023-05-17"
+        order_menu:
+          type: string
+          example: "Lunch"
+        reason:
+          type: string
+          example: "Out of stock"
+        status:
+          type: string
+          example: "completed"
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

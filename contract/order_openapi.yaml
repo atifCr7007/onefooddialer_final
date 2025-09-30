@@ -1,0 +1,839 @@
+openapi: 3.1.0
+info:
+  title: OneFoodDialer 2025 - Order Service API
+  description: |
+    Order management service for OneFoodDialer 2025 platform.
+    
+    ## Features
+    - Order creation and lifecycle management
+    - Real-time order tracking and status updates
+    - Order modification and cancellation
+    - Multi-payment method support
+    - Delivery scheduling and optimization
+    - Order analytics and reporting
+    - Bulk order processing
+    - Order templates and favorites
+    
+    ## Order Lifecycle
+    1. **Created** - Order placed by customer
+    2. **Confirmed** - Order confirmed by restaurant
+    3. **Preparing** - Food preparation in progress
+    4. **Ready** - Order ready for pickup/delivery
+    5. **Out for Delivery** - Order dispatched for delivery
+    6. **Delivered** - Order successfully delivered
+    7. **Cancelled** - Order cancelled (various reasons)
+    
+    ## Authentication
+    Supports JWT authentication for customers, restaurants, and admin users.
+    
+    ## Rate Limiting
+    API requests are rate limited to 1000 requests per minute per user.
+  version: 2.0.0
+  contact:
+    name: OneFoodDialer 2025 API Support
+    email: api-support@onefooddialer.com
+    url: https://docs.onefooddialer.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.onefooddialer.com/v2/order-service-v12
+    description: Production server
+  - url: https://staging-api.onefooddialer.com/v2/order-service-v12
+    description: Staging server
+  - url: http://localhost:8002/v2/order-service-v12
+    description: Development server
+
+security:
+  - bearerAuth: []
+  - customerAuth: []
+  - restaurantAuth: []
+
+tags:
+  - name: Order Management
+    description: Core order operations and lifecycle management
+  - name: Order Tracking
+    description: Real-time order tracking and status updates
+  - name: Order Items
+    description: Order item management and modifications
+  - name: Order History
+    description: Order history and analytics
+  - name: Bulk Operations
+    description: Bulk order processing and management
+  - name: Order Templates
+    description: Order templates and favorites
+  - name: Delivery Management
+    description: Delivery scheduling and tracking
+
+paths:
+  # Order Management
+  /orders:
+    get:
+      summary: List orders
+      description: Retrieve paginated list of orders with filtering and search
+      tags: [Order Management]
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Search'
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, confirmed, preparing, ready, out_for_delivery, delivered, cancelled]
+          description: Filter by order status
+        - name: customerId
+          in: query
+          schema:
+            type: string
+            format: uuid
+          description: Filter by customer ID
+        - name: restaurantId
+          in: query
+          schema:
+            type: string
+            format: uuid
+          description: Filter by restaurant ID
+        - name: paymentStatus
+          in: query
+          schema:
+            type: string
+            enum: [pending, paid, failed, refunded, partially_refunded]
+          description: Filter by payment status
+        - name: deliveryType
+          in: query
+          schema:
+            type: string
+            enum: [delivery, pickup, dine_in]
+          description: Filter by delivery type
+        - name: dateFrom
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Filter orders from this date
+        - name: dateTo
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Filter orders to this date
+        - name: priority
+          in: query
+          schema:
+            type: string
+            enum: [low, normal, high, urgent]
+          description: Filter by order priority
+      responses:
+        '200':
+          description: Orders retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrdersResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+    post:
+      summary: Create new order
+      description: Create a new order with items and delivery details
+      tags: [Order Management]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+      responses:
+        '201':
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+
+  /orders/{orderId}:
+    get:
+      summary: Get order by ID
+      description: Retrieve detailed information about a specific order
+      tags: [Order Management]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200':
+          description: Order retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    put:
+      summary: Update order
+      description: Update order details (limited fields based on status)
+      tags: [Order Management]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrderRequest'
+      responses:
+        '200':
+          description: Order updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    delete:
+      summary: Cancel order
+      description: Cancel an order (soft delete with reason)
+      tags: [Order Management]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                  description: Reason for cancellation
+                  example: Customer requested cancellation
+                refundAmount:
+                  type: number
+                  format: float
+                  description: Amount to refund (if applicable)
+                notifyCustomer:
+                  type: boolean
+                  default: true
+                  description: Whether to notify customer of cancellation
+      responses:
+        '200':
+          description: Order cancelled successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /orders/{orderId}/status:
+    put:
+      summary: Update order status
+      description: Update the status of an order in the lifecycle
+      tags: [Order Tracking]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrderStatusRequest'
+      responses:
+        '200':
+          description: Order status updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderStatusResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /orders/{orderId}/tracking:
+    get:
+      summary: Get order tracking information
+      description: Get real-time tracking information for an order
+      tags: [Order Tracking]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200':
+          description: Order tracking information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderTracking'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /orders/{orderId}/items:
+    get:
+      summary: Get order items
+      description: Retrieve all items in an order
+      tags: [Order Items]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200':
+          description: Order items retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [success]
+                  data:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/OrderItem'
+
+    post:
+      summary: Add item to order
+      description: Add a new item to an existing order (if status allows)
+      tags: [Order Items]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddOrderItemRequest'
+      responses:
+        '201':
+          description: Item added to order successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /orders/{orderId}/items/{itemId}:
+    put:
+      summary: Update order item
+      description: Update quantity or customizations of an order item
+      tags: [Order Items]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+        - $ref: '#/components/parameters/ItemId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrderItemRequest'
+      responses:
+        '200':
+          description: Order item updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderItem'
+
+    delete:
+      summary: Remove item from order
+      description: Remove an item from an order (if status allows)
+      tags: [Order Items]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+        - $ref: '#/components/parameters/ItemId'
+      responses:
+        '204':
+          description: Item removed from order successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Admin JWT token for administrative operations
+    customerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Customer JWT token for customer operations
+    restaurantAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Restaurant JWT token for restaurant operations
+
+  parameters:
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+      description: Page number for pagination
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: Number of items per page
+    Search:
+      name: search
+      in: query
+      schema:
+        type: string
+      description: Search query string
+    OrderId:
+      name: orderId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Unique identifier for the order
+    ItemId:
+      name: itemId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Unique identifier for the order item
+
+  responses:
+    BadRequest:
+      description: Bad request - Invalid input parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized - Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Forbidden - Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ValidationError:
+      description: Validation error - Invalid data format
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationErrorResponse'
+
+  schemas:
+    # Common Response Schemas
+    ErrorResponse:
+      type: object
+      required: [status, message]
+      properties:
+        status:
+          type: string
+          enum: [error]
+          example: error
+        message:
+          type: string
+          example: An error occurred
+        code:
+          type: string
+          example: VALIDATION_ERROR
+        timestamp:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:00:00Z"
+
+    ValidationErrorResponse:
+      type: object
+      required: [status, message, errors]
+      properties:
+        status:
+          type: string
+          enum: [error]
+          example: error
+        message:
+          type: string
+          example: Validation failed
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                example: customerId
+              message:
+                type: string
+                example: The customer ID field is required
+              code:
+                type: string
+                example: REQUIRED
+
+    PaginationMeta:
+      type: object
+      properties:
+        page:
+          type: integer
+          example: 1
+        limit:
+          type: integer
+          example: 20
+        total:
+          type: integer
+          example: 150
+        totalPages:
+          type: integer
+          example: 8
+
+    # Order Management Schemas
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        orderNumber:
+          type: string
+          example: "ORD-2024-001234"
+          description: Human-readable order number
+        customerId:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440001"
+        restaurantId:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440002"
+        status:
+          type: string
+          enum: [pending, confirmed, preparing, ready, out_for_delivery, delivered, cancelled]
+          example: confirmed
+          description: Current order status
+        paymentStatus:
+          type: string
+          enum: [pending, paid, failed, refunded, partially_refunded]
+          example: paid
+          description: Payment status
+        deliveryType:
+          type: string
+          enum: [delivery, pickup, dine_in]
+          example: delivery
+          description: Type of order fulfillment
+        priority:
+          type: string
+          enum: [low, normal, high, urgent]
+          example: normal
+          description: Order priority level
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+          description: List of items in the order
+        subtotal:
+          type: number
+          format: float
+          example: 45.50
+          description: Subtotal before taxes and fees
+        taxAmount:
+          type: number
+          format: float
+          example: 4.55
+          description: Tax amount
+        deliveryFee:
+          type: number
+          format: float
+          example: 5.00
+          description: Delivery fee
+        serviceFee:
+          type: number
+          format: float
+          example: 2.25
+          description: Service fee
+        discountAmount:
+          type: number
+          format: float
+          example: 5.00
+          description: Total discount applied
+        totalAmount:
+          type: number
+          format: float
+          example: 52.30
+          description: Final total amount
+        currency:
+          type: string
+          example: INR
+          description: Currency code
+        deliveryAddress:
+          $ref: '#/components/schemas/DeliveryAddress'
+        deliveryInstructions:
+          type: string
+          example: "Ring the doorbell twice"
+          description: Special delivery instructions
+        estimatedDeliveryTime:
+          type: string
+          format: date-time
+          example: "2024-01-15T12:30:00Z"
+          description: Estimated delivery time
+        actualDeliveryTime:
+          type: string
+          format: date-time
+          example: "2024-01-15T12:25:00Z"
+          description: Actual delivery time
+        preparationTime:
+          type: integer
+          example: 25
+          description: Estimated preparation time in minutes
+        customerNotes:
+          type: string
+          example: "Extra spicy please"
+          description: Customer notes for the order
+        restaurantNotes:
+          type: string
+          example: "Customer is regular, prefers less salt"
+          description: Restaurant notes about the order
+        couponCode:
+          type: string
+          example: "SAVE10"
+          description: Applied coupon code
+        loyaltyPointsUsed:
+          type: integer
+          example: 100
+          description: Loyalty points used for discount
+        loyaltyPointsEarned:
+          type: integer
+          example: 52
+          description: Loyalty points earned from this order
+        paymentMethod:
+          type: string
+          enum: [cash, card, upi, wallet, net_banking]
+          example: card
+          description: Payment method used
+        paymentReference:
+          type: string
+          example: "TXN123456789"
+          description: Payment transaction reference
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-15T11:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-01-15T11:30:00Z"
+        confirmedAt:
+          type: string
+          format: date-time
+          example: "2024-01-15T11:05:00Z"
+        deliveredAt:
+          type: string
+          format: date-time
+          example: "2024-01-15T12:25:00Z"
+
+    OrderItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440003"
+        orderId:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        menuItemId:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440004"
+        name:
+          type: string
+          example: "Margherita Pizza"
+          description: Item name at time of order
+        description:
+          type: string
+          example: "Fresh tomatoes, mozzarella, basil"
+          description: Item description at time of order
+        quantity:
+          type: integer
+          example: 2
+          description: Quantity ordered
+        unitPrice:
+          type: number
+          format: float
+          example: 18.50
+          description: Price per unit at time of order
+        totalPrice:
+          type: number
+          format: float
+          example: 37.00
+          description: Total price for this item (quantity × unit price)
+        customizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemCustomization'
+          description: Customizations applied to this item
+        specialInstructions:
+          type: string
+          example: "Extra cheese, no onions"
+          description: Special instructions for this item
+        status:
+          type: string
+          enum: [pending, confirmed, preparing, ready, served]
+          example: confirmed
+          description: Status of this specific item
+        allergens:
+          type: array
+          items:
+            type: string
+          example: ["dairy", "gluten"]
+          description: Allergens present in this item
+        nutritionalInfo:
+          $ref: '#/components/schemas/NutritionalInfo'
+        createdAt:
+          type: string
+          format: date-time
+          example: "2024-01-15T11:00:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "2024-01-15T11:00:00Z"
+
+    ItemCustomization:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440005"
+        name:
+          type: string
+          example: "Extra Cheese"
+          description: Customization name
+        category:
+          type: string
+          example: "toppings"
+          description: Customization category
+        price:
+          type: number
+          format: float
+          example: 2.00
+          description: Additional price for this customization
+        quantity:
+          type: integer
+          example: 1
+          description: Quantity of this customization
+
+    NutritionalInfo:
+      type: object
+      properties:
+        calories:
+          type: integer
+          example: 285
+          description: Calories per serving
+        protein:
+          type: number
+          format: float
+          example: 12.5
+          description: Protein in grams
+        carbohydrates:
+          type: number
+          format: float
+          example: 35.2
+          description: Carbohydrates in grams
+        fat:
+          type: number
+          format: float
+          example: 10.8
+          description: Fat in grams
+        fiber:
+          type: number
+          format: float
+          example: 2.5
+          description: Fiber in grams
+        sugar:
+          type: number
+          format: float
+          example: 5.2
+          description: Sugar in grams
+        sodium:
+          type: number
+          format: float
+          example: 640.0
+          description: Sodium in milligrams
+
+    DeliveryAddress:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440006"
+        type:
+          type: string
+          enum: [home, work, other]
+          example: home
+        label:
+          type: string
+          example: "Home"
+        addressLine1:
+          type: string
+          example: "123 Main Street"
+        addressLine2:
+          type: string
+          example: "Apartment 4B"
+        city:
+          type: string
+          example: "Mumbai"
+        state:
+          type: string
+          example: "Maharashtra"
+        postalCode:
+          type: string
+          example: "400001"
+        country:
+          type: string
+          example: "India"
+        latitude:
+          type: number
+          format: float
+          example: 19.0760
+        longitude:
+          type: number
+          format: float
+          example: 72.8777
+        landmark:
+          type: string
+          example: "Near Central Mall"
+        contactName:
+          type: string
+          example: "John Doe"
+        contactPhone:
+          type: string
+          example: "+91-9876543210"

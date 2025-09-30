@@ -1,0 +1,1215 @@
+openapi: 3.1.0
+info:
+  title: OneFoodDialer 2025 - Payment Service API
+  description: |
+    Payment processing service for OneFoodDialer 2025 platform.
+
+    ## Features
+    - Multi-gateway payment processing (Razorpay, Stripe, PayU, Paytm, Cashfree)
+    - Real-time payment status tracking and webhooks
+    - Refund and partial refund processing
+    - Payment method management and tokenization
+    - Subscription and recurring payments
+    - Payment analytics and fraud detection
+    - PCI DSS compliant payment handling
+    - 3D Secure authentication support
+
+    ## Supported Payment Methods
+    - **Credit/Debit Cards** - Visa, Mastercard, Rupay, Amex
+    - **Digital Wallets** - Paytm, PhonePe, Google Pay, Amazon Pay
+    - **UPI** - All UPI-enabled apps and banks
+    - **Net Banking** - 50+ banks supported
+    - **Cash on Delivery** - For delivery orders
+    - **Loyalty Points** - Platform loyalty program
+
+    ## Security & Compliance
+    - All payment data is encrypted and tokenized
+    - PCI DSS Level 1 compliance
+    - 3D Secure authentication for cards
+    - Real-time fraud detection and prevention
+    - GDPR compliant data handling
+
+    ## Authentication
+    Requires JWT authentication for all operations.
+
+    ## Rate Limiting
+    API requests are rate limited to 100 requests per minute per user.
+  version: 2.0.0
+  contact:
+    name: OneFoodDialer 2025 API Support
+    email: api-support@onefooddialer.com
+    url: https://docs.onefooddialer.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.onefooddialer.com/v2/payment-service-v12
+    description: Production server
+  - url: https://staging-api.onefooddialer.com/v2/payment-service-v12
+    description: Staging server
+  - url: http://localhost:8003/v2/payment-service-v12
+    description: Development server
+
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Payment Processing
+    description: Core payment processing operations
+  - name: Payment Methods
+    description: Customer payment method management
+  - name: Refunds
+    description: Refund processing and management
+  - name: Transactions
+    description: Transaction history and tracking
+  - name: Subscriptions
+    description: Recurring payment management
+  - name: Analytics
+    description: Payment analytics and reporting
+  - name: Webhooks
+    description: Payment gateway webhook handling
+  - name: Fraud Detection
+    description: Fraud detection and prevention
+
+paths:
+  /payments:
+    post:
+      summary: Initiate a payment
+      description: Create a new payment transaction
+      operationId: initiatePayment
+      tags:
+        - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitiatePaymentRequest'
+      responses:
+        '201':
+          description: Payment initiated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitiatePaymentResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+
+  /payments/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Payment transaction ID
+    get:
+      summary: Get payment status
+      description: Get the status of a payment transaction
+      operationId: getPaymentStatus
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Payment status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentStatusResponse'
+        '404':
+          description: Payment transaction not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+
+  /payments/{id}/process:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Payment transaction ID
+    post:
+      summary: Process a payment
+      description: Process a payment with a specific gateway
+      operationId: processPayment
+      tags:
+        - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessPaymentRequest'
+      responses:
+        '200':
+          description: Payment processing initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessPaymentResponse'
+        '404':
+          description: Payment transaction not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+
+  /payments/callback:
+    post:
+      summary: Payment gateway callback
+      description: Handle callback from payment gateway
+      operationId: paymentCallback
+      tags:
+        - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Gateway-specific callback data
+      responses:
+        '200':
+          description: Callback processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentCallbackResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /payments/{id}/refund:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Payment transaction ID
+    post:
+      summary: Refund a payment
+      description: Refund a completed payment
+      operationId: refundPayment
+      tags:
+        - Payments
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundPaymentRequest'
+      responses:
+        '200':
+          description: Payment refunded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundPaymentResponse'
+        '404':
+          description: Payment transaction not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+
+  /payments/statistics:
+    get:
+      summary: Get payment statistics
+      description: Get payment transaction statistics
+      operationId: getPaymentStatistics
+      tags:
+        - Payments
+      parameters:
+        - name: start_date
+          in: query
+          description: Start date for statistics
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          description: End date for statistics
+          schema:
+            type: string
+            format: date
+        - name: gateway
+          in: query
+          description: Filter by gateway
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by status
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Statistics retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatisticsResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+
+  /payments/logs:
+    get:
+      summary: Get payment logs
+      description: Get payment transaction logs
+      operationId: getPaymentLogs
+      tags:
+        - Payments
+      parameters:
+        - name: transaction_id
+          in: query
+          description: Filter by transaction ID
+          schema:
+            type: integer
+        - name: gateway
+          in: query
+          description: Filter by gateway
+          schema:
+            type: string
+        - name: event
+          in: query
+          description: Filter by event
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by status
+          schema:
+            type: string
+        - name: start_date
+          in: query
+          description: Start date for logs
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          description: End date for logs
+          schema:
+            type: string
+            format: date
+        - name: limit
+          in: query
+          description: Limit number of logs
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: Logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogsResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+
+  /payments/{id}/logs:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Payment transaction ID
+    get:
+      summary: Get logs for a transaction
+      description: Get logs for a specific transaction
+      operationId: getTransactionLogs
+      tags:
+        - Payments
+      responses:
+        '200':
+          description: Logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogsResponse'
+        '404':
+          description: Transaction not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+
+  /payments/webhooks/{gateway}:
+    parameters:
+      - name: gateway
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Payment gateway name
+    post:
+      summary: Payment webhook
+      description: Handle payment gateway webhooks
+      operationId: paymentWebhook
+      tags:
+        - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Webhook data from payment gateway
+      responses:
+        '200':
+          description: Webhook processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /payment-methods/customer/{customerId}:
+    parameters:
+      - name: customerId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Customer ID
+      - name: active_only
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+        description: Whether to return only active payment methods
+    get:
+      summary: Get customer payment methods
+      description: Get all payment methods for a customer
+      operationId: getCustomerPaymentMethods
+      tags:
+        - Payment Methods
+      responses:
+        '200':
+          description: Payment methods retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethodsResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+
+  /payment-methods:
+    post:
+      summary: Create payment method
+      description: Create a new payment method
+      operationId: createPaymentMethod
+      tags:
+        - Payment Methods
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentMethodRequest'
+      responses:
+        '201':
+          description: Payment method created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethodResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+
+  /payment-methods/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Payment method ID
+    get:
+      summary: Get payment method
+      description: Get a specific payment method
+      operationId: getPaymentMethod
+      tags:
+        - Payment Methods
+      parameters:
+        - name: customer_id
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Customer ID for verification
+      responses:
+        '200':
+          description: Payment method retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethodResponse'
+        '404':
+          description: Payment method not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+    put:
+      summary: Update payment method
+      description: Update a specific payment method
+      operationId: updatePaymentMethod
+      tags:
+        - Payment Methods
+      parameters:
+        - name: customer_id
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Customer ID for verification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePaymentMethodRequest'
+      responses:
+        '200':
+          description: Payment method updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethodResponse'
+        '404':
+          description: Payment method not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+    delete:
+      summary: Delete payment method
+      description: Delete a specific payment method
+      operationId: deletePaymentMethod
+      tags:
+        - Payment Methods
+      parameters:
+        - name: customer_id
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Customer ID for verification
+      responses:
+        '200':
+          description: Payment method deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '404':
+          description: Payment method not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+
+  /payment-methods/{id}/default:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Payment method ID
+    put:
+      summary: Set default payment method
+      description: Set a payment method as the default
+      operationId: setDefaultPaymentMethod
+      tags:
+        - Payment Methods
+      parameters:
+        - name: customer_id
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Customer ID for verification
+      responses:
+        '200':
+          description: Payment method set as default successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethodResponse'
+        '404':
+          description: Payment method not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+
+components:
+  schemas:
+    InitiatePaymentRequest:
+      type: object
+      required:
+        - customer_id
+        - amount
+        - success_url
+        - failure_url
+      properties:
+        customer_id:
+          type: integer
+          description: Customer ID
+        customer_email:
+          type: string
+          format: email
+          description: Customer email
+        customer_phone:
+          type: string
+          description: Customer phone number
+        customer_name:
+          type: string
+          description: Customer name
+        amount:
+          type: number
+          format: float
+          description: Payment amount
+        transaction_charges:
+          type: number
+          format: float
+          description: Additional transaction charges
+        wallet_amount:
+          type: number
+          format: float
+          description: Amount to be paid from wallet
+        order_id:
+          type: string
+          description: Related order ID
+        referer:
+          type: string
+          description: Source platform (website/mobile/desktop)
+        success_url:
+          type: string
+          format: uri
+          description: URL to redirect on successful payment
+        failure_url:
+          type: string
+          format: uri
+          description: URL to redirect on failed payment
+        context:
+          type: string
+          description: Payment context (order/subscription)
+        recurring:
+          type: boolean
+          description: Whether this is a recurring payment
+        discount:
+          type: number
+          format: float
+          description: Discount amount
+
+    InitiatePaymentResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was successful
+        message:
+          type: string
+          description: Response message
+        data:
+          type: object
+          properties:
+            transaction_id:
+              type: integer
+              description: Payment transaction ID
+            amount:
+              type: number
+              format: float
+              description: Payment amount
+            status:
+              type: string
+              description: Transaction status
+
+    ProcessPaymentRequest:
+      type: object
+      required:
+        - gateway
+      properties:
+        gateway:
+          type: string
+          description: Payment gateway to use
+          enum:
+            - payu
+            - instamojo
+            - paytm
+            - payeezy
+            - mobikwik
+            - paypal
+            - converge
+            - yesbank
+            - stripe
+
+    ProcessPaymentResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was successful
+        message:
+          type: string
+          description: Response message
+        data:
+          type: object
+          properties:
+            action:
+              type: string
+              description: URL to redirect to or form action
+            method:
+              type: string
+              description: HTTP method to use
+              enum:
+                - GET
+                - POST
+            fields:
+              type: object
+              description: Form fields to submit
+
+    PaymentStatusResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was successful
+        data:
+          type: object
+          properties:
+            transaction_id:
+              type: integer
+              description: Payment transaction ID
+            amount:
+              type: number
+              format: float
+              description: Payment amount
+            status:
+              type: string
+              description: Transaction status
+            gateway:
+              type: string
+              description: Payment gateway used
+            gateway_transaction_id:
+              type: string
+              description: Gateway's transaction ID
+            created_at:
+              type: string
+              format: date-time
+              description: Creation timestamp
+            updated_at:
+              type: string
+              format: date-time
+              description: Last update timestamp
+
+    PaymentCallbackResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was successful
+        message:
+          type: string
+          description: Response message
+        data:
+          type: object
+          properties:
+            transaction_id:
+              type: integer
+              description: Payment transaction ID
+            status:
+              type: string
+              description: Transaction status
+            gateway_transaction_id:
+              type: string
+              description: Gateway's transaction ID
+
+    RefundPaymentRequest:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: float
+          description: Amount to refund (if partial refund)
+
+    RefundPaymentResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was successful
+        message:
+          type: string
+          description: Response message
+        data:
+          type: object
+          properties:
+            success:
+              type: boolean
+              description: Whether the refund was successful
+            status:
+              type: string
+              description: Refund status
+            gateway_transaction_id:
+              type: string
+              description: Gateway's transaction ID for the refund
+
+    ValidationErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was successful
+        message:
+          type: string
+          description: Error message
+        errors:
+          type: object
+          description: Validation errors
+
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was successful
+        message:
+          type: string
+          description: Error message
+
+    StatisticsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was successful
+        data:
+          type: object
+          properties:
+            total_transactions:
+              type: integer
+              description: Total number of transactions
+            total_amount:
+              type: number
+              format: float
+              description: Total transaction amount
+            transactions_by_status:
+              type: object
+              description: Transactions grouped by status
+            transactions_by_gateway:
+              type: object
+              description: Transactions grouped by gateway
+            recent_transactions:
+              type: array
+              description: Recent transactions
+              items:
+                $ref: '#/components/schemas/TransactionSummary'
+
+    LogsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was successful
+        data:
+          type: array
+          description: Payment logs
+          items:
+            $ref: '#/components/schemas/PaymentLog'
+
+    WebhookResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was successful
+        message:
+          type: string
+          description: Response message
+
+    TransactionSummary:
+      type: object
+      properties:
+        transaction_id:
+          type: integer
+          description: Payment transaction ID
+        amount:
+          type: number
+          format: float
+          description: Payment amount
+        status:
+          type: string
+          description: Transaction status
+        gateway:
+          type: string
+          description: Payment gateway used
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+
+    PaymentLog:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Log ID
+        transaction_id:
+          type: integer
+          description: Payment transaction ID
+        gateway:
+          type: string
+          description: Payment gateway
+        event:
+          type: string
+          description: Event type
+        status:
+          type: string
+          description: Event status
+        request_data:
+          type: object
+          description: Request data
+        response_data:
+          type: object
+          description: Response data
+        ip_address:
+          type: string
+          description: IP address
+        user_agent:
+          type: string
+          description: User agent
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+
+    PaymentMethodsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was successful
+        data:
+          type: array
+          description: Payment methods
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+
+    PaymentMethodResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was successful
+        message:
+          type: string
+          description: Response message
+        data:
+          $ref: '#/components/schemas/PaymentMethod'
+
+    DeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the request was successful
+        message:
+          type: string
+          description: Response message
+
+    CreatePaymentMethodRequest:
+      type: object
+      required:
+        - customer_id
+        - gateway
+        - token
+        - type
+      properties:
+        customer_id:
+          type: integer
+          description: Customer ID
+        gateway:
+          type: string
+          description: Payment gateway
+        token:
+          type: string
+          description: Payment method token
+        type:
+          type: string
+          description: Payment method type
+          enum:
+            - credit_card
+            - debit_card
+            - bank_account
+            - wallet
+        last_four:
+          type: string
+          description: Last four digits of card/account
+        expiry_month:
+          type: string
+          description: Card expiry month
+        expiry_year:
+          type: string
+          description: Card expiry year
+        card_holder_name:
+          type: string
+          description: Card holder name
+        card_brand:
+          type: string
+          description: Card brand
+        is_default:
+          type: boolean
+          description: Whether this is the default payment method
+        metadata:
+          type: object
+          description: Additional metadata
+
+    UpdatePaymentMethodRequest:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Payment method token
+        type:
+          type: string
+          description: Payment method type
+          enum:
+            - credit_card
+            - debit_card
+            - bank_account
+            - wallet
+        last_four:
+          type: string
+          description: Last four digits of card/account
+        expiry_month:
+          type: string
+          description: Card expiry month
+        expiry_year:
+          type: string
+          description: Card expiry year
+        card_holder_name:
+          type: string
+          description: Card holder name
+        card_brand:
+          type: string
+          description: Card brand
+        is_default:
+          type: boolean
+          description: Whether this is the default payment method
+        is_active:
+          type: boolean
+          description: Whether this payment method is active
+        metadata:
+          type: object
+          description: Additional metadata
+
+    PaymentMethod:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Payment method ID
+        customer_id:
+          type: integer
+          description: Customer ID
+        gateway:
+          type: string
+          description: Payment gateway
+        token:
+          type: string
+          description: Payment method token
+        type:
+          type: string
+          description: Payment method type
+        last_four:
+          type: string
+          description: Last four digits of card/account
+        expiry_month:
+          type: string
+          description: Card expiry month
+        expiry_year:
+          type: string
+          description: Card expiry year
+        card_holder_name:
+          type: string
+          description: Card holder name
+        card_brand:
+          type: string
+          description: Card brand
+        is_default:
+          type: boolean
+          description: Whether this is the default payment method
+        is_active:
+          type: boolean
+          description: Whether this payment method is active
+        metadata:
+          type: object
+          description: Additional metadata
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        masked_card_number:
+          type: string
+          description: Masked card number
+        expiry_date:
+          type: string
+          description: Expiry date in MM/YY format
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

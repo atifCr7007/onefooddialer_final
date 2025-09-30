@@ -1,0 +1,548 @@
+openapi: 3.1.0
+info:
+  title: Delivery Service API
+  description: API for managing delivery operations
+  version: 2.0.0
+  contact:
+    name: FoodDialer Support
+    email: support@fooddialer.com
+servers:
+  - url: https://api.fooddialer.com/api/v2/delivery
+    description: Production server
+  - url: https://staging-api.fooddialer.com/api/v2/delivery
+    description: Staging server
+  - url: http://localhost:8000/api/v2/delivery
+    description: Local development server
+paths:
+  /orders:
+    get:
+      summary: Get orders for delivery
+      description: Returns a list of orders assigned for delivery
+      operationId: getDeliveryOrders
+      tags:
+        - Orders
+      parameters:
+        - name: location_id
+          in: query
+          description: Filter orders by location ID
+          required: false
+          schema:
+            type: integer
+        - name: date
+          in: query
+          description: Filter orders by date (YYYY-MM-DD)
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /orders/search:
+    get:
+      summary: Search orders
+      description: Search for orders by order number or other criteria
+      operationId: searchOrders
+      tags:
+        - Orders
+      parameters:
+        - name: search
+          in: query
+          description: Search term
+          required: true
+          schema:
+            type: string
+        - name: location_id
+          in: query
+          description: Filter orders by location ID
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /orders/{orderId}/delivery-status:
+    post:
+      summary: Update delivery status
+      description: Update the delivery status of an order
+      operationId: updateDeliveryStatus
+      tags:
+        - Orders
+      parameters:
+        - name: orderId
+          in: path
+          description: ID of the order to update
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                order_id:
+                  type: integer
+                  description: ID of the order to update
+                order_completed:
+                  type: boolean
+                  description: Whether the order is completed
+                  default: false
+              required:
+                - order_id
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Delivery status updated successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /locations:
+    get:
+      summary: Get delivery locations
+      description: Returns a list of delivery locations for the authenticated user
+      operationId: getDeliveryLocations
+      tags:
+        - Locations
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DeliveryLocation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /third-party/book:
+    post:
+      summary: Book third-party delivery
+      description: Book a delivery with a third-party delivery service
+      operationId: bookThirdPartyDelivery
+      tags:
+        - Third-Party Delivery
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                order_id:
+                  type: integer
+                  description: ID of the order to book delivery for
+              required:
+                - order_id
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Third-party delivery booked successfully
+                  data:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        example: 201
+                      status:
+                        type: string
+                        example: Order placed successfully
+                      time:
+                        type: string
+                        example: 12:30 PM
+                      date:
+                        type: string
+                        example: 2023-01-01
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /third-party/{orderId}/cancel:
+    post:
+      summary: Cancel third-party delivery
+      description: Cancel a delivery with a third-party delivery service
+      operationId: cancelThirdPartyDelivery
+      tags:
+        - Third-Party Delivery
+      parameters:
+        - name: orderId
+          in: path
+          description: ID of the order to cancel delivery for
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Third-party delivery cancelled successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /third-party/{orderId}/status:
+    get:
+      summary: Get third-party delivery status
+      description: Get the status of a delivery from a third-party delivery service
+      operationId: getThirdPartyDeliveryStatus
+      tags:
+        - Third-Party Delivery
+      parameters:
+        - name: orderId
+          in: path
+          description: ID of the order to get delivery status for
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Third-party delivery status retrieved successfully
+                  data:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                        example: 200
+                      status:
+                        type: object
+                        properties:
+                          status:
+                            type: string
+                            example: Delivered
+                          deliveryguy_name:
+                            type: string
+                            example: John Doe
+                          deliveryguy_phone_number:
+                            type: string
+                            example: '1234567890'
+                          pickupguy_name:
+                            type: string
+                            example: Jane Smith
+                          pickupguy_phone_number:
+                            type: string
+                            example: '0987654321'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  schemas:
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Order ID
+          example: 12345
+        order_no:
+          type: string
+          description: Order number
+          example: ORD-12345
+        customer_code:
+          type: integer
+          description: Customer code
+          example: 67890
+        customer_name:
+          type: string
+          description: Customer name
+          example: John Doe
+        customer_phone:
+          type: string
+          description: Customer phone number
+          example: '1234567890'
+        ship_address:
+          type: string
+          description: Shipping address
+          example: 123 Main St, Anytown, CA 12345
+        order_date:
+          type: string
+          format: date
+          description: Order date
+          example: '2023-01-01'
+        delivery_status:
+          type: string
+          description: Delivery status
+          enum:
+            - Pending
+            - Dispatched
+            - Delivered
+            - Failed
+          example: Dispatched
+        order_status:
+          type: string
+          description: Order status
+          enum:
+            - New
+            - Processing
+            - Complete
+            - Cancelled
+          example: Processing
+        delivery_person:
+          type: integer
+          description: Delivery person ID
+          example: 1
+        location_code:
+          type: integer
+          description: Location code
+          example: 1
+        location:
+          $ref: '#/components/schemas/DeliveryLocation'
+        amount:
+          type: number
+          format: float
+          description: Order amount
+          example: 100.00
+        tax:
+          type: number
+          format: float
+          description: Tax amount
+          example: 10.00
+        delivery_charges:
+          type: number
+          format: float
+          description: Delivery charges
+          example: 5.00
+        applied_discount:
+          type: number
+          format: float
+          description: Applied discount
+          example: 0.00
+        total:
+          type: number
+          format: float
+          description: Total amount
+          example: 115.00
+        payment_mode:
+          type: string
+          description: Payment mode
+          example: Online
+        amount_paid:
+          type: boolean
+          description: Whether the amount is paid
+          example: true
+        fk_kitchen_code:
+          type: string
+          description: Kitchen code
+          example: K1
+        order_menu:
+          type: string
+          description: Order menu type
+          enum:
+            - lunch
+            - dinner
+          example: lunch
+        delivery_time:
+          type: string
+          format: time
+          description: Delivery time
+          example: '12:30:00'
+        delivery_end_time:
+          type: string
+          format: time
+          description: Delivery end time
+          example: '13:00:00'
+        delivery_type:
+          type: string
+          description: Delivery type
+          enum:
+            - delivery
+            - pickup
+          example: delivery
+        tp_delivery_order_id:
+          type: string
+          description: Third-party delivery order ID
+          example: TP-12345
+    DeliveryLocation:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Location ID
+          example: 1
+        location:
+          type: string
+          description: Location name
+          example: Downtown
+        city:
+          type: string
+          description: City
+          example: Anytown
+        sub_city_area:
+          type: string
+          description: Sub-city area
+          example: Central
+        pin:
+          type: string
+          description: PIN code
+          example: '12345'
+        delivery_charges:
+          type: number
+          format: float
+          description: Delivery charges
+          example: 5.00
+        delivery_time:
+          type: string
+          description: Delivery time in minutes
+          example: '30'
+        is_default:
+          type: boolean
+          description: Whether this is the default location
+          example: true
+        status:
+          type: boolean
+          description: Location status
+          example: true
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: Bad request
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: Unauthenticated
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: You do not have permission to access this resource
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: The given data was invalid
+              errors:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+                example:
+                  order_id:
+                    - The order id field is required
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []
