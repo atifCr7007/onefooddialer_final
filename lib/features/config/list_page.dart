@@ -26,8 +26,7 @@ class _ConfigListPageState extends ConsumerState<ConfigListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final params = {'page': page, 'per_page': perPage, 'search': q};
-    final asyncData = ref.watch(configListProvider(params));
+    final asyncData = ref.watch(configListProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -73,8 +72,11 @@ class _ConfigListPageState extends ConsumerState<ConfigListPage> {
           child: asyncData.when(
             loading: () => _buildLoadingSkeleton(),
             error: (e, st) => _buildErrorState(e.toString()),
-            data: (rows) {
-              if (rows is! List || rows.isEmpty) {
+            data: (response) {
+              // Extract data from response object - config returns a map
+              final configMap = response?.data?.toMap() ?? {};
+              final rows = configMap.entries.toList();
+              if (rows.isEmpty) {
                 return _buildEmptyState();
               }
               return Column(
@@ -111,7 +113,7 @@ class _ConfigListPageState extends ConsumerState<ConfigListPage> {
                       itemCount: rows.length,
                       separatorBuilder: (_, __) => const Divider(height: 1),
                       itemBuilder: (context, i) {
-                        final row = rows[i] as Map;
+                        final row = rows[i];
                         return ListTile(
                           leading: Checkbox(
                             value: selected.contains(i),
@@ -120,11 +122,11 @@ class _ConfigListPageState extends ConsumerState<ConfigListPage> {
                             }),
                           ),
                           title: Text(
-                            (row['name'] ?? row['title'] ?? row['id']).toString(),
+                            row.key,
                             style: const TextStyle(fontWeight: FontWeight.w500),
                           ),
                           subtitle: Text(
-                            _formatSubtitle(row),
+                            row.value,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),

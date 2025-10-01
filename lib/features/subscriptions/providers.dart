@@ -28,8 +28,8 @@ final subscriptionsListProvider = FutureProvider.autoDispose.family<GetAllSubscr
   return await client.getAllSubscriptions(
     customerId: params['customer_id'] as int?,
     status: params['status'] as String?,
-    startDate: params['start_date'] != null ? DateTime.parse(params['start_date'] as String) : null,
-    endDate: params['end_date'] != null ? DateTime.parse(params['end_date'] as String) : null,
+    startDate: params['start_date'] != null ? DateTime.parse(params['start_date'] as String).toDate() : null,
+    endDate: params['end_date'] != null ? DateTime.parse(params['end_date'] as String).toDate() : null,
   );
 });
 

@@ -73,8 +73,10 @@ class _LocationsListPageState extends ConsumerState<LocationsListPage> {
           child: asyncData.when(
             loading: () => _buildLoadingSkeleton(),
             error: (e, st) => _buildErrorState(e.toString()),
-            data: (rows) {
-              if (rows is! List || rows.isEmpty) {
+            data: (response) {
+              // Extract data from response object
+              final rows = response?.data?.toList() ?? [];
+              if (rows.isEmpty) {
                 return _buildEmptyState();
               }
               return Column(
@@ -111,7 +113,7 @@ class _LocationsListPageState extends ConsumerState<LocationsListPage> {
                       itemCount: rows.length,
                       separatorBuilder: (_, __) => const Divider(height: 1),
                       itemBuilder: (context, i) {
-                        final row = rows[i] as Map;
+                        final row = rows[i];
                         return ListTile(
                           leading: Checkbox(
                             value: selected.contains(i),
@@ -120,11 +122,11 @@ class _LocationsListPageState extends ConsumerState<LocationsListPage> {
                             }),
                           ),
                           title: Text(
-                            (row['name'] ?? row['title'] ?? row['id']).toString(),
+                            'Location #${row.id ?? 'N/A'} - ${row.cityCode ?? ''}',
                             style: const TextStyle(fontWeight: FontWeight.w500),
                           ),
                           subtitle: Text(
-                            _formatSubtitle(row),
+                            _formatLocationSubtitle(row),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -210,12 +212,12 @@ class _LocationsListPageState extends ConsumerState<LocationsListPage> {
     );
   }
 
-  String _formatSubtitle(Map row) {
+  String _formatLocationSubtitle(row) {
     final parts = <String>[];
-    if (row.containsKey('email')) parts.add(row['email'].toString());
-    if (row.containsKey('phone')) parts.add(row['phone'].toString());
-    if (row.containsKey('status')) parts.add('Status: ${row['status']}');
-    return parts.isEmpty ? row.toString() : parts.join(' • ');
+    if (row.kitchenCode != null) parts.add('Kitchen: ${row.kitchenCode}');
+    if (row.address != null) parts.add(row.address.toString());
+    if (row.status != null) parts.add('Status: ${row.status}');
+    return parts.isEmpty ? 'Location details' : parts.join(' • ');
   }
 
   Widget _buildLoadingSkeleton() {

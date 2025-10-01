@@ -78,6 +78,8 @@ dependencies:
     path: lib/client/kitchen_client
   payment_client:
     path: lib/client/payment_client
+  subscription_client:
+    path: lib/client/subscription_client
 
 dev_dependencies:
   flutter_test:

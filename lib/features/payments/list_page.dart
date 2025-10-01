@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_one/features/payment%20methods/providers.dart';
 import 'providers.dart';
 import 'package:food_one/widgets/confirm_dialog.dart';
 import 'package:shimmer/shimmer.dart';
@@ -27,8 +26,8 @@ class _PaymentsListPageState extends ConsumerState<PaymentsListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final params = {'page': page, 'per_page': perPage, 'search': q};
-    final asyncData = ref.watch(paymentmethodsListProvider(params));
+    final params = <String, dynamic>{};
+    final asyncData = ref.watch(paymentsLogsProvider(params));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -74,8 +73,10 @@ class _PaymentsListPageState extends ConsumerState<PaymentsListPage> {
           child: asyncData.when(
             loading: () => _buildLoadingSkeleton(),
             error: (e, st) => _buildErrorState(e.toString()),
-            data: (rows) {
-              if (rows is! List || rows.isEmpty) {
+            data: (response) {
+              // Extract data from response object
+              final rows = response?.data?.toList() ?? [];
+              if (rows.isEmpty) {
                 return _buildEmptyState();
               }
               return Column(
@@ -112,7 +113,7 @@ class _PaymentsListPageState extends ConsumerState<PaymentsListPage> {
                       itemCount: rows.length,
                       separatorBuilder: (_, __) => const Divider(height: 1),
                       itemBuilder: (context, i) {
-                        final row = rows[i] as Map;
+                        final row = rows[i];
                         return ListTile(
                           leading: Checkbox(
                             value: selected.contains(i),
@@ -121,11 +122,11 @@ class _PaymentsListPageState extends ConsumerState<PaymentsListPage> {
                             }),
                           ),
                           title: Text(
-                            (row['name'] ?? row['title'] ?? row['id']).toString(),
+                            'Log #${row.id ?? 'N/A'}',
                             style: const TextStyle(fontWeight: FontWeight.w500),
                           ),
                           subtitle: Text(
-                            _formatSubtitle(row),
+                            _formatPaymentLogSubtitle(row),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -211,12 +212,13 @@ class _PaymentsListPageState extends ConsumerState<PaymentsListPage> {
     );
   }
 
-  String _formatSubtitle(Map row) {
+  String _formatPaymentLogSubtitle(row) {
     final parts = <String>[];
-    if (row.containsKey('email')) parts.add(row['email'].toString());
-    if (row.containsKey('phone')) parts.add(row['phone'].toString());
-    if (row.containsKey('status')) parts.add('Status: ${row['status']}');
-    return parts.isEmpty ? row.toString() : parts.join(' • ');
+    if (row.event != null) parts.add('Event: ${row.event}');
+    if (row.status != null) parts.add('Status: ${row.status}');
+    if (row.gateway != null) parts.add('Gateway: ${row.gateway}');
+    if (row.createdAt != null) parts.add('${row.createdAt}');
+    return parts.isEmpty ? 'Payment log' : parts.join(' • ');
   }
 
   Widget _buildLoadingSkeleton() {

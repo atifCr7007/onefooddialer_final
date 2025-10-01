@@ -26,8 +26,8 @@ class _PaymentMethodsListPageState extends ConsumerState<PaymentMethodsListPage>
 
   @override
   Widget build(BuildContext context) {
-    final params = {'page': page, 'per_page': perPage, 'search': q};
-    final asyncData = ref.watch(paymentmethodsListProvider(params));
+    // Default customer ID - in real app, this would come from auth context
+    final asyncData = ref.watch(paymentmethodsListProvider(1));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -73,8 +73,10 @@ class _PaymentMethodsListPageState extends ConsumerState<PaymentMethodsListPage>
           child: asyncData.when(
             loading: () => _buildLoadingSkeleton(),
             error: (e, st) => _buildErrorState(e.toString()),
-            data: (rows) {
-              if (rows is! List || rows!.data!.isEmpty) {
+            data: (response) {
+              // Extract data from response object
+              final rows = response?.data?.toList() ?? [];
+              if (rows.isEmpty) {
                 return _buildEmptyState();
               }
               return Column(
@@ -111,7 +113,7 @@ class _PaymentMethodsListPageState extends ConsumerState<PaymentMethodsListPage>
                       itemCount: rows.length,
                       separatorBuilder: (_, __) => const Divider(height: 1),
                       itemBuilder: (context, i) {
-                        final row = rows[i] as Map;
+                        final row = rows[i];
                         return ListTile(
                           leading: Checkbox(
                             value: selected.contains(i),
@@ -120,11 +122,11 @@ class _PaymentMethodsListPageState extends ConsumerState<PaymentMethodsListPage>
                             }),
                           ),
                           title: Text(
-                            (row['name'] ?? row['title'] ?? row['id']).toString(),
+                            row.type ?? 'Payment Method #${row.id ?? 'N/A'}',
                             style: const TextStyle(fontWeight: FontWeight.w500),
                           ),
                           subtitle: Text(
-                            _formatSubtitle(row),
+                            _formatPaymentMethodSubtitle(row),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -210,12 +212,12 @@ class _PaymentMethodsListPageState extends ConsumerState<PaymentMethodsListPage>
     );
   }
 
-  String _formatSubtitle(Map row) {
+  String _formatPaymentMethodSubtitle(row) {
     final parts = <String>[];
-    if (row.containsKey('email')) parts.add(row['email'].toString());
-    if (row.containsKey('phone')) parts.add(row['phone'].toString());
-    if (row.containsKey('status')) parts.add('Status: ${row['status']}');
-    return parts.isEmpty ? row.toString() : parts.join(' • ');
+    if (row.provider != null) parts.add('Provider: ${row.provider}');
+    if (row.lastFour != null) parts.add('****${row.lastFour}');
+    if (row.isDefault != null && row.isDefault == true) parts.add('Default');
+    return parts.isEmpty ? 'Payment method' : parts.join(' • ');
   }
 
   Widget _buildLoadingSkeleton() {

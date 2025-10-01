@@ -73,8 +73,10 @@ class _TimeslotsListPageState extends ConsumerState<TimeslotsListPage> {
           child: asyncData.when(
             loading: () => _buildLoadingSkeleton(),
             error: (e, st) => _buildErrorState(e.toString()),
-            data: (rows) {
-              if (rows is! List || rows.isEmpty) {
+            data: (response) {
+              // Extract data from response object
+              final rows = response?.data?.toList() ?? [];
+              if (rows.isEmpty) {
                 return _buildEmptyState();
               }
               return Column(
@@ -111,7 +113,7 @@ class _TimeslotsListPageState extends ConsumerState<TimeslotsListPage> {
                       itemCount: rows.length,
                       separatorBuilder: (_, __) => const Divider(height: 1),
                       itemBuilder: (context, i) {
-                        final row = rows[i] as Map;
+                        final row = rows[i];
                         return ListTile(
                           leading: Checkbox(
                             value: selected.contains(i),
@@ -120,11 +122,11 @@ class _TimeslotsListPageState extends ConsumerState<TimeslotsListPage> {
                             }),
                           ),
                           title: Text(
-                            (row['name'] ?? row['title'] ?? row['id']).toString(),
+                            'Timeslot #${row.id ?? 'N/A'} - ${row.day ?? ''}',
                             style: const TextStyle(fontWeight: FontWeight.w500),
                           ),
                           subtitle: Text(
-                            _formatSubtitle(row),
+                            _formatTimeslotSubtitle(row),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -210,12 +212,13 @@ class _TimeslotsListPageState extends ConsumerState<TimeslotsListPage> {
     );
   }
 
-  String _formatSubtitle(Map row) {
+  String _formatTimeslotSubtitle(row) {
     final parts = <String>[];
-    if (row.containsKey('email')) parts.add(row['email'].toString());
-    if (row.containsKey('phone')) parts.add(row['phone'].toString());
-    if (row.containsKey('status')) parts.add('Status: ${row['status']}');
-    return parts.isEmpty ? row.toString() : parts.join(' • ');
+    if (row.menuType != null) parts.add('Menu: ${row.menuType}');
+    if (row.startTime != null && row.endTime != null) parts.add('${row.startTime} - ${row.endTime}');
+    if (row.capacity != null) parts.add('Capacity: ${row.capacity}');
+    if (row.status != null) parts.add('Status: ${row.status}');
+    return parts.isEmpty ? 'Timeslot details' : parts.join(' • ');
   }
 
   Widget _buildLoadingSkeleton() {

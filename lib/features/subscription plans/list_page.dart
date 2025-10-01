@@ -26,8 +26,8 @@ class _SubscriptionPlansListPageState extends ConsumerState<SubscriptionPlansLis
 
   @override
   Widget build(BuildContext context) {
-    final params = {'page': page, 'per_page': perPage, 'search': q};
-    final asyncData = ref.watch(subscription plansListProvider(params));
+    final params = <String, dynamic>{};
+    final asyncData = ref.watch(subscriptionPlansListProvider(params));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -73,8 +73,10 @@ class _SubscriptionPlansListPageState extends ConsumerState<SubscriptionPlansLis
           child: asyncData.when(
             loading: () => _buildLoadingSkeleton(),
             error: (e, st) => _buildErrorState(e.toString()),
-            data: (rows) {
-              if (rows is! List || rows.isEmpty) {
+            data: (response) {
+              // Extract data from response object
+              final rows = response?.data?.toList() ?? [];
+              if (rows.isEmpty) {
                 return _buildEmptyState();
               }
               return Column(
@@ -111,7 +113,7 @@ class _SubscriptionPlansListPageState extends ConsumerState<SubscriptionPlansLis
                       itemCount: rows.length,
                       separatorBuilder: (_, __) => const Divider(height: 1),
                       itemBuilder: (context, i) {
-                        final row = rows[i] as Map;
+                        final row = rows[i];
                         return ListTile(
                           leading: Checkbox(
                             value: selected.contains(i),
@@ -120,11 +122,11 @@ class _SubscriptionPlansListPageState extends ConsumerState<SubscriptionPlansLis
                             }),
                           ),
                           title: Text(
-                            (row['name'] ?? row['title'] ?? row['id']).toString(),
+                            row.planName ?? 'Plan #${row.id ?? 'N/A'}',
                             style: const TextStyle(fontWeight: FontWeight.w500),
                           ),
                           subtitle: Text(
-                            _formatSubtitle(row),
+                            _formatSubscriptionPlanSubtitle(row),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -210,12 +212,13 @@ class _SubscriptionPlansListPageState extends ConsumerState<SubscriptionPlansLis
     );
   }
 
-  String _formatSubtitle(Map row) {
+  String _formatSubscriptionPlanSubtitle(row) {
     final parts = <String>[];
-    if (row.containsKey('email')) parts.add(row['email'].toString());
-    if (row.containsKey('phone')) parts.add(row['phone'].toString());
-    if (row.containsKey('status')) parts.add('Status: ${row['status']}');
-    return parts.isEmpty ? row.toString() : parts.join(' • ');
+    if (row.planType != null) parts.add('Type: ${row.planType}');
+    if (row.planPeriod != null) parts.add('Period: ${row.planPeriod}');
+    if (row.planQuantity != null) parts.add('Qty: ${row.planQuantity}');
+    if (row.status != null) parts.add('Status: ${row.status}');
+    return parts.isEmpty ? 'Subscription plan' : parts.join(' • ');
   }
 
   Widget _buildLoadingSkeleton() {

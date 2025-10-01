@@ -29,8 +29,8 @@ final subscriptionPlansListProvider = FutureProvider.autoDispose.family<GetAllSu
     status: params['status'] as bool?,
     type: params['type'] as String?,
     showToCustomer: params['show_to_customer'] as String?,
-    startDate: params['start_date'] != null ? DateTime.parse(params['start_date'] as String) : null,
-    endDate: params['end_date'] != null ? DateTime.parse(params['end_date'] as String) : null,
+    startDate: params['start_date'] != null ? DateTime.parse(params['start_date'] as String).toDate() : null,
+    endDate: params['end_date'] != null ? DateTime.parse(params['end_date'] as String).toDate() : null,
   );
 });
 

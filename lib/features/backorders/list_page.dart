@@ -73,8 +73,10 @@ class _BackordersListPageState extends ConsumerState<BackordersListPage> {
           child: asyncData.when(
             loading: () => _buildLoadingSkeleton(),
             error: (e, st) => _buildErrorState(e.toString()),
-            data: (rows) {
-              if (rows is! List || rows.isEmpty) {
+            data: (response) {
+              // Extract data from response object
+              final rows = response?.data?.toList() ?? [];
+              if (rows.isEmpty) {
                 return _buildEmptyState();
               }
               return Column(
@@ -111,7 +113,7 @@ class _BackordersListPageState extends ConsumerState<BackordersListPage> {
                       itemCount: rows.length,
                       separatorBuilder: (_, __) => const Divider(height: 1),
                       itemBuilder: (context, i) {
-                        final row = rows[i] as Map;
+                        final row = rows[i];
                         return ListTile(
                           leading: Checkbox(
                             value: selected.contains(i),
@@ -120,11 +122,11 @@ class _BackordersListPageState extends ConsumerState<BackordersListPage> {
                             }),
                           ),
                           title: Text(
-                            (row['name'] ?? row['title'] ?? row['id']).toString(),
+                            'Backorder #${row.id ?? 'N/A'}',
                             style: const TextStyle(fontWeight: FontWeight.w500),
                           ),
                           subtitle: Text(
-                            _formatSubtitle(row),
+                            _formatBackorderSubtitle(row),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -210,12 +212,13 @@ class _BackordersListPageState extends ConsumerState<BackordersListPage> {
     );
   }
 
-  String _formatSubtitle(Map row) {
+  String _formatBackorderSubtitle(row) {
     final parts = <String>[];
-    if (row.containsKey('email')) parts.add(row['email'].toString());
-    if (row.containsKey('phone')) parts.add(row['phone'].toString());
-    if (row.containsKey('status')) parts.add('Status: ${row['status']}');
-    return parts.isEmpty ? row.toString() : parts.join(' • ');
+    if (row.productName != null) parts.add(row.productName.toString());
+    if (row.quantity != null) parts.add('Qty: ${row.quantity}');
+    if (row.status != null) parts.add('Status: ${row.status}');
+    if (row.orderDate != null) parts.add('Date: ${row.orderDate}');
+    return parts.isEmpty ? 'Order #${row.orderId ?? 'N/A'}' : parts.join(' • ');
   }
 
   Widget _buildLoadingSkeleton() {

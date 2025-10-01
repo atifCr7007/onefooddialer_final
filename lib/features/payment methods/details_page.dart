@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'providers.dart';
-import 'dart:convert';
 import 'package:shimmer/shimmer.dart';
 
 class PaymentMethodsDetailsPage extends ConsumerWidget {
-  final Object id;
+  final int id;
   const PaymentMethodsDetailsPage({super.key, required this.id});
 
   @override
@@ -14,85 +13,94 @@ class PaymentMethodsDetailsPage extends ConsumerWidget {
     return asyncData.when(
       loading: () => _buildLoadingSkeleton(context),
       error: (e, st) => _buildErrorState(context, e.toString()),
-      data: (data) => SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header with actions
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'PaymentMethods Details',
-                    style: Theme.of(context).textTheme.headlineSmall,
+      data: (response) {
+        final data = response?.data;
+        return SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header with actions
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      data?.type ?? 'Payment Method #${data?.id ?? id}',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
                   ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.edit),
-                  tooltip: 'Edit',
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red),
-                  tooltip: 'Delete',
-                  onPressed: () {},
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            // Data display
-            if (data is Map) ..._buildDataFields(context, data)
-            else Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: SelectableText(
-                  const JsonEncoder.withIndent('  ').convert(data),
-                  style: const TextStyle(fontFamily: 'monospace'),
+                  IconButton(
+                    icon: const Icon(Icons.edit),
+                    tooltip: 'Edit',
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.delete, color: Colors.red),
+                    tooltip: 'Delete',
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              // Data display
+              if (data != null) ..._buildPaymentMethodFields(context, data)
+              else Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text('No data available'),
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      },
     );
   }
 
-  List<Widget> _buildDataFields(BuildContext context, Map data) {
+  List<Widget> _buildPaymentMethodFields(BuildContext context, data) {
     final widgets = <Widget>[];
-    data.forEach((key, value) {
-      widgets.add(
-        Card(
-          child: ListTile(
-            title: Text(
-              _formatKey(key.toString()),
-              style: const TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 12,
-                color: Colors.grey,
+
+    // Helper function to add a field
+    void addField(String label, String? value) {
+      if (value != null && value.isNotEmpty) {
+        widgets.add(
+          Card(
+            child: ListTile(
+              title: Text(
+                label,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12,
+                  color: Colors.grey,
+                ),
               ),
-            ),
-            subtitle: Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: Text(
-                value?.toString() ?? 'N/A',
-                style: const TextStyle(fontSize: 16),
+              subtitle: Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Text(
+                  value,
+                  style: const TextStyle(fontSize: 16),
+                ),
               ),
             ),
           ),
-        ),
-      );
-      widgets.add(const SizedBox(height: 8));
-    });
-    return widgets;
-  }
+        );
+        widgets.add(const SizedBox(height: 8));
+      }
+    }
 
-  String _formatKey(String key) {
-    return key
-        .replaceAll('_', ' ')
-        .split(' ')
-        .map((word) => word.isEmpty ? '' : word[0].toUpperCase() + word.substring(1))
-        .join(' ');
+    // Add payment method fields
+    addField('ID', data.id?.toString());
+    addField('Customer ID', data.customerId?.toString());
+    addField('Type', data.type);
+    addField('Provider', data.provider);
+    addField('Last Four', data.lastFour);
+    addField('Expiry Month', data.expiryMonth?.toString());
+    addField('Expiry Year', data.expiryYear?.toString());
+    addField('Is Default', data.isDefault?.toString());
+    addField('Created At', data.createdAt?.toString());
+    addField('Updated At', data.updatedAt?.toString());
+
+    return widgets;
   }
 
   Widget _buildLoadingSkeleton(BuildContext context) {

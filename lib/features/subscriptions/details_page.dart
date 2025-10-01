@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'providers.dart';
-import 'dart:convert';
 import 'package:shimmer/shimmer.dart';
 
 class SubscriptionsDetailsPage extends ConsumerWidget {
-  final Object id;
+  final int id;
   const SubscriptionsDetailsPage({super.key, required this.id});
 
   @override
@@ -14,85 +13,95 @@ class SubscriptionsDetailsPage extends ConsumerWidget {
     return asyncData.when(
       loading: () => _buildLoadingSkeleton(context),
       error: (e, st) => _buildErrorState(context, e.toString()),
-      data: (data) => SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header with actions
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'Subscriptions Details',
-                    style: Theme.of(context).textTheme.headlineSmall,
+      data: (response) {
+        final data = response?.data;
+        return SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header with actions
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Subscription #${data?.id ?? id}',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
                   ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.edit),
-                  tooltip: 'Edit',
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red),
-                  tooltip: 'Delete',
-                  onPressed: () {},
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            // Data display
-            if (data is Map) ..._buildDataFields(context, data)
-            else Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: SelectableText(
-                  const JsonEncoder.withIndent('  ').convert(data),
-                  style: const TextStyle(fontFamily: 'monospace'),
+                  IconButton(
+                    icon: const Icon(Icons.edit),
+                    tooltip: 'Edit',
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.delete, color: Colors.red),
+                    tooltip: 'Delete',
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              // Data display
+              if (data != null) ..._buildSubscriptionFields(context, data)
+              else Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text('No data available'),
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      },
     );
   }
 
-  List<Widget> _buildDataFields(BuildContext context, Map data) {
+  List<Widget> _buildSubscriptionFields(BuildContext context, data) {
     final widgets = <Widget>[];
-    data.forEach((key, value) {
-      widgets.add(
-        Card(
-          child: ListTile(
-            title: Text(
-              _formatKey(key.toString()),
-              style: const TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 12,
-                color: Colors.grey,
+
+    // Helper function to add a field
+    void addField(String label, String? value) {
+      if (value != null && value.isNotEmpty) {
+        widgets.add(
+          Card(
+            child: ListTile(
+              title: Text(
+                label,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12,
+                  color: Colors.grey,
+                ),
               ),
-            ),
-            subtitle: Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: Text(
-                value?.toString() ?? 'N/A',
-                style: const TextStyle(fontSize: 16),
+              subtitle: Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Text(
+                  value,
+                  style: const TextStyle(fontSize: 16),
+                ),
               ),
             ),
           ),
-        ),
-      );
-      widgets.add(const SizedBox(height: 8));
-    });
-    return widgets;
-  }
+        );
+        widgets.add(const SizedBox(height: 8));
+      }
+    }
 
-  String _formatKey(String key) {
-    return key
-        .replaceAll('_', ' ')
-        .split(' ')
-        .map((word) => word.isEmpty ? '' : word[0].toUpperCase() + word.substring(1))
-        .join(' ');
+    // Add subscription fields
+    addField('ID', data.id?.toString());
+    addField('Customer ID', data.customerId?.toString());
+    addField('Plan ID', data.planId?.toString());
+    addField('Plan Name', data.planName);
+    addField('Status', data.status);
+    addField('Start Date', data.startDate?.toString());
+    addField('End Date', data.endDate?.toString());
+    addField('Next Billing Date', data.nextBillingDate?.toString());
+    addField('Amount', data.amount?.toString());
+    addField('Created At', data.createdAt?.toString());
+    addField('Updated At', data.updatedAt?.toString());
+
+    return widgets;
   }
 
   Widget _buildLoadingSkeleton(BuildContext context) {
