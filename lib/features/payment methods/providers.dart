@@ -1,20 +1,37 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_ui_codegen_pack_extended_fixed/shared/resource_client.dart';
+import 'package:payment_client/src/serializers.dart';
+import 'package:payment_client/src/model/payment_methods_response.dart';
+import 'package:payment_client/src/model/payment_method_response.dart';
+import 'package:flutter_ui_codegen_pack_extended_fixed/shared/payment_resource_clients.dart';
 
+/// Dio instance configured for payment service (shared with payments)
+final paymentMethodDioProvider = Provider((ref) {
+  return Dio(BaseOptions(
+    baseUrl: 'http://localhost:8008/api/v1',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    connectTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 10),
+  ));
+});
+
+/// Payment resource client provider (shared with payments)
 final paymentmethodsClientProvider = Provider((ref) {
-  return createResourceClient(
-    basePath: '/payment-methods/customer/{customerId}',
-    byIdPath: '/payment-methods/{id}',
-  );
+  final dio = ref.read(paymentMethodDioProvider);
+  final serializers = standardSerializers;
+  return createPaymentClient(dio, serializers);
 });
 
-final paymentmethodsListProvider = FutureProvider.family((ref, Map<String, dynamic> params) async {
-  final api = ref.read(paymentmethodsClientProvider);
-  final payload = await api.list(params);
-  return Paginator.items(payload);
+/// Get customer payment methods
+final paymentmethodsListProvider = FutureProvider.autoDispose.family<PaymentMethodsResponse?, int>((ref, customerId) async {
+  final client = ref.read(paymentmethodsClientProvider);
+  return await client.getCustomerPaymentMethods(customerId);
 });
 
-final paymentmethodsGetProvider = FutureProvider.family((ref, Object id) async {
-  final api = ref.read(paymentmethodsClientProvider);
-  return api.get(id);
+/// Get payment method by ID
+final paymentmethodsGetProvider = FutureProvider.autoDispose.family<PaymentMethodResponse?, int>((ref, id) async {
+  final client = ref.read(paymentmethodsClientProvider);
+  return await client.getPaymentMethod(id);
 });

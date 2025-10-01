@@ -34,8 +34,12 @@ dependencies:
     path: ../client/meal_client
   payment_client:
     path: ../client/payment_client
-  catalog_client:
-    path: ../client/catalog_client
+  catalogs_client:
+    path: ../client/catalogs_client
+  subscription_client:
+    path: ../client/subscription_client
+  quickserver_client:
+    path: ../client/quickserver_client
 
   flutter:
     sdk: flutter

@@ -76,6 +76,8 @@ dependencies:
     path: lib/client/admin_client
   kitchen_client:
     path: lib/client/kitchen_client
+  payment_client:
+    path: lib/client/payment_client
 
 dev_dependencies:
   flutter_test:

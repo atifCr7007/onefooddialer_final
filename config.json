@@ -11,5 +11,8 @@
   "importMappings": {
     "BuiltList": "package:built_collection/built_collection.dart",
     "JsonObject": "package:built_value/json_object.dart"
-  }
+  },
+  "packageName": "quickserver_client",
+  "pubName": "quickserver_client",
+  "output": "lib/src"
 }

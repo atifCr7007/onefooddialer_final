@@ -1,20 +1,49 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_ui_codegen_pack_extended_fixed/shared/resource_client.dart';
+import 'package:payment_client/src/serializers.dart';
+import 'package:payment_client/src/model/logs_response.dart';
+import 'package:payment_client/src/model/payment_status_response.dart';
+import 'package:flutter_ui_codegen_pack_extended_fixed/shared/payment_resource_clients.dart';
 
+/// Dio instance configured for payment service
+final paymentDioProvider = Provider((ref) {
+  return Dio(BaseOptions(
+    baseUrl: 'http://localhost:8008/api/v1',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    connectTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 10),
+  ));
+});
+
+/// Payment resource client provider
 final paymentsClientProvider = Provider((ref) {
-  return createResourceClient(
-    basePath: '/payments/{id}',
-    byIdPath: '/payments/{id}',
+  final dio = ref.read(paymentDioProvider);
+  final serializers = standardSerializers;
+  return createPaymentClient(dio, serializers);
+});
+
+/// Get payment statistics
+final paymentsStatisticsProvider = FutureProvider.autoDispose((ref) async {
+  final client = ref.read(paymentsClientProvider);
+  return await client.getPaymentStatistics();
+});
+
+/// Get payment logs
+final paymentsLogsProvider = FutureProvider.autoDispose.family<LogsResponse?, Map<String, dynamic>>((ref, params) async {
+  final client = ref.read(paymentsClientProvider);
+  return await client.getPaymentLogs(
+    transactionId: params['transaction_id'] as int?,
+    gateway: params['gateway'] as String?,
+    event: params['event'] as String?,
+    status: params['status'] as String?,
+    limit: params['limit'] as int? ?? 50,
   );
 });
 
-final paymentsListProvider = FutureProvider.family((ref, Map<String, dynamic> params) async {
-  final api = ref.read(paymentsClientProvider);
-  final payload = await api.list(params);
-  return Paginator.items(payload);
-});
-
-final paymentsGetProvider = FutureProvider.family((ref, Object id) async {
-  final api = ref.read(paymentsClientProvider);
-  return api.get(id);
+/// Get payment status by ID
+final paymentsGetProvider = FutureProvider.autoDispose.family<PaymentStatusResponse?, int>((ref, id) async {
+  final client = ref.read(paymentsClientProvider);
+  return await client.getPaymentStatus(id);
 });

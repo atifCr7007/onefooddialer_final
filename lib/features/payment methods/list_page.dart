@@ -74,7 +74,7 @@ class _PaymentMethodsListPageState extends ConsumerState<PaymentMethodsListPage>
             loading: () => _buildLoadingSkeleton(),
             error: (e, st) => _buildErrorState(e.toString()),
             data: (rows) {
-              if (rows is! List || rows.isEmpty) {
+              if (rows is! List || rows!.data!.isEmpty) {
                 return _buildEmptyState();
               }
               return Column(

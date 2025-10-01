@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_one/features/payment%20methods/providers.dart';
 import 'providers.dart';
 import 'package:food_one/widgets/confirm_dialog.dart';
 import 'package:shimmer/shimmer.dart';
@@ -27,7 +28,7 @@ class _PaymentsListPageState extends ConsumerState<PaymentsListPage> {
   @override
   Widget build(BuildContext context) {
     final params = {'page': page, 'per_page': perPage, 'search': q};
-    final asyncData = ref.watch(paymentsListProvider(params));
+    final asyncData = ref.watch(paymentmethodsListProvider(params));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

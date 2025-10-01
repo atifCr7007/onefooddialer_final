@@ -165,18 +165,18 @@ final microservicesConfigProvider = Provider<List<MicroserviceConfig>>((ref) {
       clientPath: 'lib/client/payment_client',
       features: [
         FeatureConfig(
-          id: 'transactions',
-          name: 'Transactions',
+          id: 'payments',
+          name: 'Payment Transactions',
           icon: Icons.account_balance,
-          route: '/features/payment/transactions',
-          description: 'Payment transactions',
+          route: '/features/payments',
+          description: 'Manage payment transactions, processing, and refunds',
         ),
         FeatureConfig(
-          id: 'refunds',
-          name: 'Refunds',
-          icon: Icons.money_off,
-          route: '/features/payment/refunds',
-          description: 'Refund management',
+          id: 'payment-methods',
+          name: 'Payment Methods',
+          icon: Icons.credit_card,
+          route: '/features/payment methods',
+          description: 'Manage customer payment methods',
         ),
       ],
     ),
@@ -225,6 +225,40 @@ final microservicesConfigProvider = Provider<List<MicroserviceConfig>>((ref) {
       ],
     ),
 
+    // Meal Section
+    MicroserviceConfig(
+      id: 'meal',
+      name: 'Meal Service',
+      icon: Icons.restaurant_menu,
+      clientPath: 'lib/client/meal_client',
+      features: [
+        FeatureConfig(
+          id: 'meals',
+          name: 'Meals',
+          icon: Icons.fastfood,
+          route: '/features/meals',
+          description: 'Manage meals, menus, and food items',
+        ),
+      ],
+    ),
+
+    // Catalogs Section
+    MicroserviceConfig(
+      id: 'catalogs',
+      name: 'Catalog Service',
+      icon: Icons.category,
+      clientPath: 'lib/client/catalogs_client',
+      features: [
+        FeatureConfig(
+          id: 'catalogs',
+          name: 'Products',
+          icon: Icons.inventory_2,
+          route: '/features/catalogs',
+          description: 'Manage catalog products, categories, and inventory',
+        ),
+      ],
+    ),
+
     // Order Section
     MicroserviceConfig(
       id: 'order',
@@ -252,6 +286,75 @@ final microservicesConfigProvider = Provider<List<MicroserviceConfig>>((ref) {
           icon: Icons.list_alt,
           route: '/features/order-items',
           description: 'Manage order items, quantities, and customizations',
+        ),
+      ],
+    ),
+
+    // Subscription Section
+    MicroserviceConfig(
+      id: 'subscription',
+      name: 'Subscription Service',
+      icon: Icons.subscriptions,
+      clientPath: 'lib/client/subscription_client',
+      features: [
+        FeatureConfig(
+          id: 'subscriptions',
+          name: 'Subscriptions',
+          icon: Icons.card_membership,
+          route: '/features/subscriptions',
+          description: 'Manage customer subscriptions and lifecycle',
+        ),
+        FeatureConfig(
+          id: 'subscription-plans',
+          name: 'Subscription Plans',
+          icon: Icons.playlist_add_check,
+          route: '/features/subscription plans',
+          description: 'Manage subscription plans and pricing',
+        ),
+      ],
+    ),
+
+    // QuickServer Section
+    MicroserviceConfig(
+      id: 'quickserver',
+      name: 'QuickServer Service',
+      icon: Icons.speed,
+      clientPath: 'lib/client/quickserver_client',
+      features: [
+        FeatureConfig(
+          id: 'backorders',
+          name: 'Backorders',
+          icon: Icons.pending_actions,
+          route: '/features/backorders',
+          description: 'Manage backorders and pending product requests',
+        ),
+        FeatureConfig(
+          id: 'orders',
+          name: 'Orders',
+          icon: Icons.shopping_bag,
+          route: '/features/orders',
+          description: 'QuickServer order management and processing',
+        ),
+        FeatureConfig(
+          id: 'timeslots',
+          name: 'Timeslots',
+          icon: Icons.schedule,
+          route: '/features/timeslots',
+          description: 'Manage delivery timeslots and availability',
+        ),
+        FeatureConfig(
+          id: 'locations',
+          name: 'Locations',
+          icon: Icons.location_on,
+          route: '/features/locations',
+          description: 'Location mappings and kitchen assignments',
+        ),
+        FeatureConfig(
+          id: 'config',
+          name: 'Configuration',
+          icon: Icons.settings_applications,
+          route: '/features/config',
+          description: 'QuickServer configuration and settings',
         ),
       ],
     ),
