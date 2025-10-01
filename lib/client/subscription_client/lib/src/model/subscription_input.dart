@@ -4,8 +4,8 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/model/date.dart';
-import 'package:openapi/src/model/subscription_item_input.dart';
+import 'package:subscription_client/src/model/date.dart';
+import 'package:subscription_client/src/model/subscription_item_input.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

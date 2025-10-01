@@ -8,25 +8,25 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:openapi/src/api_util.dart';
-import 'package:openapi/src/model/cancel_subscription_request.dart';
-import 'package:openapi/src/model/create_subscription201_response.dart';
-import 'package:openapi/src/model/create_subscription_plan201_response.dart';
-import 'package:openapi/src/model/date.dart';
-import 'package:openapi/src/model/delete_subscription_plan200_response.dart';
-import 'package:openapi/src/model/get_all_subscription_plans200_response.dart';
-import 'package:openapi/src/model/get_all_subscriptions200_response.dart';
-import 'package:openapi/src/model/get_subscription_by_id200_response.dart';
-import 'package:openapi/src/model/get_subscription_logs200_response.dart';
-import 'package:openapi/src/model/get_subscription_plan_by_id200_response.dart';
-import 'package:openapi/src/model/pause_subscription_request.dart';
-import 'package:openapi/src/model/process_subscription_payment_request.dart';
-import 'package:openapi/src/model/renew_subscription_request.dart';
-import 'package:openapi/src/model/subscription_input.dart';
-import 'package:openapi/src/model/subscription_plan_input.dart';
-import 'package:openapi/src/model/subscription_plan_update_input.dart';
-import 'package:openapi/src/model/subscription_update_input.dart';
-import 'package:openapi/src/model/validation_error.dart';
+import 'package:subscription_client/src/api_util.dart';
+import 'package:subscription_client/src/model/cancel_subscription_request.dart';
+import 'package:subscription_client/src/model/create_subscription201_response.dart';
+import 'package:subscription_client/src/model/create_subscription_plan201_response.dart';
+import 'package:subscription_client/src/model/date.dart';
+import 'package:subscription_client/src/model/delete_subscription_plan200_response.dart';
+import 'package:subscription_client/src/model/get_all_subscription_plans200_response.dart';
+import 'package:subscription_client/src/model/get_all_subscriptions200_response.dart';
+import 'package:subscription_client/src/model/get_subscription_by_id200_response.dart';
+import 'package:subscription_client/src/model/get_subscription_logs200_response.dart';
+import 'package:subscription_client/src/model/get_subscription_plan_by_id200_response.dart';
+import 'package:subscription_client/src/model/pause_subscription_request.dart';
+import 'package:subscription_client/src/model/process_subscription_payment_request.dart';
+import 'package:subscription_client/src/model/renew_subscription_request.dart';
+import 'package:subscription_client/src/model/subscription_input.dart';
+import 'package:subscription_client/src/model/subscription_plan_input.dart';
+import 'package:subscription_client/src/model/subscription_plan_update_input.dart';
+import 'package:subscription_client/src/model/subscription_update_input.dart';
+import 'package:subscription_client/src/model/validation_error.dart';
 
 class DefaultApi {
 

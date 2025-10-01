@@ -8,14 +8,14 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:openapi/src/api_util.dart';
-import 'package:openapi/src/model/catalogue_products_get200_response.dart';
-import 'package:openapi/src/model/catalogue_products_id_delete200_response.dart';
-import 'package:openapi/src/model/catalogue_products_id_get200_response.dart';
-import 'package:openapi/src/model/catalogue_products_id_get404_response.dart';
-import 'package:openapi/src/model/catalogue_products_id_put200_response.dart';
-import 'package:openapi/src/model/catalogue_products_post201_response.dart';
-import 'package:openapi/src/model/product_input.dart';
+import 'package:catalogs_client/src/api_util.dart';
+import 'package:catalogs_client/src/model/catalogue_products_get200_response.dart';
+import 'package:catalogs_client/src/model/catalogue_products_id_delete200_response.dart';
+import 'package:catalogs_client/src/model/catalogue_products_id_get200_response.dart';
+import 'package:catalogs_client/src/model/catalogue_products_id_get404_response.dart';
+import 'package:catalogs_client/src/model/catalogue_products_id_put200_response.dart';
+import 'package:catalogs_client/src/model/catalogue_products_post201_response.dart';
+import 'package:catalogs_client/src/model/product_input.dart';
 
 class DefaultApi {
 
