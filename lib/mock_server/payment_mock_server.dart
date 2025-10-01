@@ -4,8 +4,8 @@ import 'dart:io';
 /// Mock server for payment microservice
 /// Run with: dart run lib/mock_server/payment_mock_server.dart
 void main() async {
-  final server = await HttpServer.bind(InternetAddress.anyIPv4, 8008);
-  print('🚀 Payment Mock Server running on http://localhost:8008');
+  final server = await HttpServer.bind(InternetAddress.anyIPv4, 8004);
+  print('🚀 Payment Mock Server running on http://localhost:8004');
   print('📝 Base path: /api/v1');
   print('');
   print('Available endpoints:');
@@ -35,7 +35,12 @@ void _handleRequest(HttpRequest request) {
   final path = request.uri.path;
   final method = request.method;
 
-  print('${DateTime.now()} - $method $path');
+  print('');
+  print('🔵 [Payment Mock] ${DateTime.now().toIso8601String()}');
+  print('🔵 [Payment Mock] $method $path');
+  if (request.uri.queryParameters.isNotEmpty) {
+    print('🔵 [Payment Mock] Query: ${request.uri.queryParameters}');
+  }
 
   // CORS headers
   request.response.headers.add('Access-Control-Allow-Origin', '*');
@@ -642,7 +647,11 @@ void _setDefaultPaymentMethod(HttpRequest request, int id) {
 // ========== Helper Functions ==========
 
 void _sendJson(HttpRequest request, Map<String, dynamic> data) {
-  request.response.write(jsonEncode(data));
+  final jsonData = jsonEncode(data);
+  print('🔵 [Payment Mock] Response: ${request.response.statusCode}');
+  print('🔵 [Payment Mock] Data: $jsonData');
+  print('');
+  request.response.write(jsonData);
   request.response.close();
 }
 

@@ -13,17 +13,18 @@ class _$CreateBackorderFromOrderRequest
   @override
   final String reason;
 
-  factory _$CreateBackorderFromOrderRequest(
-          [void Function(CreateBackorderFromOrderRequestBuilder)? updates]) =>
-      (CreateBackorderFromOrderRequestBuilder()..update(updates))._build();
+  factory _$CreateBackorderFromOrderRequest([
+    void Function(CreateBackorderFromOrderRequestBuilder)? updates,
+  ]) => (CreateBackorderFromOrderRequestBuilder()..update(updates))._build();
 
-  _$CreateBackorderFromOrderRequest._(
-      {required this.orderId, required this.reason})
-      : super._();
+  _$CreateBackorderFromOrderRequest._({
+    required this.orderId,
+    required this.reason,
+  }) : super._();
   @override
   CreateBackorderFromOrderRequest rebuild(
-          void Function(CreateBackorderFromOrderRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CreateBackorderFromOrderRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CreateBackorderFromOrderRequestBuilder toBuilder() =>
@@ -57,8 +58,10 @@ class _$CreateBackorderFromOrderRequest
 
 class CreateBackorderFromOrderRequestBuilder
     implements
-        Builder<CreateBackorderFromOrderRequest,
-            CreateBackorderFromOrderRequestBuilder> {
+        Builder<
+          CreateBackorderFromOrderRequest,
+          CreateBackorderFromOrderRequestBuilder
+        > {
   _$CreateBackorderFromOrderRequest? _$v;
 
   int? _orderId;
@@ -97,12 +100,19 @@ class CreateBackorderFromOrderRequestBuilder
   CreateBackorderFromOrderRequest build() => _build();
 
   _$CreateBackorderFromOrderRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$CreateBackorderFromOrderRequest._(
           orderId: BuiltValueNullFieldError.checkNotNull(
-              orderId, r'CreateBackorderFromOrderRequest', 'orderId'),
+            orderId,
+            r'CreateBackorderFromOrderRequest',
+            'orderId',
+          ),
           reason: BuiltValueNullFieldError.checkNotNull(
-              reason, r'CreateBackorderFromOrderRequest', 'reason'),
+            reason,
+            r'CreateBackorderFromOrderRequest',
+            'reason',
+          ),
         );
     replace(_$result);
     return _$result;

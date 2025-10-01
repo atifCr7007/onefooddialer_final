@@ -14,16 +14,16 @@ class _$GetConfigByKey200Response extends GetConfigByKey200Response {
   @override
   final GetConfigByKey200ResponseData? data;
 
-  factory _$GetConfigByKey200Response(
-          [void Function(GetConfigByKey200ResponseBuilder)? updates]) =>
-      (GetConfigByKey200ResponseBuilder()..update(updates))._build();
+  factory _$GetConfigByKey200Response([
+    void Function(GetConfigByKey200ResponseBuilder)? updates,
+  ]) => (GetConfigByKey200ResponseBuilder()..update(updates))._build();
 
   _$GetConfigByKey200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   GetConfigByKey200Response rebuild(
-          void Function(GetConfigByKey200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetConfigByKey200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetConfigByKey200ResponseBuilder toBuilder() =>
@@ -107,7 +107,8 @@ class GetConfigByKey200ResponseBuilder
   _$GetConfigByKey200Response _build() {
     _$GetConfigByKey200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetConfigByKey200Response._(
             success: success,
             message: message,
@@ -120,7 +121,10 @@ class GetConfigByKey200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetConfigByKey200Response', _$failedField, e.toString());
+          r'GetConfigByKey200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

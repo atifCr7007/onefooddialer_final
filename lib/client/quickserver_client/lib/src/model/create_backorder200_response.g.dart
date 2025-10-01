@@ -14,16 +14,16 @@ class _$CreateBackorder200Response extends CreateBackorder200Response {
   @override
   final Backorder? data;
 
-  factory _$CreateBackorder200Response(
-          [void Function(CreateBackorder200ResponseBuilder)? updates]) =>
-      (CreateBackorder200ResponseBuilder()..update(updates))._build();
+  factory _$CreateBackorder200Response([
+    void Function(CreateBackorder200ResponseBuilder)? updates,
+  ]) => (CreateBackorder200ResponseBuilder()..update(updates))._build();
 
   _$CreateBackorder200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   CreateBackorder200Response rebuild(
-          void Function(CreateBackorder200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CreateBackorder200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CreateBackorder200ResponseBuilder toBuilder() =>
@@ -106,7 +106,8 @@ class CreateBackorder200ResponseBuilder
   _$CreateBackorder200Response _build() {
     _$CreateBackorder200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$CreateBackorder200Response._(
             success: success,
             message: message,
@@ -119,7 +120,10 @@ class CreateBackorder200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'CreateBackorder200Response', _$failedField, e.toString());
+          r'CreateBackorder200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../providers/theme_provider.dart';
 import '../providers/locale_provider.dart';
 import '../providers/navigation_provider.dart';
+import '../../services/auth_service.dart';
 
 class AdminNavbar extends ConsumerWidget implements PreferredSizeWidget {
   const AdminNavbar({super.key});
@@ -196,30 +198,38 @@ class AdminNavbar extends ConsumerWidget implements PreferredSizeWidget {
   void _showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Logout'),
-          content: const Text('Are you sure you want to logout?'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                // TODO: Implement logout logic
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Logout functionality coming soon!')),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                foregroundColor: Colors.white,
-              ),
-              child: const Text('Logout'),
-            ),
-          ],
+      builder: (BuildContext dialogContext) {
+        return Consumer(
+          builder: (context, ref, child) {
+            return AlertDialog(
+              title: const Text('Logout'),
+              content: const Text('Are you sure you want to logout?'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(dialogContext).pop(),
+                  child: const Text('Cancel'),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    Navigator.of(dialogContext).pop();
+
+                    // Perform logout
+                    await ref.read(authProvider.notifier).logout();
+
+                    // Navigate to login page
+                    if (context.mounted) {
+                      context.go('/auth/login');
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                  ),
+                  child: const Text('Logout'),
+                ),
+              ],
+            );
+          },
         );
       },
     );

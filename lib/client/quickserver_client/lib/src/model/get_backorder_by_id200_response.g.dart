@@ -14,16 +14,16 @@ class _$GetBackorderById200Response extends GetBackorderById200Response {
   @override
   final Backorder? data;
 
-  factory _$GetBackorderById200Response(
-          [void Function(GetBackorderById200ResponseBuilder)? updates]) =>
-      (GetBackorderById200ResponseBuilder()..update(updates))._build();
+  factory _$GetBackorderById200Response([
+    void Function(GetBackorderById200ResponseBuilder)? updates,
+  ]) => (GetBackorderById200ResponseBuilder()..update(updates))._build();
 
   _$GetBackorderById200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   GetBackorderById200Response rebuild(
-          void Function(GetBackorderById200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetBackorderById200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetBackorderById200ResponseBuilder toBuilder() =>
@@ -60,8 +60,10 @@ class _$GetBackorderById200Response extends GetBackorderById200Response {
 
 class GetBackorderById200ResponseBuilder
     implements
-        Builder<GetBackorderById200Response,
-            GetBackorderById200ResponseBuilder> {
+        Builder<
+          GetBackorderById200Response,
+          GetBackorderById200ResponseBuilder
+        > {
   _$GetBackorderById200Response? _$v;
 
   bool? _success;
@@ -107,7 +109,8 @@ class GetBackorderById200ResponseBuilder
   _$GetBackorderById200Response _build() {
     _$GetBackorderById200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetBackorderById200Response._(
             success: success,
             message: message,
@@ -120,7 +123,10 @@ class GetBackorderById200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetBackorderById200Response', _$failedField, e.toString());
+          r'GetBackorderById200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

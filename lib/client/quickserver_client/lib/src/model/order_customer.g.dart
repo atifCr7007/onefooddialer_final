@@ -109,13 +109,9 @@ class OrderCustomerBuilder
   OrderCustomer build() => _build();
 
   _$OrderCustomer _build() {
-    final _$result = _$v ??
-        _$OrderCustomer._(
-          id: id,
-          name: name,
-          phone: phone,
-          email: email,
-        );
+    final _$result =
+        _$v ??
+        _$OrderCustomer._(id: id, name: name, phone: phone, email: email);
     replace(_$result);
     return _$result;
   }

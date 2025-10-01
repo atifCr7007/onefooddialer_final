@@ -3,21 +3,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 import 'package:customer_client/openapi.dart';
 import 'package:flutter_ui_codegen_pack_extended_fixed/shared/customer_resource_clients.dart';
+import '../../../config/app_config.dart';
 
 // Dio provider for customer API
 final customerDioProvider = Provider<Dio>((ref) {
   final dio = Dio(BaseOptions(
-    baseUrl: const String.fromEnvironment(
-      'CUSTOMER_API_URL',
-      defaultValue: 'https://api.onefooddialer.com/v2/customer-service-v12',
-    ),
+    baseUrl: AppConfig.customerBaseUrl,
     headers: {
       'Authorization': 'Bearer ${const String.fromEnvironment('JWT_TOKEN', defaultValue: 'test-token')}',
       'Content-Type': 'application/json',
     },
-    connectTimeout: const Duration(seconds: 30),
-    receiveTimeout: const Duration(seconds: 30),
+    connectTimeout: AppConfig.connectTimeout,
+    receiveTimeout: AppConfig.receiveTimeout,
   ));
+
+  // Add logging interceptor for debugging
+  if (AppConfig.isDebugMode) {
+    dio.interceptors.add(LogInterceptor(
+      requestBody: true,
+      responseBody: true,
+      error: true,
+      requestHeader: true,
+      responseHeader: false,
+    ));
+  }
+
   return dio;
 });
 

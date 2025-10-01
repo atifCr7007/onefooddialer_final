@@ -32,28 +32,28 @@ class _$LocationMappingUpdate extends LocationMappingUpdate {
   @override
   final int? status;
 
-  factory _$LocationMappingUpdate(
-          [void Function(LocationMappingUpdateBuilder)? updates]) =>
-      (LocationMappingUpdateBuilder()..update(updates))._build();
+  factory _$LocationMappingUpdate([
+    void Function(LocationMappingUpdateBuilder)? updates,
+  ]) => (LocationMappingUpdateBuilder()..update(updates))._build();
 
-  _$LocationMappingUpdate._(
-      {this.companyId,
-      this.unitId,
-      this.locationCode,
-      this.locationName,
-      this.cityCode,
-      this.cityName,
-      this.deliveryCharges,
-      this.deliveryTime,
-      this.kitchenCode,
-      this.kitchenName,
-      this.description,
-      this.status})
-      : super._();
+  _$LocationMappingUpdate._({
+    this.companyId,
+    this.unitId,
+    this.locationCode,
+    this.locationName,
+    this.cityCode,
+    this.cityName,
+    this.deliveryCharges,
+    this.deliveryTime,
+    this.kitchenCode,
+    this.kitchenName,
+    this.description,
+    this.status,
+  }) : super._();
   @override
   LocationMappingUpdate rebuild(
-          void Function(LocationMappingUpdateBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(LocationMappingUpdateBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   LocationMappingUpdateBuilder toBuilder() =>
@@ -206,7 +206,8 @@ class LocationMappingUpdateBuilder
   LocationMappingUpdate build() => _build();
 
   _$LocationMappingUpdate _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$LocationMappingUpdate._(
           companyId: companyId,
           unitId: unitId,

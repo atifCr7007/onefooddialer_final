@@ -37,21 +37,21 @@ class _$BackorderUpdate extends BackorderUpdate {
   factory _$BackorderUpdate([void Function(BackorderUpdateBuilder)? updates]) =>
       (BackorderUpdateBuilder()..update(updates))._build();
 
-  _$BackorderUpdate._(
-      {this.companyId,
-      this.unitId,
-      this.orderId,
-      this.orderNo,
-      this.customerId,
-      this.productId,
-      this.productName,
-      this.quantity,
-      this.amount,
-      this.orderDate,
-      this.orderMenu,
-      this.reason,
-      this.status})
-      : super._();
+  _$BackorderUpdate._({
+    this.companyId,
+    this.unitId,
+    this.orderId,
+    this.orderNo,
+    this.customerId,
+    this.productId,
+    this.productName,
+    this.quantity,
+    this.amount,
+    this.orderDate,
+    this.orderMenu,
+    this.reason,
+    this.status,
+  }) : super._();
   @override
   BackorderUpdate rebuild(void Function(BackorderUpdateBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -213,7 +213,8 @@ class BackorderUpdateBuilder
   BackorderUpdate build() => _build();
 
   _$BackorderUpdate _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$BackorderUpdate._(
           companyId: companyId,
           unitId: unitId,

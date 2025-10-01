@@ -2,10 +2,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 import 'package:kitchen_client/openapi.dart';
 import 'package:flutter_ui_codegen_pack_extended_fixed/shared/kitchen_resource_clients.dart';
+import '../../../config/app_config.dart';
 
 final kitchensClientProvider = Provider((ref) {
   final dio = Dio(BaseOptions(
-    baseUrl: const String.fromEnvironment('API_URL', defaultValue: 'https://api.onefooddialer.com/api/v2'),
+    baseUrl: AppConfig.kitchenBaseUrl,
+    connectTimeout: AppConfig.connectTimeout,
+    receiveTimeout: AppConfig.receiveTimeout,
   ));
 
   // Add interceptors for auth if needed
@@ -18,6 +21,14 @@ final kitchensClientProvider = Provider((ref) {
       return handler.next(options);
     },
   ));
+
+  if (AppConfig.isDebugMode) {
+    dio.interceptors.add(LogInterceptor(
+      requestBody: true,
+      responseBody: true,
+      error: true,
+    ));
+  }
 
   return createKitchensClient(dio, standardSerializers);
 });

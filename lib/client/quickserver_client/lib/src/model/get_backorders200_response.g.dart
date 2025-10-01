@@ -14,16 +14,16 @@ class _$GetBackorders200Response extends GetBackorders200Response {
   @override
   final BuiltList<Backorder>? data;
 
-  factory _$GetBackorders200Response(
-          [void Function(GetBackorders200ResponseBuilder)? updates]) =>
-      (GetBackorders200ResponseBuilder()..update(updates))._build();
+  factory _$GetBackorders200Response([
+    void Function(GetBackorders200ResponseBuilder)? updates,
+  ]) => (GetBackorders200ResponseBuilder()..update(updates))._build();
 
   _$GetBackorders200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   GetBackorders200Response rebuild(
-          void Function(GetBackorders200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetBackorders200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetBackorders200ResponseBuilder toBuilder() =>
@@ -106,7 +106,8 @@ class GetBackorders200ResponseBuilder
   _$GetBackorders200Response _build() {
     _$GetBackorders200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetBackorders200Response._(
             success: success,
             message: message,
@@ -119,7 +120,10 @@ class GetBackorders200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetBackorders200Response', _$failedField, e.toString());
+          r'GetBackorders200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

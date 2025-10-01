@@ -41,23 +41,23 @@ class _$LocationMapping extends LocationMapping {
   factory _$LocationMapping([void Function(LocationMappingBuilder)? updates]) =>
       (LocationMappingBuilder()..update(updates))._build();
 
-  _$LocationMapping._(
-      {this.id,
-      this.companyId,
-      this.unitId,
-      this.locationCode,
-      this.locationName,
-      this.cityCode,
-      this.cityName,
-      this.deliveryCharges,
-      this.deliveryTime,
-      this.kitchenCode,
-      this.kitchenName,
-      this.description,
-      this.status,
-      this.createdAt,
-      this.updatedAt})
-      : super._();
+  _$LocationMapping._({
+    this.id,
+    this.companyId,
+    this.unitId,
+    this.locationCode,
+    this.locationName,
+    this.cityCode,
+    this.cityName,
+    this.deliveryCharges,
+    this.deliveryTime,
+    this.kitchenCode,
+    this.kitchenName,
+    this.description,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+  }) : super._();
   @override
   LocationMapping rebuild(void Function(LocationMappingBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -236,7 +236,8 @@ class LocationMappingBuilder
   LocationMapping build() => _build();
 
   _$LocationMapping _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$LocationMapping._(
           id: id,
           companyId: companyId,

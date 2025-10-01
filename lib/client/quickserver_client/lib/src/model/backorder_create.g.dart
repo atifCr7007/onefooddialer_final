@@ -37,21 +37,21 @@ class _$BackorderCreate extends BackorderCreate {
   factory _$BackorderCreate([void Function(BackorderCreateBuilder)? updates]) =>
       (BackorderCreateBuilder()..update(updates))._build();
 
-  _$BackorderCreate._(
-      {this.companyId,
-      this.unitId,
-      required this.orderId,
-      required this.orderNo,
-      required this.customerId,
-      required this.productId,
-      required this.productName,
-      required this.quantity,
-      required this.amount,
-      required this.orderDate,
-      required this.orderMenu,
-      required this.reason,
-      this.status})
-      : super._();
+  _$BackorderCreate._({
+    this.companyId,
+    this.unitId,
+    required this.orderId,
+    required this.orderNo,
+    required this.customerId,
+    required this.productId,
+    required this.productName,
+    required this.quantity,
+    required this.amount,
+    required this.orderDate,
+    required this.orderMenu,
+    required this.reason,
+    this.status,
+  }) : super._();
   @override
   BackorderCreate rebuild(void Function(BackorderCreateBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -213,30 +213,61 @@ class BackorderCreateBuilder
   BackorderCreate build() => _build();
 
   _$BackorderCreate _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$BackorderCreate._(
           companyId: companyId,
           unitId: unitId,
           orderId: BuiltValueNullFieldError.checkNotNull(
-              orderId, r'BackorderCreate', 'orderId'),
+            orderId,
+            r'BackorderCreate',
+            'orderId',
+          ),
           orderNo: BuiltValueNullFieldError.checkNotNull(
-              orderNo, r'BackorderCreate', 'orderNo'),
+            orderNo,
+            r'BackorderCreate',
+            'orderNo',
+          ),
           customerId: BuiltValueNullFieldError.checkNotNull(
-              customerId, r'BackorderCreate', 'customerId'),
+            customerId,
+            r'BackorderCreate',
+            'customerId',
+          ),
           productId: BuiltValueNullFieldError.checkNotNull(
-              productId, r'BackorderCreate', 'productId'),
+            productId,
+            r'BackorderCreate',
+            'productId',
+          ),
           productName: BuiltValueNullFieldError.checkNotNull(
-              productName, r'BackorderCreate', 'productName'),
+            productName,
+            r'BackorderCreate',
+            'productName',
+          ),
           quantity: BuiltValueNullFieldError.checkNotNull(
-              quantity, r'BackorderCreate', 'quantity'),
+            quantity,
+            r'BackorderCreate',
+            'quantity',
+          ),
           amount: BuiltValueNullFieldError.checkNotNull(
-              amount, r'BackorderCreate', 'amount'),
+            amount,
+            r'BackorderCreate',
+            'amount',
+          ),
           orderDate: BuiltValueNullFieldError.checkNotNull(
-              orderDate, r'BackorderCreate', 'orderDate'),
+            orderDate,
+            r'BackorderCreate',
+            'orderDate',
+          ),
           orderMenu: BuiltValueNullFieldError.checkNotNull(
-              orderMenu, r'BackorderCreate', 'orderMenu'),
+            orderMenu,
+            r'BackorderCreate',
+            'orderMenu',
+          ),
           reason: BuiltValueNullFieldError.checkNotNull(
-              reason, r'BackorderCreate', 'reason'),
+            reason,
+            r'BackorderCreate',
+            'reason',
+          ),
           status: status,
         );
     replace(_$result);

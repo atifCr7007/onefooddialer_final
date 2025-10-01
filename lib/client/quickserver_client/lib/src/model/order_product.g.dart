@@ -20,7 +20,7 @@ class _$OrderProduct extends OrderProduct {
       (OrderProductBuilder()..update(updates))._build();
 
   _$OrderProduct._({this.code, this.name, this.description, this.type})
-      : super._();
+    : super._();
   @override
   OrderProduct rebuild(void Function(OrderProductBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -110,7 +110,8 @@ class OrderProductBuilder
   OrderProduct build() => _build();
 
   _$OrderProduct _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$OrderProduct._(
           code: code,
           name: name,

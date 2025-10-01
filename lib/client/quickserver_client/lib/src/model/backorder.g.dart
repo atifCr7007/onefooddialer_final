@@ -47,26 +47,26 @@ class _$Backorder extends Backorder {
   factory _$Backorder([void Function(BackorderBuilder)? updates]) =>
       (BackorderBuilder()..update(updates))._build();
 
-  _$Backorder._(
-      {this.id,
-      this.companyId,
-      this.unitId,
-      this.orderId,
-      this.orderNo,
-      this.customerId,
-      this.customer,
-      this.productId,
-      this.productName,
-      this.product,
-      this.quantity,
-      this.amount,
-      this.orderDate,
-      this.orderMenu,
-      this.reason,
-      this.status,
-      this.createdAt,
-      this.updatedAt})
-      : super._();
+  _$Backorder._({
+    this.id,
+    this.companyId,
+    this.unitId,
+    this.orderId,
+    this.orderNo,
+    this.customerId,
+    this.customer,
+    this.productId,
+    this.productName,
+    this.product,
+    this.quantity,
+    this.amount,
+    this.orderDate,
+    this.orderMenu,
+    this.reason,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+  }) : super._();
   @override
   Backorder rebuild(void Function(BackorderBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -271,7 +271,8 @@ class BackorderBuilder implements Builder<Backorder, BackorderBuilder> {
   _$Backorder _build() {
     _$Backorder _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$Backorder._(
             id: id,
             companyId: companyId,
@@ -302,7 +303,10 @@ class BackorderBuilder implements Builder<Backorder, BackorderBuilder> {
         _product?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'Backorder', _$failedField, e.toString());
+          r'Backorder',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -88,11 +88,7 @@ class ErrorBuilder implements Builder<Error, ErrorBuilder> {
   Error build() => _build();
 
   _$Error _build() {
-    final _$result = _$v ??
-        _$Error._(
-          success: success,
-          message: message,
-        );
+    final _$result = _$v ?? _$Error._(success: success, message: message);
     replace(_$result);
     return _$result;
   }

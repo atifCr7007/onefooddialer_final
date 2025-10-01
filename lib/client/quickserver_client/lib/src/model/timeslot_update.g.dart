@@ -27,16 +27,16 @@ class _$TimeslotUpdate extends TimeslotUpdate {
   factory _$TimeslotUpdate([void Function(TimeslotUpdateBuilder)? updates]) =>
       (TimeslotUpdateBuilder()..update(updates))._build();
 
-  _$TimeslotUpdate._(
-      {this.companyId,
-      this.unitId,
-      this.starttime,
-      this.endtime,
-      this.day,
-      this.menuType,
-      this.kitchen,
-      this.status})
-      : super._();
+  _$TimeslotUpdate._({
+    this.companyId,
+    this.unitId,
+    this.starttime,
+    this.endtime,
+    this.day,
+    this.menuType,
+    this.kitchen,
+    this.status,
+  }) : super._();
   @override
   TimeslotUpdate rebuild(void Function(TimeslotUpdateBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -158,7 +158,8 @@ class TimeslotUpdateBuilder
   TimeslotUpdate build() => _build();
 
   _$TimeslotUpdate _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$TimeslotUpdate._(
           companyId: companyId,
           unitId: unitId,

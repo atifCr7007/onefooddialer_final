@@ -14,16 +14,16 @@ class _$CreateTimeslot200Response extends CreateTimeslot200Response {
   @override
   final Timeslot? data;
 
-  factory _$CreateTimeslot200Response(
-          [void Function(CreateTimeslot200ResponseBuilder)? updates]) =>
-      (CreateTimeslot200ResponseBuilder()..update(updates))._build();
+  factory _$CreateTimeslot200Response([
+    void Function(CreateTimeslot200ResponseBuilder)? updates,
+  ]) => (CreateTimeslot200ResponseBuilder()..update(updates))._build();
 
   _$CreateTimeslot200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   CreateTimeslot200Response rebuild(
-          void Function(CreateTimeslot200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CreateTimeslot200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CreateTimeslot200ResponseBuilder toBuilder() =>
@@ -106,7 +106,8 @@ class CreateTimeslot200ResponseBuilder
   _$CreateTimeslot200Response _build() {
     _$CreateTimeslot200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$CreateTimeslot200Response._(
             success: success,
             message: message,
@@ -119,7 +120,10 @@ class CreateTimeslot200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'CreateTimeslot200Response', _$failedField, e.toString());
+          r'CreateTimeslot200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

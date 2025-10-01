@@ -14,16 +14,16 @@ class _$GetAllConfig200Response extends GetAllConfig200Response {
   @override
   final BuiltMap<String, String>? data;
 
-  factory _$GetAllConfig200Response(
-          [void Function(GetAllConfig200ResponseBuilder)? updates]) =>
-      (GetAllConfig200ResponseBuilder()..update(updates))._build();
+  factory _$GetAllConfig200Response([
+    void Function(GetAllConfig200ResponseBuilder)? updates,
+  ]) => (GetAllConfig200ResponseBuilder()..update(updates))._build();
 
   _$GetAllConfig200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   GetAllConfig200Response rebuild(
-          void Function(GetAllConfig200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetAllConfig200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetAllConfig200ResponseBuilder toBuilder() =>
@@ -107,7 +107,8 @@ class GetAllConfig200ResponseBuilder
   _$GetAllConfig200Response _build() {
     _$GetAllConfig200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetAllConfig200Response._(
             success: success,
             message: message,
@@ -120,7 +121,10 @@ class GetAllConfig200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetAllConfig200Response', _$failedField, e.toString());
+          r'GetAllConfig200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

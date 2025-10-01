@@ -14,16 +14,16 @@ class _$DeleteTimeslot200Response extends DeleteTimeslot200Response {
   @override
   final JsonObject? data;
 
-  factory _$DeleteTimeslot200Response(
-          [void Function(DeleteTimeslot200ResponseBuilder)? updates]) =>
-      (DeleteTimeslot200ResponseBuilder()..update(updates))._build();
+  factory _$DeleteTimeslot200Response([
+    void Function(DeleteTimeslot200ResponseBuilder)? updates,
+  ]) => (DeleteTimeslot200ResponseBuilder()..update(updates))._build();
 
   _$DeleteTimeslot200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   DeleteTimeslot200Response rebuild(
-          void Function(DeleteTimeslot200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DeleteTimeslot200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeleteTimeslot200ResponseBuilder toBuilder() =>
@@ -104,7 +104,8 @@ class DeleteTimeslot200ResponseBuilder
   DeleteTimeslot200Response build() => _build();
 
   _$DeleteTimeslot200Response _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$DeleteTimeslot200Response._(
           success: success,
           message: message,

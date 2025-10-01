@@ -4,8 +4,8 @@ import 'dart:convert';
 /// Mock server for delivery API
 /// Run with: dart run lib/mock_server/delivery_mock_server.dart
 void main() async {
-  final server = await HttpServer.bind('localhost', 8002);
-  print('🚀 Delivery Mock Server running on http://localhost:8002');
+  final server = await HttpServer.bind('localhost', 8007);
+  print('🚀 Delivery Mock Server running on http://localhost:8007');
   print('📦 Endpoints:');
   print('   GET  /orders - Get delivery orders');
   print('   GET  /orders/search?search=... - Search orders');

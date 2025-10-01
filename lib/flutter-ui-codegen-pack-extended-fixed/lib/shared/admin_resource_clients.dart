@@ -335,8 +335,16 @@ SystemSettingsResourceClient createSystemSettingsClient() {
 }
 
 Dio _createDio() {
+  // Use mock server URL for development, production URL from environment
+  final bool useMockServers = const bool.fromEnvironment('USE_MOCK_SERVERS', defaultValue: true);
+  final String baseUrl = useMockServers
+      ? 'http://localhost:8009'
+      : const String.fromEnvironment('PROD_ADMIN_URL', defaultValue: 'https://api.onefood.com/v2/admin-service-v12');
+
   final dio = Dio(BaseOptions(
-    baseUrl: const String.fromEnvironment('ADMIN_API_URL', defaultValue: 'https://api.onefooddialer.com/v2/admin'),
+    baseUrl: baseUrl,
+    connectTimeout: const Duration(seconds: 30),
+    receiveTimeout: const Duration(seconds: 30),
   ));
 
   // Add interceptors for auth

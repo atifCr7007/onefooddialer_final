@@ -14,16 +14,16 @@ class _$GetTimeslotById200Response extends GetTimeslotById200Response {
   @override
   final Timeslot? data;
 
-  factory _$GetTimeslotById200Response(
-          [void Function(GetTimeslotById200ResponseBuilder)? updates]) =>
-      (GetTimeslotById200ResponseBuilder()..update(updates))._build();
+  factory _$GetTimeslotById200Response([
+    void Function(GetTimeslotById200ResponseBuilder)? updates,
+  ]) => (GetTimeslotById200ResponseBuilder()..update(updates))._build();
 
   _$GetTimeslotById200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   GetTimeslotById200Response rebuild(
-          void Function(GetTimeslotById200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetTimeslotById200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetTimeslotById200ResponseBuilder toBuilder() =>
@@ -106,7 +106,8 @@ class GetTimeslotById200ResponseBuilder
   _$GetTimeslotById200Response _build() {
     _$GetTimeslotById200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetTimeslotById200Response._(
             success: success,
             message: message,
@@ -119,7 +120,10 @@ class GetTimeslotById200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetTimeslotById200Response', _$failedField, e.toString());
+          r'GetTimeslotById200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

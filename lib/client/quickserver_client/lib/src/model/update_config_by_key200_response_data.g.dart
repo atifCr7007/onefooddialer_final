@@ -13,15 +13,15 @@ class _$UpdateConfigByKey200ResponseData
   @override
   final String? value;
 
-  factory _$UpdateConfigByKey200ResponseData(
-          [void Function(UpdateConfigByKey200ResponseDataBuilder)? updates]) =>
-      (UpdateConfigByKey200ResponseDataBuilder()..update(updates))._build();
+  factory _$UpdateConfigByKey200ResponseData([
+    void Function(UpdateConfigByKey200ResponseDataBuilder)? updates,
+  ]) => (UpdateConfigByKey200ResponseDataBuilder()..update(updates))._build();
 
   _$UpdateConfigByKey200ResponseData._({this.key, this.value}) : super._();
   @override
   UpdateConfigByKey200ResponseData rebuild(
-          void Function(UpdateConfigByKey200ResponseDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UpdateConfigByKey200ResponseDataBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateConfigByKey200ResponseDataBuilder toBuilder() =>
@@ -55,8 +55,10 @@ class _$UpdateConfigByKey200ResponseData
 
 class UpdateConfigByKey200ResponseDataBuilder
     implements
-        Builder<UpdateConfigByKey200ResponseData,
-            UpdateConfigByKey200ResponseDataBuilder> {
+        Builder<
+          UpdateConfigByKey200ResponseData,
+          UpdateConfigByKey200ResponseDataBuilder
+        > {
   _$UpdateConfigByKey200ResponseData? _$v;
 
   String? _key;
@@ -95,11 +97,8 @@ class UpdateConfigByKey200ResponseDataBuilder
   UpdateConfigByKey200ResponseData build() => _build();
 
   _$UpdateConfigByKey200ResponseData _build() {
-    final _$result = _$v ??
-        _$UpdateConfigByKey200ResponseData._(
-          key: key,
-          value: value,
-        );
+    final _$result =
+        _$v ?? _$UpdateConfigByKey200ResponseData._(key: key, value: value);
     replace(_$result);
     return _$result;
   }

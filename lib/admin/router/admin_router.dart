@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../widgets/admin_shell.dart';
 import '../../ui/feature_routes.g.dart';
+import '../../services/auth_service.dart';
+import '../../config/app_config.dart';
+
+// Import auth pages
+import '../../auth/login_page.dart';
+import '../../auth/forgot_password_page.dart';
+import '../../auth/reset_password_page.dart';
 
 // Import admin pages
 import '../../features/admin/dashboard_page.dart';
@@ -16,13 +24,95 @@ import '../../features/customer/customers_page.dart';
 // Import delivery pages
 import '../../features/delivery/deliveries_page.dart';
 
+// Import invoice pages
+import '../../features/invoices/list_page.dart' as invoice_list;
+import '../../features/statistics/list_page.dart' as statistics_list;
+import '../../features/health/list_page.dart' as health_list;
+
+// Import kitchen pages
+import '../../features/kitchens/list_page.dart' as kitchen_list;
+import '../../features/kitchen masters/list_page.dart' as kitchen_masters_list;
+import '../../features/recipes/list_page.dart' as recipes_list;
+
+// Import payment pages
+import '../../features/payments/list_page.dart' as payment_list;
+import '../../features/payment methods/list_page.dart' as payment_methods_list;
+
+// Import meal pages
+import '../../features/meals/list_page.dart' as meal_list;
+
+// Import catalog pages
+import '../../features/catalogs/list_page.dart' as catalogs_list;
+
+// Import order pages
+import '../../features/order management/list_page.dart' as order_management_list;
+import '../../features/order tracking/list_page.dart' as order_tracking_list;
+import '../../features/order items/list_page.dart' as order_items_list;
+
+// Import subscription pages
+import '../../features/subscription plans/list_page.dart' as subscription_plans_list;
+
+// Import quickserver pages (TEMPORARILY DISABLED DUE TO LANGUAGE VERSION ERROR)
+// import '../../features/backorders/list_page.dart' as backorders_list;
+// import '../../features/orders/list_page.dart' as orders_list;
+// import '../../features/timeslots/list_page.dart' as timeslots_list;
+// import '../../features/locations/list_page.dart' as locations_list;
+// import '../../features/config/list_page.dart' as config_list;
+
+// Import analytics pages
+import '../../features/sales analytics/list_page.dart' as sales_analytics_list;
+import '../../features/food analytics/list_page.dart' as food_analytics_list;
+import '../../features/customer analytics/list_page.dart' as customer_analytics_list;
 
 
-/// Admin router configuration with shell routing
+
+/// Global provider container for accessing auth state in router
+final _container = ProviderContainer();
+
+/// Admin router configuration with shell routing and auth guard
 final adminRouter = GoRouter(
-  initialLocation: '/dashboard',
+  initialLocation: '/auth/login',
+  redirect: (context, state) {
+    final isAuthenticated = _container.read(isAuthenticatedProvider);
+    final isAuthRoute = state.matchedLocation.startsWith('/auth');
+
+    // Print config on first navigation
+    if (state.matchedLocation == '/auth/login') {
+      AppConfig.printConfig();
+    }
+
+    // If not authenticated and trying to access protected route, redirect to login
+    if (!isAuthenticated && !isAuthRoute) {
+      return '/auth/login';
+    }
+
+    // If authenticated and trying to access auth route, redirect to dashboard
+    if (isAuthenticated && isAuthRoute) {
+      return '/dashboard';
+    }
+
+    return null; // No redirect needed
+  },
   routes: [
-    // Shell route that wraps all admin pages
+    // Auth routes (public - no shell)
+    GoRoute(
+      path: '/auth/login',
+      builder: (context, state) => const LoginPage(),
+    ),
+    GoRoute(
+      path: '/auth/forgot-password',
+      builder: (context, state) => const ForgotPasswordPage(),
+    ),
+    GoRoute(
+      path: '/auth/reset-password',
+      builder: (context, state) {
+        final email = state.uri.queryParameters['email'] ?? '';
+        final token = state.uri.queryParameters['token'] ?? '';
+        return ResetPasswordPage(email: email, token: token);
+      },
+    ),
+
+    // Shell route that wraps all admin pages (protected)
     ShellRoute(
       builder: (context, state, child) {
         return AdminShell(child: child);
@@ -61,6 +151,127 @@ final adminRouter = GoRouter(
         GoRoute(
           path: '/admin/system',
           builder: (context, state) => const AdminSystemPage(),
+        ),
+
+        // Invoice Service Routes
+        GoRoute(
+          path: '/features/invoices',
+          builder: (context, state) => const invoice_list.InvoicesListPage(),
+        ),
+        GoRoute(
+          path: '/features/statistics',
+          builder: (context, state) => const statistics_list.StatisticsListPage(),
+        ),
+        GoRoute(
+          path: '/features/health',
+          builder: (context, state) => const health_list.HealthListPage(),
+        ),
+
+        // Kitchen Service Routes
+        GoRoute(
+          path: '/features/kitchens',
+          builder: (context, state) => const kitchen_list.KitchensListPage(),
+        ),
+        GoRoute(
+          path: '/features/kitchen-masters',
+          builder: (context, state) => const kitchen_masters_list.KitchenMastersListPage(),
+        ),
+        GoRoute(
+          path: '/features/recipes',
+          builder: (context, state) => const recipes_list.RecipesListPage(),
+        ),
+
+        // Payment Service Routes
+        GoRoute(
+          path: '/features/payments',
+          builder: (context, state) => const payment_list.PaymentsListPage(),
+        ),
+        GoRoute(
+          path: '/features/payment-methods',
+          builder: (context, state) => const payment_methods_list.PaymentMethodsListPage(),
+        ),
+
+        // Meal Service Routes
+        GoRoute(
+          path: '/features/meals',
+          builder: (context, state) => const meal_list.MealsListPage(),
+        ),
+
+        // Catalog Service Routes
+        GoRoute(
+          path: '/features/products',
+          builder: (context, state) => const catalogs_list.CatalogsListPage(),
+        ),
+
+        // Order Service Routes
+        GoRoute(
+          path: '/features/order-management',
+          builder: (context, state) => const order_management_list.OrderManagementListPage(),
+        ),
+        GoRoute(
+          path: '/features/order-tracking',
+          builder: (context, state) => const order_tracking_list.OrderTrackingListPage(),
+        ),
+        GoRoute(
+          path: '/features/order-items',
+          builder: (context, state) => const order_items_list.OrderItemsListPage(),
+        ),
+
+        // Subscription Service Routes
+        GoRoute(
+          path: '/features/subscription-plans',
+          builder: (context, state) => const subscription_plans_list.SubscriptionPlansListPage(),
+        ),
+
+        // QuickServer Service Routes (TEMPORARILY DISABLED - LANGUAGE VERSION ERROR)
+        GoRoute(
+          path: '/features/backorders',
+          builder: (context, state) => const PlaceholderPage(
+            title: 'Backorders',
+            description: 'QuickServer client needs to be regenerated. Coming soon!',
+          ),
+        ),
+        GoRoute(
+          path: '/features/orders',
+          builder: (context, state) => const PlaceholderPage(
+            title: 'Orders',
+            description: 'QuickServer client needs to be regenerated. Coming soon!',
+          ),
+        ),
+        GoRoute(
+          path: '/features/timeslots',
+          builder: (context, state) => const PlaceholderPage(
+            title: 'Timeslots',
+            description: 'QuickServer client needs to be regenerated. Coming soon!',
+          ),
+        ),
+        GoRoute(
+          path: '/features/locations',
+          builder: (context, state) => const PlaceholderPage(
+            title: 'Locations',
+            description: 'QuickServer client needs to be regenerated. Coming soon!',
+          ),
+        ),
+        GoRoute(
+          path: '/features/config',
+          builder: (context, state) => const PlaceholderPage(
+            title: 'Configuration',
+            description: 'QuickServer client needs to be regenerated. Coming soon!',
+          ),
+        ),
+
+        // Analytics Service Routes
+        GoRoute(
+          path: '/features/sales-analytics',
+          builder: (context, state) => const sales_analytics_list.SalesAnalyticsListPage(),
+        ),
+        GoRoute(
+          path: '/features/food-analytics',
+          builder: (context, state) => const food_analytics_list.FoodAnalyticsListPage(),
+        ),
+        GoRoute(
+          path: '/features/customer-analytics',
+          builder: (context, state) => const customer_analytics_list.CustomerAnalyticsListPage(),
         ),
 
         // Additional manual routes
@@ -339,38 +550,6 @@ class HelpPage extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-/// Login page (placeholder)
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Card(
-          margin: const EdgeInsets.all(32),
-          child: Padding(
-            padding: const EdgeInsets.all(32),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.restaurant, size: 64),
-                const SizedBox(height: 16),
-                const Text('OneFoodDialer Admin', style: TextStyle(fontSize: 24)),
-                const SizedBox(height: 32),
-                ElevatedButton(
-                  onPressed: () => context.go('/dashboard'),
-                  child: const Text('Login (Demo)'),
-                ),
-              ],
-            ),
-          ),
-        ),
       ),
     );
   }

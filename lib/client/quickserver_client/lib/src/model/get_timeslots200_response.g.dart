@@ -14,16 +14,16 @@ class _$GetTimeslots200Response extends GetTimeslots200Response {
   @override
   final BuiltList<Timeslot>? data;
 
-  factory _$GetTimeslots200Response(
-          [void Function(GetTimeslots200ResponseBuilder)? updates]) =>
-      (GetTimeslots200ResponseBuilder()..update(updates))._build();
+  factory _$GetTimeslots200Response([
+    void Function(GetTimeslots200ResponseBuilder)? updates,
+  ]) => (GetTimeslots200ResponseBuilder()..update(updates))._build();
 
   _$GetTimeslots200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   GetTimeslots200Response rebuild(
-          void Function(GetTimeslots200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetTimeslots200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetTimeslots200ResponseBuilder toBuilder() =>
@@ -106,7 +106,8 @@ class GetTimeslots200ResponseBuilder
   _$GetTimeslots200Response _build() {
     _$GetTimeslots200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetTimeslots200Response._(
             success: success,
             message: message,
@@ -119,7 +120,10 @@ class GetTimeslots200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetTimeslots200Response', _$failedField, e.toString());
+          r'GetTimeslots200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -4,17 +4,28 @@ import 'package:payment_client/src/serializers.dart';
 import 'package:payment_client/src/model/payment_methods_response.dart';
 import 'package:payment_client/src/model/payment_method_response.dart';
 import 'package:flutter_ui_codegen_pack_extended_fixed/shared/payment_resource_clients.dart';
+import '../../../config/app_config.dart';
 
 /// Dio instance configured for payment service (shared with payments)
 final paymentMethodDioProvider = Provider((ref) {
-  return Dio(BaseOptions(
-    baseUrl: 'http://localhost:8008/api/v1',
+  final dio = Dio(BaseOptions(
+    baseUrl: AppConfig.paymentBaseUrl,
     headers: {
       'Content-Type': 'application/json',
     },
-    connectTimeout: const Duration(seconds: 10),
-    receiveTimeout: const Duration(seconds: 10),
+    connectTimeout: AppConfig.connectTimeout,
+    receiveTimeout: AppConfig.receiveTimeout,
   ));
+
+  if (AppConfig.isDebugMode) {
+    dio.interceptors.add(LogInterceptor(
+      requestBody: true,
+      responseBody: true,
+      error: true,
+    ));
+  }
+
+  return dio;
 });
 
 /// Payment resource client provider (shared with payments)

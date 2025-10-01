@@ -4,8 +4,8 @@ import 'dart:io';
 /// Mock server for meal microservice
 /// Run with: dart run lib/mock_server/meal_mock_server.dart
 void main() async {
-  final server = await HttpServer.bind(InternetAddress.anyIPv4, 8007);
-  print('🚀 Meal Mock Server running on http://localhost:8007');
+  final server = await HttpServer.bind(InternetAddress.anyIPv4, 8003);
+  print('🚀 Meal Mock Server running on http://localhost:8003');
   print('📝 Base path: /api/v2');
   print('');
   print('Available endpoints:');

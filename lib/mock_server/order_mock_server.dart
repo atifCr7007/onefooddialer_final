@@ -2,8 +2,8 @@ import 'dart:io';
 import 'dart:convert';
 
 void main() async {
-  final server = await HttpServer.bind(InternetAddress.anyIPv4, 8010);
-  print('🚀 Order Mock Server running on http://localhost:8010');
+  final server = await HttpServer.bind(InternetAddress.anyIPv4, 8002);
+  print('🚀 Order Mock Server running on http://localhost:8002');
   print('📝 Base path: /v2/order-service-v12');
   print('');
   print('Available endpoints:');

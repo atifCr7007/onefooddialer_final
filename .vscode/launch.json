@@ -1,0 +1,123 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "food_one",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "food_one (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "food_one (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "flutter-ui-codegen-pack-extended-fixed",
+            "cwd": "lib/flutter-ui-codegen-pack-extended-fixed",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "flutter-ui-codegen-pack-extended-fixed (profile mode)",
+            "cwd": "lib/flutter-ui-codegen-pack-extended-fixed",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "flutter-ui-codegen-pack-extended-fixed (release mode)",
+            "cwd": "lib/flutter-ui-codegen-pack-extended-fixed",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "admin_client",
+            "cwd": "lib/client/admin_client",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "analytics_client",
+            "cwd": "lib/client/analytics_client",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "auth_client",
+            "cwd": "lib/client/auth_client",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "catalogs_client",
+            "cwd": "lib/client/catalogs_client",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "customer_client",
+            "cwd": "lib/client/customer_client",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "delivery_client",
+            "cwd": "lib/client/delivery_client",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "invoice_client",
+            "cwd": "lib/client/invoice_client",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "kitchen_client",
+            "cwd": "lib/client/kitchen_client",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "meal_client",
+            "cwd": "lib/client/meal_client",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "order_client",
+            "cwd": "lib/client/order_client",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "payment_client",
+            "cwd": "lib/client/payment_client",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "quickserver_client",
+            "cwd": "lib/client/quickserver_client",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "subscription_client",
+            "cwd": "lib/client/subscription_client",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}

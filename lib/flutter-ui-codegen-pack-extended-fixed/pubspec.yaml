@@ -38,6 +38,8 @@ dependencies:
     path: ../client/catalogs_client
   subscription_client:
     path: ../client/subscription_client
+  auth_client:
+    path: ../client/auth_client
   quickserver_client:
     path: ../client/quickserver_client
 

@@ -15,16 +15,16 @@ class _$DeleteLocationMapping200Response
   @override
   final JsonObject? data;
 
-  factory _$DeleteLocationMapping200Response(
-          [void Function(DeleteLocationMapping200ResponseBuilder)? updates]) =>
-      (DeleteLocationMapping200ResponseBuilder()..update(updates))._build();
+  factory _$DeleteLocationMapping200Response([
+    void Function(DeleteLocationMapping200ResponseBuilder)? updates,
+  ]) => (DeleteLocationMapping200ResponseBuilder()..update(updates))._build();
 
   _$DeleteLocationMapping200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   DeleteLocationMapping200Response rebuild(
-          void Function(DeleteLocationMapping200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DeleteLocationMapping200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeleteLocationMapping200ResponseBuilder toBuilder() =>
@@ -61,8 +61,10 @@ class _$DeleteLocationMapping200Response
 
 class DeleteLocationMapping200ResponseBuilder
     implements
-        Builder<DeleteLocationMapping200Response,
-            DeleteLocationMapping200ResponseBuilder> {
+        Builder<
+          DeleteLocationMapping200Response,
+          DeleteLocationMapping200ResponseBuilder
+        > {
   _$DeleteLocationMapping200Response? _$v;
 
   bool? _success;
@@ -106,7 +108,8 @@ class DeleteLocationMapping200ResponseBuilder
   DeleteLocationMapping200Response build() => _build();
 
   _$DeleteLocationMapping200Response _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$DeleteLocationMapping200Response._(
           success: success,
           message: message,

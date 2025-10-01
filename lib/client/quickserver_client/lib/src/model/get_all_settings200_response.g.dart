@@ -14,16 +14,16 @@ class _$GetAllSettings200Response extends GetAllSettings200Response {
   @override
   final BuiltMap<String, String>? data;
 
-  factory _$GetAllSettings200Response(
-          [void Function(GetAllSettings200ResponseBuilder)? updates]) =>
-      (GetAllSettings200ResponseBuilder()..update(updates))._build();
+  factory _$GetAllSettings200Response([
+    void Function(GetAllSettings200ResponseBuilder)? updates,
+  ]) => (GetAllSettings200ResponseBuilder()..update(updates))._build();
 
   _$GetAllSettings200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   GetAllSettings200Response rebuild(
-          void Function(GetAllSettings200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetAllSettings200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetAllSettings200ResponseBuilder toBuilder() =>
@@ -107,7 +107,8 @@ class GetAllSettings200ResponseBuilder
   _$GetAllSettings200Response _build() {
     _$GetAllSettings200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetAllSettings200Response._(
             success: success,
             message: message,
@@ -120,7 +121,10 @@ class GetAllSettings200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetAllSettings200Response', _$failedField, e.toString());
+          r'GetAllSettings200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

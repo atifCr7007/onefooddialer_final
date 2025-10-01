@@ -16,17 +16,20 @@ class _$HealthCheck200Response extends HealthCheck200Response {
   @override
   final DateTime? timestamp;
 
-  factory _$HealthCheck200Response(
-          [void Function(HealthCheck200ResponseBuilder)? updates]) =>
-      (HealthCheck200ResponseBuilder()..update(updates))._build();
+  factory _$HealthCheck200Response([
+    void Function(HealthCheck200ResponseBuilder)? updates,
+  ]) => (HealthCheck200ResponseBuilder()..update(updates))._build();
 
-  _$HealthCheck200Response._(
-      {this.status, this.service, this.version, this.timestamp})
-      : super._();
+  _$HealthCheck200Response._({
+    this.status,
+    this.service,
+    this.version,
+    this.timestamp,
+  }) : super._();
   @override
   HealthCheck200Response rebuild(
-          void Function(HealthCheck200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(HealthCheck200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   HealthCheck200ResponseBuilder toBuilder() =>
@@ -114,7 +117,8 @@ class HealthCheck200ResponseBuilder
   HealthCheck200Response build() => _build();
 
   _$HealthCheck200Response _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$HealthCheck200Response._(
           status: status,
           service: service,

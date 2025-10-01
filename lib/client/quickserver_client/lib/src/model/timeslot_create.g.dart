@@ -27,16 +27,16 @@ class _$TimeslotCreate extends TimeslotCreate {
   factory _$TimeslotCreate([void Function(TimeslotCreateBuilder)? updates]) =>
       (TimeslotCreateBuilder()..update(updates))._build();
 
-  _$TimeslotCreate._(
-      {this.companyId,
-      this.unitId,
-      required this.starttime,
-      required this.endtime,
-      required this.day,
-      required this.menuType,
-      required this.kitchen,
-      this.status})
-      : super._();
+  _$TimeslotCreate._({
+    this.companyId,
+    this.unitId,
+    required this.starttime,
+    required this.endtime,
+    required this.day,
+    required this.menuType,
+    required this.kitchen,
+    this.status,
+  }) : super._();
   @override
   TimeslotCreate rebuild(void Function(TimeslotCreateBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -158,20 +158,36 @@ class TimeslotCreateBuilder
   TimeslotCreate build() => _build();
 
   _$TimeslotCreate _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$TimeslotCreate._(
           companyId: companyId,
           unitId: unitId,
           starttime: BuiltValueNullFieldError.checkNotNull(
-              starttime, r'TimeslotCreate', 'starttime'),
+            starttime,
+            r'TimeslotCreate',
+            'starttime',
+          ),
           endtime: BuiltValueNullFieldError.checkNotNull(
-              endtime, r'TimeslotCreate', 'endtime'),
+            endtime,
+            r'TimeslotCreate',
+            'endtime',
+          ),
           day: BuiltValueNullFieldError.checkNotNull(
-              day, r'TimeslotCreate', 'day'),
+            day,
+            r'TimeslotCreate',
+            'day',
+          ),
           menuType: BuiltValueNullFieldError.checkNotNull(
-              menuType, r'TimeslotCreate', 'menuType'),
+            menuType,
+            r'TimeslotCreate',
+            'menuType',
+          ),
           kitchen: BuiltValueNullFieldError.checkNotNull(
-              kitchen, r'TimeslotCreate', 'kitchen'),
+            kitchen,
+            r'TimeslotCreate',
+            'kitchen',
+          ),
           status: status,
         );
     replace(_$result);

@@ -31,18 +31,18 @@ class _$OrderUpdate extends OrderUpdate {
   factory _$OrderUpdate([void Function(OrderUpdateBuilder)? updates]) =>
       (OrderUpdateBuilder()..update(updates))._build();
 
-  _$OrderUpdate._(
-      {this.customerName,
-      this.phone,
-      this.emailAddress,
-      this.quantity,
-      this.amount,
-      this.tax,
-      this.deliveryCharges,
-      this.orderStatus,
-      this.deliveryStatus,
-      this.shipAddress})
-      : super._();
+  _$OrderUpdate._({
+    this.customerName,
+    this.phone,
+    this.emailAddress,
+    this.quantity,
+    this.amount,
+    this.tax,
+    this.deliveryCharges,
+    this.orderStatus,
+    this.deliveryStatus,
+    this.shipAddress,
+  }) : super._();
   @override
   OrderUpdate rebuild(void Function(OrderUpdateBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -181,7 +181,8 @@ class OrderUpdateBuilder implements Builder<OrderUpdate, OrderUpdateBuilder> {
   OrderUpdate build() => _build();
 
   _$OrderUpdate _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$OrderUpdate._(
           customerName: customerName,
           phone: phone,

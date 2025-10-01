@@ -4,17 +4,29 @@ import 'package:catalogs_client/src/serializers.dart';
 import 'package:catalogs_client/src/model/catalogue_products_get200_response.dart';
 import 'package:catalogs_client/src/model/catalogue_products_id_get200_response.dart';
 import 'package:flutter_ui_codegen_pack_extended_fixed/shared/catalogs_resource_clients.dart';
+import '../../../config/app_config.dart';
 
 /// Dio instance configured for catalogs service
 final catalogsDioProvider = Provider((ref) {
-  return Dio(BaseOptions(
-    baseUrl: 'http://localhost:8009/api/v2',
+  final dio = Dio(BaseOptions(
+    baseUrl: AppConfig.catalogBaseUrl,
     headers: {
       'Content-Type': 'application/json',
     },
-    connectTimeout: const Duration(seconds: 10),
-    receiveTimeout: const Duration(seconds: 10),
+    connectTimeout: AppConfig.connectTimeout,
+    receiveTimeout: AppConfig.receiveTimeout,
   ));
+
+  if (AppConfig.isDebugMode) {
+    dio.interceptors.add(LogInterceptor(
+      requestBody: true,
+      responseBody: true,
+      error: true,
+      logPrint: (obj) => print('🔵 [Catalogs API] $obj'),
+    ));
+  }
+
+  return dio;
 });
 
 /// Catalogs resource client provider

@@ -4,8 +4,8 @@ import 'dart:io';
 /// Mock server for analytics microservice
 /// Run with: dart run lib/mock_server/analytics_mock_server.dart
 void main() async {
-  final server = await HttpServer.bind(InternetAddress.anyIPv4, 8009);
-  print('🚀 Analytics Mock Server running on http://localhost:8009');
+  final server = await HttpServer.bind(InternetAddress.anyIPv4, 8008);
+  print('🚀 Analytics Mock Server running on http://localhost:8008');
   print('📝 Base path: /v2/analytics-service-v12');
   print('');
   print('Available endpoints:');

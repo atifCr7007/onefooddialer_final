@@ -3,25 +3,29 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:delivery_client/delivery_client.dart';
 import 'package:food_one/flutter-ui-codegen-pack-extended-fixed/lib/shared/delivery_resource_clients.dart';
 import 'package:built_value/serializer.dart';
+import '../../../config/app_config.dart';
 
 // Dio provider for delivery API
 final deliveryDioProvider = Provider<Dio>((ref) {
   final dio = Dio(BaseOptions(
-    baseUrl: 'https://api.onefooddialer.com/v2/delivery',
-    connectTimeout: const Duration(seconds: 30),
-    receiveTimeout: const Duration(seconds: 30),
+    baseUrl: AppConfig.deliveryBaseUrl,
+    connectTimeout: AppConfig.connectTimeout,
+    receiveTimeout: AppConfig.receiveTimeout,
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     },
   ));
-  
+
   // Add interceptors for logging, auth, etc.
-  dio.interceptors.add(LogInterceptor(
-    requestBody: true,
-    responseBody: true,
-  ));
-  
+  if (AppConfig.isDebugMode) {
+    dio.interceptors.add(LogInterceptor(
+      requestBody: true,
+      responseBody: true,
+      error: true,
+    ));
+  }
+
   return dio;
 });
 

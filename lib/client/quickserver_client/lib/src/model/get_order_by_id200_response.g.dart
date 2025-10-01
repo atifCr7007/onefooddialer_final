@@ -14,16 +14,16 @@ class _$GetOrderById200Response extends GetOrderById200Response {
   @override
   final Order? data;
 
-  factory _$GetOrderById200Response(
-          [void Function(GetOrderById200ResponseBuilder)? updates]) =>
-      (GetOrderById200ResponseBuilder()..update(updates))._build();
+  factory _$GetOrderById200Response([
+    void Function(GetOrderById200ResponseBuilder)? updates,
+  ]) => (GetOrderById200ResponseBuilder()..update(updates))._build();
 
   _$GetOrderById200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   GetOrderById200Response rebuild(
-          void Function(GetOrderById200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetOrderById200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetOrderById200ResponseBuilder toBuilder() =>
@@ -106,7 +106,8 @@ class GetOrderById200ResponseBuilder
   _$GetOrderById200Response _build() {
     _$GetOrderById200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetOrderById200Response._(
             success: success,
             message: message,
@@ -119,7 +120,10 @@ class GetOrderById200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetOrderById200Response', _$failedField, e.toString());
+          r'GetOrderById200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

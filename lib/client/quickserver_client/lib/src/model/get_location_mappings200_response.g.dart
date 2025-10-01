@@ -14,16 +14,16 @@ class _$GetLocationMappings200Response extends GetLocationMappings200Response {
   @override
   final BuiltList<LocationMapping>? data;
 
-  factory _$GetLocationMappings200Response(
-          [void Function(GetLocationMappings200ResponseBuilder)? updates]) =>
-      (GetLocationMappings200ResponseBuilder()..update(updates))._build();
+  factory _$GetLocationMappings200Response([
+    void Function(GetLocationMappings200ResponseBuilder)? updates,
+  ]) => (GetLocationMappings200ResponseBuilder()..update(updates))._build();
 
   _$GetLocationMappings200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   GetLocationMappings200Response rebuild(
-          void Function(GetLocationMappings200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetLocationMappings200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetLocationMappings200ResponseBuilder toBuilder() =>
@@ -60,8 +60,10 @@ class _$GetLocationMappings200Response extends GetLocationMappings200Response {
 
 class GetLocationMappings200ResponseBuilder
     implements
-        Builder<GetLocationMappings200Response,
-            GetLocationMappings200ResponseBuilder> {
+        Builder<
+          GetLocationMappings200Response,
+          GetLocationMappings200ResponseBuilder
+        > {
   _$GetLocationMappings200Response? _$v;
 
   bool? _success;
@@ -108,7 +110,8 @@ class GetLocationMappings200ResponseBuilder
   _$GetLocationMappings200Response _build() {
     _$GetLocationMappings200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$GetLocationMappings200Response._(
             success: success,
             message: message,
@@ -121,7 +124,10 @@ class GetLocationMappings200ResponseBuilder
         _data?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'GetLocationMappings200Response', _$failedField, e.toString());
+          r'GetLocationMappings200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

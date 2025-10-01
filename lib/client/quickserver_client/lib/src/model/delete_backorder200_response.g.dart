@@ -14,16 +14,16 @@ class _$DeleteBackorder200Response extends DeleteBackorder200Response {
   @override
   final JsonObject? data;
 
-  factory _$DeleteBackorder200Response(
-          [void Function(DeleteBackorder200ResponseBuilder)? updates]) =>
-      (DeleteBackorder200ResponseBuilder()..update(updates))._build();
+  factory _$DeleteBackorder200Response([
+    void Function(DeleteBackorder200ResponseBuilder)? updates,
+  ]) => (DeleteBackorder200ResponseBuilder()..update(updates))._build();
 
   _$DeleteBackorder200Response._({this.success, this.message, this.data})
-      : super._();
+    : super._();
   @override
   DeleteBackorder200Response rebuild(
-          void Function(DeleteBackorder200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(DeleteBackorder200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   DeleteBackorder200ResponseBuilder toBuilder() =>
@@ -104,7 +104,8 @@ class DeleteBackorder200ResponseBuilder
   DeleteBackorder200Response build() => _build();
 
   _$DeleteBackorder200Response _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$DeleteBackorder200Response._(
           success: success,
           message: message,

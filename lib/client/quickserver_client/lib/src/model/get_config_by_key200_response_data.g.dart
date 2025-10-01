@@ -12,15 +12,15 @@ class _$GetConfigByKey200ResponseData extends GetConfigByKey200ResponseData {
   @override
   final String? value;
 
-  factory _$GetConfigByKey200ResponseData(
-          [void Function(GetConfigByKey200ResponseDataBuilder)? updates]) =>
-      (GetConfigByKey200ResponseDataBuilder()..update(updates))._build();
+  factory _$GetConfigByKey200ResponseData([
+    void Function(GetConfigByKey200ResponseDataBuilder)? updates,
+  ]) => (GetConfigByKey200ResponseDataBuilder()..update(updates))._build();
 
   _$GetConfigByKey200ResponseData._({this.key, this.value}) : super._();
   @override
   GetConfigByKey200ResponseData rebuild(
-          void Function(GetConfigByKey200ResponseDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(GetConfigByKey200ResponseDataBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   GetConfigByKey200ResponseDataBuilder toBuilder() =>
@@ -54,8 +54,10 @@ class _$GetConfigByKey200ResponseData extends GetConfigByKey200ResponseData {
 
 class GetConfigByKey200ResponseDataBuilder
     implements
-        Builder<GetConfigByKey200ResponseData,
-            GetConfigByKey200ResponseDataBuilder> {
+        Builder<
+          GetConfigByKey200ResponseData,
+          GetConfigByKey200ResponseDataBuilder
+        > {
   _$GetConfigByKey200ResponseData? _$v;
 
   String? _key;
@@ -94,11 +96,8 @@ class GetConfigByKey200ResponseDataBuilder
   GetConfigByKey200ResponseData build() => _build();
 
   _$GetConfigByKey200ResponseData _build() {
-    final _$result = _$v ??
-        _$GetConfigByKey200ResponseData._(
-          key: key,
-          value: value,
-        );
+    final _$result =
+        _$v ?? _$GetConfigByKey200ResponseData._(key: key, value: value);
     replace(_$result);
     return _$result;
   }

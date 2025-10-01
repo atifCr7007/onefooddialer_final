@@ -10,15 +10,15 @@ class _$UpdateConfigByKeyRequest extends UpdateConfigByKeyRequest {
   @override
   final String value;
 
-  factory _$UpdateConfigByKeyRequest(
-          [void Function(UpdateConfigByKeyRequestBuilder)? updates]) =>
-      (UpdateConfigByKeyRequestBuilder()..update(updates))._build();
+  factory _$UpdateConfigByKeyRequest([
+    void Function(UpdateConfigByKeyRequestBuilder)? updates,
+  ]) => (UpdateConfigByKeyRequestBuilder()..update(updates))._build();
 
   _$UpdateConfigByKeyRequest._({required this.value}) : super._();
   @override
   UpdateConfigByKeyRequest rebuild(
-          void Function(UpdateConfigByKeyRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(UpdateConfigByKeyRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateConfigByKeyRequestBuilder toBuilder() =>
@@ -40,9 +40,9 @@ class _$UpdateConfigByKeyRequest extends UpdateConfigByKeyRequest {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'UpdateConfigByKeyRequest')
-          ..add('value', value))
-        .toString();
+    return (newBuiltValueToStringHelper(
+      r'UpdateConfigByKeyRequest',
+    )..add('value', value)).toString();
   }
 }
 
@@ -82,10 +82,14 @@ class UpdateConfigByKeyRequestBuilder
   UpdateConfigByKeyRequest build() => _build();
 
   _$UpdateConfigByKeyRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$UpdateConfigByKeyRequest._(
           value: BuiltValueNullFieldError.checkNotNull(
-              value, r'UpdateConfigByKeyRequest', 'value'),
+            value,
+            r'UpdateConfigByKeyRequest',
+            'value',
+          ),
         );
     replace(_$result);
     return _$result;

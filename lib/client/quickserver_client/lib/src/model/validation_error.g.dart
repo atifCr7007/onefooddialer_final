@@ -99,12 +99,9 @@ class ValidationErrorBuilder
   ValidationError build() => _build();
 
   _$ValidationError _build() {
-    final _$result = _$v ??
-        _$ValidationError._(
-          success: success,
-          message: message,
-          errors: errors,
-        );
+    final _$result =
+        _$v ??
+        _$ValidationError._(success: success, message: message, errors: errors);
     replace(_$result);
     return _$result;
   }

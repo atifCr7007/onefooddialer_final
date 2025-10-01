@@ -8,21 +8,21 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:openapi/src/api_util.dart';
-import 'package:openapi/src/model/error.dart';
-import 'package:openapi/src/model/forgot_password200_response.dart';
-import 'package:openapi/src/model/forgot_password_request.dart';
-import 'package:openapi/src/model/get_user200_response.dart';
-import 'package:openapi/src/model/keycloak_callback200_response.dart';
-import 'package:openapi/src/model/keycloak_login200_response.dart';
-import 'package:openapi/src/model/login200_response.dart';
-import 'package:openapi/src/model/login_request.dart';
-import 'package:openapi/src/model/logout200_response.dart';
-import 'package:openapi/src/model/refresh_token_request.dart';
-import 'package:openapi/src/model/reset_password200_response.dart';
-import 'package:openapi/src/model/reset_password_request.dart';
-import 'package:openapi/src/model/validate_token200_response.dart';
-import 'package:openapi/src/model/validate_token_request.dart';
+import 'package:auth_client/src/api_util.dart';
+import 'package:auth_client/src/model/error.dart';
+import 'package:auth_client/src/model/forgot_password200_response.dart';
+import 'package:auth_client/src/model/forgot_password_request.dart';
+import 'package:auth_client/src/model/get_user200_response.dart';
+import 'package:auth_client/src/model/keycloak_callback200_response.dart';
+import 'package:auth_client/src/model/keycloak_login200_response.dart';
+import 'package:auth_client/src/model/login200_response.dart';
+import 'package:auth_client/src/model/login_request.dart';
+import 'package:auth_client/src/model/logout200_response.dart';
+import 'package:auth_client/src/model/refresh_token_request.dart';
+import 'package:auth_client/src/model/reset_password200_response.dart';
+import 'package:auth_client/src/model/reset_password_request.dart';
+import 'package:auth_client/src/model/validate_token200_response.dart';
+import 'package:auth_client/src/model/validate_token_request.dart';
 
 class AuthApi {
 

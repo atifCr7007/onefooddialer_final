@@ -39,22 +39,22 @@ class _$Timeslot extends Timeslot {
   factory _$Timeslot([void Function(TimeslotBuilder)? updates]) =>
       (TimeslotBuilder()..update(updates))._build();
 
-  _$Timeslot._(
-      {this.id,
-      this.companyId,
-      this.unitId,
-      this.starttime,
-      this.endtime,
-      this.day,
-      this.menuType,
-      this.kitchen,
-      this.status,
-      this.formattedStartTime,
-      this.formattedEndTime,
-      this.displaySlot,
-      this.createdAt,
-      this.updatedAt})
-      : super._();
+  _$Timeslot._({
+    this.id,
+    this.companyId,
+    this.unitId,
+    this.starttime,
+    this.endtime,
+    this.day,
+    this.menuType,
+    this.kitchen,
+    this.status,
+    this.formattedStartTime,
+    this.formattedEndTime,
+    this.displaySlot,
+    this.createdAt,
+    this.updatedAt,
+  }) : super._();
   @override
   Timeslot rebuild(void Function(TimeslotBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -225,7 +225,8 @@ class TimeslotBuilder implements Builder<Timeslot, TimeslotBuilder> {
   Timeslot build() => _build();
 
   _$Timeslot _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$Timeslot._(
           id: id,
           companyId: companyId,

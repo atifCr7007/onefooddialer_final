@@ -14,9 +14,9 @@ class _$BackorderProduct extends BackorderProduct {
   @override
   final String? type;
 
-  factory _$BackorderProduct(
-          [void Function(BackorderProductBuilder)? updates]) =>
-      (BackorderProductBuilder()..update(updates))._build();
+  factory _$BackorderProduct([
+    void Function(BackorderProductBuilder)? updates,
+  ]) => (BackorderProductBuilder()..update(updates))._build();
 
   _$BackorderProduct._({this.id, this.name, this.type}) : super._();
   @override
@@ -101,12 +101,8 @@ class BackorderProductBuilder
   BackorderProduct build() => _build();
 
   _$BackorderProduct _build() {
-    final _$result = _$v ??
-        _$BackorderProduct._(
-          id: id,
-          name: name,
-          type: type,
-        );
+    final _$result =
+        _$v ?? _$BackorderProduct._(id: id, name: name, type: type);
     replace(_$result);
     return _$result;
   }

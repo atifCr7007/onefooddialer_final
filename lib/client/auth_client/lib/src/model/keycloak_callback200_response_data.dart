@@ -3,8 +3,8 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/keycloak_callback200_response_data_keycloak_tokens.dart';
-import 'package:openapi/src/model/user.dart';
+import 'package:auth_client/src/model/keycloak_callback200_response_data_keycloak_tokens.dart';
+import 'package:auth_client/src/model/user.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

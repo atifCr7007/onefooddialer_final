@@ -4,8 +4,8 @@ import 'dart:io';
 /// Mock server for catalogs microservice
 /// Run with: dart run lib/mock_server/catalogs_mock_server.dart
 void main() async {
-  final server = await HttpServer.bind(InternetAddress.anyIPv4, 8009);
-  print('🚀 Catalogs Mock Server running on http://localhost:8009');
+  final server = await HttpServer.bind(InternetAddress.anyIPv4, 8005);
+  print('🚀 Catalogs Mock Server running on http://localhost:8005');
   print('📝 Base path: /api/v2');
   print('');
   print('Available endpoints:');

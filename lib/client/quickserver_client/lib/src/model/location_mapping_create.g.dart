@@ -32,28 +32,28 @@ class _$LocationMappingCreate extends LocationMappingCreate {
   @override
   final int? status;
 
-  factory _$LocationMappingCreate(
-          [void Function(LocationMappingCreateBuilder)? updates]) =>
-      (LocationMappingCreateBuilder()..update(updates))._build();
+  factory _$LocationMappingCreate([
+    void Function(LocationMappingCreateBuilder)? updates,
+  ]) => (LocationMappingCreateBuilder()..update(updates))._build();
 
-  _$LocationMappingCreate._(
-      {this.companyId,
-      this.unitId,
-      required this.locationCode,
-      required this.locationName,
-      this.cityCode,
-      this.cityName,
-      this.deliveryCharges,
-      this.deliveryTime,
-      this.kitchenCode,
-      this.kitchenName,
-      this.description,
-      this.status})
-      : super._();
+  _$LocationMappingCreate._({
+    this.companyId,
+    this.unitId,
+    required this.locationCode,
+    required this.locationName,
+    this.cityCode,
+    this.cityName,
+    this.deliveryCharges,
+    this.deliveryTime,
+    this.kitchenCode,
+    this.kitchenName,
+    this.description,
+    this.status,
+  }) : super._();
   @override
   LocationMappingCreate rebuild(
-          void Function(LocationMappingCreateBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(LocationMappingCreateBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   LocationMappingCreateBuilder toBuilder() =>
@@ -206,14 +206,21 @@ class LocationMappingCreateBuilder
   LocationMappingCreate build() => _build();
 
   _$LocationMappingCreate _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$LocationMappingCreate._(
           companyId: companyId,
           unitId: unitId,
           locationCode: BuiltValueNullFieldError.checkNotNull(
-              locationCode, r'LocationMappingCreate', 'locationCode'),
+            locationCode,
+            r'LocationMappingCreate',
+            'locationCode',
+          ),
           locationName: BuiltValueNullFieldError.checkNotNull(
-              locationName, r'LocationMappingCreate', 'locationName'),
+            locationName,
+            r'LocationMappingCreate',
+            'locationName',
+          ),
           cityCode: cityCode,
           cityName: cityName,
           deliveryCharges: deliveryCharges,
