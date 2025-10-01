@@ -225,6 +225,68 @@ final microservicesConfigProvider = Provider<List<MicroserviceConfig>>((ref) {
       ],
     ),
 
+    // Order Section
+    MicroserviceConfig(
+      id: 'order',
+      name: 'Order Service',
+      icon: Icons.shopping_cart,
+      clientPath: 'lib/client/order_client',
+      features: [
+        FeatureConfig(
+          id: 'order-management',
+          name: 'Order Management',
+          icon: Icons.receipt_long,
+          route: '/features/order-management',
+          description: 'Create, update, and manage orders with full lifecycle control',
+        ),
+        FeatureConfig(
+          id: 'order-tracking',
+          name: 'Order Tracking',
+          icon: Icons.track_changes,
+          route: '/features/order-tracking',
+          description: 'Real-time order tracking and status updates',
+        ),
+        FeatureConfig(
+          id: 'order-items',
+          name: 'Order Items',
+          icon: Icons.list_alt,
+          route: '/features/order-items',
+          description: 'Manage order items, quantities, and customizations',
+        ),
+      ],
+    ),
+
+    // Analytics Section
+    MicroserviceConfig(
+      id: 'analytics',
+      name: 'Analytics Service',
+      icon: Icons.analytics,
+      clientPath: 'lib/client/analytics_client',
+      features: [
+        FeatureConfig(
+          id: 'sales-analytics',
+          name: 'Sales Analytics',
+          icon: Icons.trending_up,
+          route: '/features/sales-analytics',
+          description: 'Sales analytics, revenue tracking, and payment insights',
+        ),
+        FeatureConfig(
+          id: 'food-analytics',
+          name: 'Food Analytics',
+          icon: Icons.restaurant_menu,
+          route: '/features/food-analytics',
+          description: 'Popular meals, performance tracking, and menu insights',
+        ),
+        FeatureConfig(
+          id: 'customer-analytics',
+          name: 'Customer Analytics',
+          icon: Icons.people_alt,
+          route: '/features/customer-analytics',
+          description: 'Customer behavior, loyalty, and spending patterns',
+        ),
+      ],
+    ),
+
     // Administration Section
     MicroserviceConfig(
       id: 'administration',

@@ -170,6 +170,8 @@ components:
 paths:
   /meals:
     get:
+      tags:
+        - Meals
       summary: Get all meals
       description: Returns a list of all meals with optional filtering
       operationId: getAllMeals
@@ -229,6 +231,8 @@ paths:
                     items:
                       $ref: '#/components/schemas/Meal'
     post:
+      tags:
+        - Meals
       summary: Create a new meal
       description: Creates a new meal
       operationId: createMeal
@@ -263,6 +267,8 @@ paths:
 
   /meals/{id}:
     get:
+      tags:
+        - Meals
       summary: Get a meal by ID
       description: Returns a single meal
       operationId: getMealById
@@ -293,6 +299,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
     put:
+      tags:
+        - Meals
       summary: Update a meal
       description: Updates an existing meal
       operationId: updateMeal
@@ -338,6 +346,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
     delete:
+      tags:
+        - Meals
       summary: Delete a meal
       description: Deletes an existing meal
       operationId: deleteMeal
@@ -371,6 +381,8 @@ paths:
 
   /meals/menu/{menu}:
     get:
+      tags:
+        - Meals
       summary: Get meals by menu type
       description: Returns meals for a specific menu type
       operationId: getMealsByMenu
@@ -399,6 +411,8 @@ paths:
 
   /meals/type/vegetarian:
     get:
+      tags:
+        - Meals
       summary: Get vegetarian meals
       description: Returns all vegetarian meals
       operationId: getVegetarianMeals

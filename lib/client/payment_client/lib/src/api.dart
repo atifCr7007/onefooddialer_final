@@ -4,13 +4,13 @@
 
 import 'package:dio/dio.dart';
 import 'package:built_value/serializer.dart';
-import 'package:openapi/src/serializers.dart';
-import 'package:openapi/src/auth/api_key_auth.dart';
-import 'package:openapi/src/auth/basic_auth.dart';
-import 'package:openapi/src/auth/bearer_auth.dart';
-import 'package:openapi/src/auth/oauth.dart';
-import 'package:openapi/src/api/payment_methods_api.dart';
-import 'package:openapi/src/api/payments_api.dart';
+import 'package:payment_client/src/serializers.dart';
+import 'package:payment_client/src/auth/api_key_auth.dart';
+import 'package:payment_client/src/auth/basic_auth.dart';
+import 'package:payment_client/src/auth/bearer_auth.dart';
+import 'package:payment_client/src/auth/oauth.dart';
+import 'package:payment_client/src/api/payment_methods_api.dart';
+import 'package:payment_client/src/api/payments_api.dart';
 
 class Openapi {
   static const String basePath = r'https://api.onefooddialer.com/v2/payment-service-v12';

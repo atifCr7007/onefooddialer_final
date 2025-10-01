@@ -8,12 +8,12 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:openapi/src/api_util.dart';
-import 'package:openapi/src/model/date.dart';
-import 'package:openapi/src/model/error_response.dart';
-import 'package:openapi/src/model/order.dart';
-import 'package:openapi/src/model/orders_order_id_delete_request.dart';
-import 'package:openapi/src/model/validation_error_response.dart';
+import 'package:order_client/src/api_util.dart';
+import 'package:order_client/src/model/date.dart';
+import 'package:order_client/src/model/error_response.dart';
+import 'package:order_client/src/model/order.dart';
+import 'package:order_client/src/model/orders_order_id_delete_request.dart';
+import 'package:order_client/src/model/validation_error_response.dart';
 
 class OrderManagementApi {
 

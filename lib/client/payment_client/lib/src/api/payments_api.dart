@@ -8,21 +8,21 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:openapi/src/api_util.dart';
-import 'package:openapi/src/model/date.dart';
-import 'package:openapi/src/model/error_response.dart';
-import 'package:openapi/src/model/initiate_payment_request.dart';
-import 'package:openapi/src/model/initiate_payment_response.dart';
-import 'package:openapi/src/model/logs_response.dart';
-import 'package:openapi/src/model/payment_callback_response.dart';
-import 'package:openapi/src/model/payment_status_response.dart';
-import 'package:openapi/src/model/process_payment_request.dart';
-import 'package:openapi/src/model/process_payment_response.dart';
-import 'package:openapi/src/model/refund_payment_request.dart';
-import 'package:openapi/src/model/refund_payment_response.dart';
-import 'package:openapi/src/model/statistics_response.dart';
-import 'package:openapi/src/model/validation_error_response.dart';
-import 'package:openapi/src/model/webhook_response.dart';
+import 'package:payment_client/src/api_util.dart';
+import 'package:payment_client/src/model/date.dart';
+import 'package:payment_client/src/model/error_response.dart';
+import 'package:payment_client/src/model/initiate_payment_request.dart';
+import 'package:payment_client/src/model/initiate_payment_response.dart';
+import 'package:payment_client/src/model/logs_response.dart';
+import 'package:payment_client/src/model/payment_callback_response.dart';
+import 'package:payment_client/src/model/payment_status_response.dart';
+import 'package:payment_client/src/model/process_payment_request.dart';
+import 'package:payment_client/src/model/process_payment_response.dart';
+import 'package:payment_client/src/model/refund_payment_request.dart';
+import 'package:payment_client/src/model/refund_payment_response.dart';
+import 'package:payment_client/src/model/statistics_response.dart';
+import 'package:payment_client/src/model/validation_error_response.dart';
+import 'package:payment_client/src/model/webhook_response.dart';
 
 class PaymentsApi {
 

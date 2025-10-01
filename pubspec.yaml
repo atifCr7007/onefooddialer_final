@@ -58,6 +58,10 @@ dependencies:
   openapi:
     path: lib/client/invoice_client
 
+  # Analytics client dependency
+  analytics_client:
+    path: lib/client/analytics_client
+
   # Customer client dependency
   customer_client:
     path: lib/client/customer_client

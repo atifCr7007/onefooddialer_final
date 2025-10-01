@@ -8,14 +8,14 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:openapi/src/api_util.dart';
-import 'package:openapi/src/model/create_payment_method_request.dart';
-import 'package:openapi/src/model/delete_response.dart';
-import 'package:openapi/src/model/error_response.dart';
-import 'package:openapi/src/model/payment_method_response.dart';
-import 'package:openapi/src/model/payment_methods_response.dart';
-import 'package:openapi/src/model/update_payment_method_request.dart';
-import 'package:openapi/src/model/validation_error_response.dart';
+import 'package:payment_client/src/api_util.dart';
+import 'package:payment_client/src/model/create_payment_method_request.dart';
+import 'package:payment_client/src/model/delete_response.dart';
+import 'package:payment_client/src/model/error_response.dart';
+import 'package:payment_client/src/model/payment_method_response.dart';
+import 'package:payment_client/src/model/payment_methods_response.dart';
+import 'package:payment_client/src/model/update_payment_method_request.dart';
+import 'package:payment_client/src/model/validation_error_response.dart';
 
 class PaymentMethodsApi {
 

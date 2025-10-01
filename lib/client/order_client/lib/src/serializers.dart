@@ -11,21 +11,21 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:built_value/iso_8601_date_time_serializer.dart';
-import 'package:openapi/src/date_serializer.dart';
-import 'package:openapi/src/model/date.dart';
+import 'package:order_client/src/date_serializer.dart';
+import 'package:order_client/src/model/date.dart';
 
-import 'package:openapi/src/model/delivery_address.dart';
-import 'package:openapi/src/model/error_response.dart';
-import 'package:openapi/src/model/item_customization.dart';
-import 'package:openapi/src/model/nutritional_info.dart';
-import 'package:openapi/src/model/order.dart';
-import 'package:openapi/src/model/order_item.dart';
-import 'package:openapi/src/model/orders_order_id_delete_request.dart';
-import 'package:openapi/src/model/orders_order_id_items_get200_response.dart';
-import 'package:openapi/src/model/orders_order_id_items_get200_response_data.dart';
-import 'package:openapi/src/model/pagination_meta.dart';
-import 'package:openapi/src/model/validation_error_response.dart';
-import 'package:openapi/src/model/validation_error_response_errors_inner.dart';
+import 'package:order_client/src/model/delivery_address.dart';
+import 'package:order_client/src/model/error_response.dart';
+import 'package:order_client/src/model/item_customization.dart';
+import 'package:order_client/src/model/nutritional_info.dart';
+import 'package:order_client/src/model/order.dart';
+import 'package:order_client/src/model/order_item.dart';
+import 'package:order_client/src/model/orders_order_id_delete_request.dart';
+import 'package:order_client/src/model/orders_order_id_items_get200_response.dart';
+import 'package:order_client/src/model/orders_order_id_items_get200_response_data.dart';
+import 'package:order_client/src/model/pagination_meta.dart';
+import 'package:order_client/src/model/validation_error_response.dart';
+import 'package:order_client/src/model/validation_error_response_errors_inner.dart';
 
 part 'serializers.g.dart';
 
