@@ -180,6 +180,7 @@ paths:
       operationId: login
       tags:
         - Auth
+      security: []  # Override global security - login endpoint is public
       requestBody:
         required: true
         content:
@@ -318,6 +319,7 @@ paths:
       operationId: forgotPassword
       tags:
         - Auth
+      security: []  # Override global security - forgot password is public
       requestBody:
         required: true
         content:
@@ -358,6 +360,7 @@ paths:
       operationId: resetPassword
       tags:
         - Auth
+      security: []  # Override global security - reset password is public
       requestBody:
         required: true
         content:
@@ -491,6 +494,7 @@ paths:
       operationId: keycloakLogin
       tags:
         - Auth
+      security: []  # Override global security - keycloak login is public
       responses:
         '200':
           description: Keycloak login URL

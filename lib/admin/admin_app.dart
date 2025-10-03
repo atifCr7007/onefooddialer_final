@@ -14,16 +14,17 @@ class AdminApp extends ConsumerWidget {
     final themeMode = ref.watch(themeModeProvider);
     final locale = ref.watch(localeProvider);
     final appTheme = ref.watch(appThemeProvider);
+    final router = ref.watch(adminRouterProvider);
 
     return MaterialApp.router(
       title: 'OneFoodDialer Admin',
       debugShowCheckedModeBanner: false,
-      
+
       // Theme configuration
       theme: appTheme.lightTheme,
       darkTheme: appTheme.darkTheme,
       themeMode: themeMode,
-      
+
       // Localization configuration
       locale: locale,
       supportedLocales: supportedLocales,
@@ -32,9 +33,9 @@ class AdminApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      
+
       // Router configuration
-      routerConfig: adminRouter,
+      routerConfig: router,
       
       // Builder for additional configuration
       builder: (context, child) {
@@ -223,15 +224,17 @@ class _AdminErrorBoundaryState extends State<AdminErrorBoundary> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    
+  void initState() {
+    super.initState();
+
     // Catch errors in the widget tree
     FlutterError.onError = (FlutterErrorDetails details) {
-      setState(() {
-        error = details.exception;
-        stackTrace = details.stack;
-      });
+      if (mounted) {
+        setState(() {
+          error = details.exception;
+          stackTrace = details.stack;
+        });
+      }
     };
   }
 }
@@ -242,10 +245,8 @@ class OneFoodDialerAdmin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ProviderScope(
-      child: AdminErrorBoundary(
-        child: const AdminAppInitializer(),
-      ),
+    return const ProviderScope(
+      child: AdminAppInitializer(),
     );
   }
 }

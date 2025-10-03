@@ -10,7 +10,7 @@ class CustomersDetailsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncData = ref.watch(customersGetProvider(id));
+    final asyncData = ref.watch(customersGetProvider(id as int));
     return asyncData.when(
       loading: () => _buildLoadingSkeleton(context),
       error: (e, st) => _buildErrorState(context, e.toString()),

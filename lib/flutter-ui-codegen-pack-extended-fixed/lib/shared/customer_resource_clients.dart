@@ -56,7 +56,34 @@ class CustomerResourceClient {
         page: page,
         perPage: perPage,
       );
-      return response.data;
+      // response.data is GetCustomers200Response (built_value object)
+      // which has a data property of type GetCustomers200ResponseData
+      // which has a data property of type BuiltList<Customer>
+      final responseData = response.data;
+      if (responseData == null) {
+        print('⚠️ Customer API: response.data is null');
+        return {'data': []};
+      }
+
+      final dataWrapper = responseData.data;
+      if (dataWrapper == null) {
+        print('⚠️ Customer API: response.data.data is null');
+        return {'data': []};
+      }
+
+      // Convert BuiltList to regular List
+      final customersList = dataWrapper.data?.toList() ?? [];
+      print('📦 Customer API: Extracted ${customersList.length} customers from response');
+
+      // Return a Map structure that matches what CustomerPaginator expects
+      return {
+        'data': customersList,
+        'meta': {
+          'current_page': dataWrapper.currentPage ?? 1,
+          'per_page': dataWrapper.perPage ?? 10,
+          'total': dataWrapper.total ?? 0,
+        }
+      };
     } catch (e) {
       print('Error in list customers: $e');
       rethrow;

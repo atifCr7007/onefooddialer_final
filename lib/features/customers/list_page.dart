@@ -26,8 +26,7 @@ class _CustomersListPageState extends ConsumerState<CustomersListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final params = {'page': page, 'per_page': perPage, 'search': q};
-    final asyncData = ref.watch(customersListProvider(params));
+    final asyncData = ref.watch(customersListProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

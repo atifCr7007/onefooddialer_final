@@ -1,0 +1,241 @@
+version: '3.8'
+
+services:
+  # Admin Microservice Mock - Port 4010
+  prism-admin:
+    image: stoplight/prism:latest
+    container_name: prism-admin
+    command: mock -h 0.0.0.0 -p 4010 -d /contracts/admin_openapi.yaml
+    ports:
+      - "4010:4010"
+    volumes:
+      - ./:/contracts
+    networks:
+      - prism-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4010"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Analytics Microservice Mock - Port 4011
+  prism-analytics:
+    image: stoplight/prism:latest
+    container_name: prism-analytics
+    command: mock -h 0.0.0.0 -p 4011 -d /contracts/analytics_openapi.yaml
+    ports:
+      - "4011:4011"
+    volumes:
+      - ./:/contracts
+    networks:
+      - prism-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4011"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Auth Microservice Mock - Port 4012
+  prism-auth:
+    image: stoplight/prism:latest
+    container_name: prism-auth
+    command: mock -h 0.0.0.0 -p 4012 -d /contracts/auth_openapi.yaml
+    ports:
+      - "4012:4012"
+    volumes:
+      - ./:/contracts
+    networks:
+      - prism-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4012"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Catalogs Microservice Mock - Port 4013
+  prism-catalogs:
+    image: stoplight/prism:latest
+    container_name: prism-catalogs
+    command: mock -h 0.0.0.0 -p 4013 -d /contracts/catalogs_openapi.yaml
+    ports:
+      - "4013:4013"
+    volumes:
+      - ./:/contracts
+    networks:
+      - prism-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4013"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Customer Microservice Mock - Port 4014
+  prism-customer:
+    image: stoplight/prism:latest
+    container_name: prism-customer
+    command: mock -h 0.0.0.0 -p 4014 -d /contracts/customer_openapi.yaml
+    ports:
+      - "4014:4014"
+    volumes:
+      - ./:/contracts
+    networks:
+      - prism-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4014"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Delivery Microservice Mock - Port 4015
+  prism-delivery:
+    image: stoplight/prism:latest
+    container_name: prism-delivery
+    command: mock -h 0.0.0.0 -p 4015 -d /contracts/delivery_openapi.yaml
+    ports:
+      - "4015:4015"
+    volumes:
+      - ./:/contracts
+    networks:
+      - prism-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4015"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Invoice Microservice Mock - Port 4016
+  prism-invoice:
+    image: stoplight/prism:latest
+    container_name: prism-invoice
+    command: mock -h 0.0.0.0 -p 4016 -d /contracts/invoice_openapi.yaml
+    ports:
+      - "4016:4016"
+    volumes:
+      - ./:/contracts
+    networks:
+      - prism-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4016"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Kitchen Microservice Mock - Port 4017
+  prism-kitchen:
+    image: stoplight/prism:latest
+    container_name: prism-kitchen
+    command: mock -h 0.0.0.0 -p 4017 -d /contracts/kitchen_openapi.yaml
+    ports:
+      - "4017:4017"
+    volumes:
+      - ./:/contracts
+    networks:
+      - prism-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4017"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Meal Microservice Mock - Port 4018
+  prism-meal:
+    image: stoplight/prism:latest
+    container_name: prism-meal
+    command: mock -h 0.0.0.0 -p 4018 -d /contracts/meal_openapi.yaml
+    ports:
+      - "4018:4018"
+    volumes:
+      - ./:/contracts
+    networks:
+      - prism-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4018"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Order Microservice Mock - Port 4019
+  prism-order:
+    image: stoplight/prism:latest
+    container_name: prism-order
+    command: mock -h 0.0.0.0 -p 4019 -d /contracts/order_openapi.yaml
+    ports:
+      - "4019:4019"
+    volumes:
+      - ./:/contracts
+    networks:
+      - prism-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4019"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Payment Microservice Mock - Port 4020
+  prism-payment:
+    image: stoplight/prism:latest
+    container_name: prism-payment
+    command: mock -h 0.0.0.0 -p 4020 -d /contracts/payment_openapi.yaml
+    ports:
+      - "4020:4020"
+    volumes:
+      - ./:/contracts
+    networks:
+      - prism-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4020"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Quickserver Microservice Mock - Port 4021
+  prism-quickserver:
+    image: stoplight/prism:latest
+    container_name: prism-quickserver
+    command: mock -h 0.0.0.0 -p 4021 -d /contracts/quickserver_openapi.yaml
+    ports:
+      - "4021:4021"
+    volumes:
+      - ./:/contracts
+    networks:
+      - prism-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4021"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Subscription Microservice Mock - Port 4022
+  prism-subscription:
+    image: stoplight/prism:latest
+    container_name: prism-subscription
+    command: mock -h 0.0.0.0 -p 4022 -d /contracts/subscription_openapi.yaml
+    ports:
+      - "4022:4022"
+    volumes:
+      - ./:/contracts
+    networks:
+      - prism-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4022"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  prism-network:
+    driver: bridge
+

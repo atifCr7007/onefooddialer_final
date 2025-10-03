@@ -26,8 +26,7 @@ class _KitchensListPageState extends ConsumerState<KitchensListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final params = {'page': page, 'per_page': perPage, 'search': q};
-    final asyncData = ref.watch(kitchensListProvider(params));
+    final asyncData = ref.watch(kitchensListProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -29,6 +29,12 @@ class AuthResourceClient {
       print('📤 Sending login request...');
       final response = await api.login(loginRequest: request);
       print('✅ Login successful!');
+      print('📦 Response data: ${response.data}');
+      print('📦 Response status: ${response.data?.status}');
+      print('📦 Response data.data: ${response.data?.data}');
+      print('📦 Token: ${response.data?.data?.token}');
+      print('📦 Token Type: ${response.data?.data?.tokenType}');
+      print('📦 User: ${response.data?.data?.user}');
       return response.data;
     } on DioException catch (e) {
       print('❌ DioException in login:');

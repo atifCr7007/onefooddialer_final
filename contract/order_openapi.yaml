@@ -837,3 +837,200 @@ components:
         contactPhone:
           type: string
           example: "+91-9876543210"
+
+    OrdersResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [success]
+          example: success
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+
+    CreateOrderRequest:
+      type: object
+      required: [customerId, restaurantId, items, deliveryType]
+      properties:
+        customerId:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440001"
+        restaurantId:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440002"
+        items:
+          type: array
+          items:
+            type: object
+            required: [menuItemId, quantity]
+            properties:
+              menuItemId:
+                type: string
+                format: uuid
+              quantity:
+                type: integer
+                minimum: 1
+              customizations:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemCustomization'
+              specialInstructions:
+                type: string
+        deliveryType:
+          type: string
+          enum: [delivery, pickup, dine_in]
+          example: delivery
+        deliveryAddress:
+          $ref: '#/components/schemas/DeliveryAddress'
+        scheduledFor:
+          type: string
+          format: date-time
+          example: "2024-01-15T14:30:00Z"
+        priority:
+          type: string
+          enum: [low, normal, high, urgent]
+          default: normal
+        notes:
+          type: string
+          example: "Please ring the doorbell"
+        couponCode:
+          type: string
+          example: "SAVE20"
+
+    UpdateOrderRequest:
+      type: object
+      properties:
+        deliveryAddress:
+          $ref: '#/components/schemas/DeliveryAddress'
+        scheduledFor:
+          type: string
+          format: date-time
+        priority:
+          type: string
+          enum: [low, normal, high, urgent]
+        notes:
+          type: string
+
+    UpdateOrderStatusRequest:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [pending, confirmed, preparing, ready, out_for_delivery, delivered, cancelled]
+          example: confirmed
+        reason:
+          type: string
+          example: "Customer requested cancellation"
+        estimatedDeliveryTime:
+          type: string
+          format: date-time
+
+    OrderStatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [success]
+          example: success
+        data:
+          $ref: '#/components/schemas/Order'
+
+    OrderTracking:
+      type: object
+      properties:
+        orderId:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        currentStatus:
+          type: string
+          enum: [pending, confirmed, preparing, ready, out_for_delivery, delivered, cancelled]
+          example: out_for_delivery
+        statusHistory:
+          type: array
+          items:
+            type: object
+            properties:
+              status:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+              updatedBy:
+                type: string
+              notes:
+                type: string
+        estimatedDeliveryTime:
+          type: string
+          format: date-time
+          example: "2024-01-15T15:30:00Z"
+        deliveryPerson:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            name:
+              type: string
+              example: "Rajesh Kumar"
+            phone:
+              type: string
+              example: "+91-9876543210"
+            vehicleNumber:
+              type: string
+              example: "MH-01-AB-1234"
+        currentLocation:
+          type: object
+          properties:
+            latitude:
+              type: number
+              format: float
+              example: 19.0760
+            longitude:
+              type: number
+              format: float
+              example: 72.8777
+            lastUpdated:
+              type: string
+              format: date-time
+
+    AddOrderItemRequest:
+      type: object
+      required: [menuItemId, quantity]
+      properties:
+        menuItemId:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440010"
+        quantity:
+          type: integer
+          minimum: 1
+          example: 2
+        customizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemCustomization'
+        specialInstructions:
+          type: string
+          example: "Extra spicy"
+
+    UpdateOrderItemRequest:
+      type: object
+      properties:
+        quantity:
+          type: integer
+          minimum: 1
+          example: 3
+        customizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemCustomization'
+        specialInstructions:
+          type: string

@@ -335,10 +335,10 @@ SystemSettingsResourceClient createSystemSettingsClient() {
 }
 
 Dio _createDio() {
-  // Use mock server URL for development, production URL from environment
+  // Use Prism mock server URL for development (port 4010), production URL from environment
   final bool useMockServers = const bool.fromEnvironment('USE_MOCK_SERVERS', defaultValue: true);
   final String baseUrl = useMockServers
-      ? 'http://localhost:8009'
+      ? 'http://localhost:4010'  // Prism mock server for Admin service
       : const String.fromEnvironment('PROD_ADMIN_URL', defaultValue: 'https://api.onefood.com/v2/admin-service-v12');
 
   final dio = Dio(BaseOptions(

@@ -2,17 +2,28 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:subscription_client/openapi.dart';
 import 'package:flutter_ui_codegen_pack_extended_fixed/shared/subscription_resource_clients.dart';
+import '../../../config/app_config.dart';
 
 /// Dio instance configured for Subscription service
 final subscriptionDioProvider = Provider((ref) {
-  return Dio(BaseOptions(
-    baseUrl: 'http://localhost:8010/api/v2',
+  final dio = Dio(BaseOptions(
+    baseUrl: AppConfig.subscriptionBaseUrl,
     headers: {
       'Content-Type': 'application/json',
     },
-    connectTimeout: const Duration(seconds: 10),
-    receiveTimeout: const Duration(seconds: 10),
+    connectTimeout: AppConfig.connectTimeout,
+    receiveTimeout: AppConfig.receiveTimeout,
   ));
+
+  if (AppConfig.isDebugMode) {
+    dio.interceptors.add(LogInterceptor(
+      requestBody: true,
+      responseBody: true,
+      error: true,
+    ));
+  }
+
+  return dio;
 });
 
 /// Subscription resource client provider

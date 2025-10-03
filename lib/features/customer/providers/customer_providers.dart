@@ -106,6 +106,31 @@ class CustomerListParams {
       orderDir: orderDir ?? this.orderDir,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CustomerListParams &&
+          runtimeType == other.runtimeType &&
+          page == other.page &&
+          perPage == other.perPage &&
+          search == other.search &&
+          status == other.status &&
+          companyId == other.companyId &&
+          unitId == other.unitId &&
+          orderBy == other.orderBy &&
+          orderDir == other.orderDir;
+
+  @override
+  int get hashCode =>
+      page.hashCode ^
+      perPage.hashCode ^
+      search.hashCode ^
+      status.hashCode ^
+      companyId.hashCode ^
+      unitId.hashCode ^
+      orderBy.hashCode ^
+      orderDir.hashCode;
 }
 
 // Customer list provider

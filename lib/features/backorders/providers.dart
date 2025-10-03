@@ -2,17 +2,28 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quickserver_client/quickserver_client.dart';
 import 'package:flutter_ui_codegen_pack_extended_fixed/shared/quickserver_resource_clients.dart';
+import '../../../config/app_config.dart';
 
 /// Dio instance configured for QuickServer service
 final quickserverDioProvider = Provider((ref) {
-  return Dio(BaseOptions(
-    baseUrl: 'http://localhost:8011/api/v1',
+  final dio = Dio(BaseOptions(
+    baseUrl: AppConfig.quickServerBaseUrl,
     headers: {
       'Content-Type': 'application/json',
     },
-    connectTimeout: const Duration(seconds: 10),
-    receiveTimeout: const Duration(seconds: 10),
+    connectTimeout: AppConfig.connectTimeout,
+    receiveTimeout: AppConfig.receiveTimeout,
   ));
+
+  if (AppConfig.isDebugMode) {
+    dio.interceptors.add(LogInterceptor(
+      requestBody: true,
+      responseBody: true,
+      error: true,
+    ));
+  }
+
+  return dio;
 });
 
 /// QuickServer resource client provider

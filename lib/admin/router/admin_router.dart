@@ -52,47 +52,68 @@ import '../../features/order items/list_page.dart' as order_items_list;
 // Import subscription pages
 import '../../features/subscription plans/list_page.dart' as subscription_plans_list;
 
-// Import quickserver pages (TEMPORARILY DISABLED DUE TO LANGUAGE VERSION ERROR)
-// import '../../features/backorders/list_page.dart' as backorders_list;
-// import '../../features/orders/list_page.dart' as orders_list;
-// import '../../features/timeslots/list_page.dart' as timeslots_list;
-// import '../../features/locations/list_page.dart' as locations_list;
-// import '../../features/config/list_page.dart' as config_list;
+// Import quickserver pages
+import '../../features/backorders/list_page.dart' as backorders_list;
+import '../../features/orders/list_page.dart' as orders_list;
+import '../../features/timeslots/list_page.dart' as timeslots_list;
+// import '../../features/locations/list_page.dart' as locations_list;  // TODO: Create this page
+import '../../features/config/list_page.dart' as config_list;
 
 // Import analytics pages
 import '../../features/sales analytics/list_page.dart' as sales_analytics_list;
 import '../../features/food analytics/list_page.dart' as food_analytics_list;
 import '../../features/customer analytics/list_page.dart' as customer_analytics_list;
 
+/// Auth state notifier for GoRouter
+class AuthNotifierForRouter extends ChangeNotifier {
+  final Ref _ref;
 
+  AuthNotifierForRouter(this._ref) {
+    // Listen to auth state changes
+    _ref.listen(authProvider, (previous, next) {
+      print('🔄 Auth state changed in router: isAuthenticated=${next.isAuthenticated}');
+      notifyListeners();
+    });
+  }
 
-/// Global provider container for accessing auth state in router
-final _container = ProviderContainer();
+  bool get isAuthenticated => _ref.read(authProvider).isAuthenticated;
+}
 
-/// Admin router configuration with shell routing and auth guard
-final adminRouter = GoRouter(
-  initialLocation: '/auth/login',
-  redirect: (context, state) {
-    final isAuthenticated = _container.read(isAuthenticatedProvider);
-    final isAuthRoute = state.matchedLocation.startsWith('/auth');
+/// Provider for the admin router
+final adminRouterProvider = Provider<GoRouter>((ref) {
+  print('🚀 Creating admin router provider');
+  final authNotifier = AuthNotifierForRouter(ref);
+  print('🚀 Auth notifier created, isAuthenticated=${authNotifier.isAuthenticated}');
 
-    // Print config on first navigation
-    if (state.matchedLocation == '/auth/login') {
-      AppConfig.printConfig();
-    }
+  return GoRouter(
+    initialLocation: '/auth/login',
+    refreshListenable: authNotifier,
+    redirect: (context, state) {
+      final isAuthenticated = authNotifier.isAuthenticated;
+      final isAuthRoute = state.matchedLocation.startsWith('/auth');
 
-    // If not authenticated and trying to access protected route, redirect to login
-    if (!isAuthenticated && !isAuthRoute) {
-      return '/auth/login';
-    }
+      print('🔀 Router redirect: path=${state.matchedLocation}, isAuth=$isAuthenticated, isAuthRoute=$isAuthRoute');
 
-    // If authenticated and trying to access auth route, redirect to dashboard
-    if (isAuthenticated && isAuthRoute) {
-      return '/dashboard';
-    }
+      // Print config on first navigation
+      if (state.matchedLocation == '/auth/login') {
+        AppConfig.printConfig();
+      }
 
-    return null; // No redirect needed
-  },
+      // If not authenticated and trying to access protected route, redirect to login
+      if (!isAuthenticated && !isAuthRoute) {
+        print('🔀 Redirecting to login (not authenticated)');
+        return '/auth/login';
+      }
+
+      // If authenticated and trying to access auth route, redirect to dashboard
+      if (isAuthenticated && isAuthRoute) {
+        print('🔀 Redirecting to dashboard (already authenticated)');
+        return '/dashboard';
+      }
+
+      print('🔀 No redirect needed');
+      return null; // No redirect needed
+    },
   routes: [
     // Auth routes (public - no shell)
     GoRoute(
@@ -223,41 +244,29 @@ final adminRouter = GoRouter(
           builder: (context, state) => const subscription_plans_list.SubscriptionPlansListPage(),
         ),
 
-        // QuickServer Service Routes (TEMPORARILY DISABLED - LANGUAGE VERSION ERROR)
+        // QuickServer Service Routes
         GoRoute(
           path: '/features/backorders',
-          builder: (context, state) => const PlaceholderPage(
-            title: 'Backorders',
-            description: 'QuickServer client needs to be regenerated. Coming soon!',
-          ),
+          builder: (context, state) => const backorders_list.BackordersListPage(),
         ),
         GoRoute(
           path: '/features/orders',
-          builder: (context, state) => const PlaceholderPage(
-            title: 'Orders',
-            description: 'QuickServer client needs to be regenerated. Coming soon!',
-          ),
+          builder: (context, state) => const orders_list.OrdersListPage(),
         ),
         GoRoute(
           path: '/features/timeslots',
-          builder: (context, state) => const PlaceholderPage(
-            title: 'Timeslots',
-            description: 'QuickServer client needs to be regenerated. Coming soon!',
-          ),
+          builder: (context, state) => const timeslots_list.TimeslotsListPage(),
         ),
         GoRoute(
           path: '/features/locations',
           builder: (context, state) => const PlaceholderPage(
             title: 'Locations',
-            description: 'QuickServer client needs to be regenerated. Coming soon!',
+            description: 'Location mappings page coming soon!',
           ),
         ),
         GoRoute(
           path: '/features/config',
-          builder: (context, state) => const PlaceholderPage(
-            title: 'Configuration',
-            description: 'QuickServer client needs to be regenerated. Coming soon!',
-          ),
+          builder: (context, state) => const config_list.ConfigListPage(),
         ),
 
         // Analytics Service Routes
@@ -357,7 +366,8 @@ final adminRouter = GoRouter(
       builder: (context, state) => const ProfilePage(),
     ),
   ],
-);
+  );
+});
 
 /// Placeholder page for features that will be generated
 class PlaceholderPage extends StatelessWidget {

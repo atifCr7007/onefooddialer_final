@@ -46,7 +46,20 @@ class KitchensResourceClient {
         menu: menu,
         kitchenId: kitchenId,
       );
-      return response.data;
+      // response.data is GetKitchens200Response (built_value object)
+      // We need to extract the data property which is BuiltList<Kitchen>
+      final responseData = response.data;
+      if (responseData == null) {
+        print('⚠️ Kitchen API: response.data is null');
+        return [];
+      }
+
+      // Convert BuiltList to regular List
+      final kitchensList = responseData.data?.toList() ?? [];
+      print('📦 Kitchen API: Extracted ${kitchensList.length} kitchens from response');
+
+      // Return a Map structure that matches what KitchenPaginator expects
+      return {'data': kitchensList};
     } catch (e) {
       print('Error in list kitchens: $e');
       rethrow;

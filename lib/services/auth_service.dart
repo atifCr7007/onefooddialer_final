@@ -242,53 +242,81 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   Future<void> _checkAuthStatus() async {
+    print('🔍 Checking auth status...');
     final hasToken = await storage.hasValidToken();
+    print('🔍 Has valid token: $hasToken');
+
     if (hasToken) {
       try {
+        // Get the stored token
+        final token = await storage.getAccessToken();
+        print('🔍 Stored token: ${token?.substring(0, 20)}...');
+
         final response = await authClient.getUser();
         if (response?.data?.user != null) {
+          print('🔍 User data retrieved, setting auth state');
           state = state.copyWith(
             isAuthenticated: true,
             user: response!.data!.user,
+            token: token, // ✅ FIX: Set the token in state!
           );
+          print('🔍 Auth state set: isAuthenticated=true, token=${token?.substring(0, 20)}...');
         }
       } catch (e) {
+        print('❌ Auth check failed: $e');
         await storage.clearAll();
-        state = state.copyWith(isAuthenticated: false);
+        state = state.copyWith(isAuthenticated: false, token: null);
       }
+    } else {
+      print('🔍 No valid token found');
     }
   }
 
   Future<void> login(String username, String password, {bool rememberMe = false}) async {
+    print('🔑 AuthNotifier.login() called');
     state = state.copyWith(isLoading: true, error: null);
-    
+
     try {
+      print('🔑 Calling authClient.login()...');
       final response = await authClient.login(
         username: username,
         password: password,
         rememberMe: rememberMe,
       );
-      
+
+      print('🔑 Login response received');
+      print('🔑 response?.data?.token: ${response?.data?.token}');
+      print('🔑 response?.data?.user: ${response?.data?.user}');
+
       if (response?.data?.token != null && response?.data?.user != null) {
+        print('🔑 Saving tokens and user data...');
         await storage.saveTokens(
           accessToken: response!.data!.token!,
           tokenType: response.data!.tokenType ?? 'Bearer',
         );
-        
+
         await storage.saveUser(
           userId: response.data!.user!.id ?? 0,
           email: response.data!.user!.email ?? '',
           name: response.data!.user!.fullName ?? '',
         );
-        
+
+        print('🔑 Updating auth state to authenticated');
         state = state.copyWith(
           isAuthenticated: true,
           user: response.data!.user,
           token: response.data!.token,
           isLoading: false,
         );
+        print('🔑 Auth state updated: isAuthenticated=${state.isAuthenticated}');
+      } else {
+        print('❌ Login response missing token or user data');
+        print('   Token: ${response?.data?.token}');
+        print('   User: ${response?.data?.user}');
+        throw Exception('Invalid login response: missing token or user data');
       }
     } catch (e) {
+      print('❌ Login error: $e');
       state = state.copyWith(
         isLoading: false,
         error: e.toString(),

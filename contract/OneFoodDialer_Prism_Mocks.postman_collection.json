@@ -1,0 +1,310 @@
+{
+  "info": {
+    "name": "OneFoodDialer - Prism Mock Servers",
+    "description": "Collection for testing all 13 Prism mock servers for OneFoodDialer microservices",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost",
+      "type": "string"
+    },
+    {
+      "key": "mock_token",
+      "value": "mock-bearer-token-12345",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Kitchen Service (4017)",
+      "item": [
+        {
+          "name": "List Kitchens",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}:4017/kitchens",
+              "host": ["{{base_url}}"],
+              "port": "4017",
+              "path": ["kitchens"]
+            }
+          }
+        },
+        {
+          "name": "Get Kitchen by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}:4017/kitchens/123",
+              "host": ["{{base_url}}"],
+              "port": "4017",
+              "path": ["kitchens", "123"]
+            }
+          }
+        },
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}:4017/health",
+              "host": ["{{base_url}}"],
+              "port": "4017",
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Order Service (4019)",
+      "item": [
+        {
+          "name": "List Orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{mock_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}:4019/orders",
+              "host": ["{{base_url}}"],
+              "port": "4019",
+              "path": ["orders"]
+            }
+          }
+        },
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{mock_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"restaurantId\": \"550e8400-e29b-41d4-a716-446655440002\",\n  \"items\": [\n    {\n      \"menuItemId\": \"550e8400-e29b-41d4-a716-446655440010\",\n      \"quantity\": 2,\n      \"specialInstructions\": \"Extra spicy\"\n    }\n  ],\n  \"deliveryType\": \"delivery\",\n  \"priority\": \"normal\",\n  \"notes\": \"Please ring the doorbell\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}:4019/orders",
+              "host": ["{{base_url}}"],
+              "port": "4019",
+              "path": ["orders"]
+            }
+          }
+        },
+        {
+          "name": "Get Order by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{mock_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}:4019/orders/550e8400-e29b-41d4-a716-446655440000",
+              "host": ["{{base_url}}"],
+              "port": "4019",
+              "path": ["orders", "550e8400-e29b-41d4-a716-446655440000"]
+            }
+          }
+        },
+        {
+          "name": "Track Order",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{mock_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}:4019/orders/550e8400-e29b-41d4-a716-446655440000/tracking",
+              "host": ["{{base_url}}"],
+              "port": "4019",
+              "path": ["orders", "550e8400-e29b-41d4-a716-446655440000", "tracking"]
+            }
+          }
+        },
+        {
+          "name": "Update Order Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{mock_token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"confirmed\",\n  \"estimatedDeliveryTime\": \"2024-01-15T15:30:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}:4019/orders/550e8400-e29b-41d4-a716-446655440000/status",
+              "host": ["{{base_url}}"],
+              "port": "4019",
+              "path": ["orders", "550e8400-e29b-41d4-a716-446655440000", "status"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Customer Service (4014)",
+      "item": [
+        {
+          "name": "List Customers",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{mock_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}:4014/customers",
+              "host": ["{{base_url}}"],
+              "port": "4014",
+              "path": ["customers"]
+            }
+          }
+        },
+        {
+          "name": "Get Customer by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{mock_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}:4014/customers/123",
+              "host": ["{{base_url}}"],
+              "port": "4014",
+              "path": ["customers", "123"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth Service (4012)",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}:4012/login",
+              "host": ["{{base_url}}"],
+              "port": "4012",
+              "path": ["login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Service (4010)",
+      "item": [
+        {
+          "name": "Get Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{mock_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}:4010/dashboard",
+              "host": ["{{base_url}}"],
+              "port": "4010",
+              "path": ["dashboard"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Checks",
+      "item": [
+        {
+          "name": "Admin Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}:4010/health",
+              "host": ["{{base_url}}"],
+              "port": "4010",
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "Kitchen Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}:4017/health",
+              "host": ["{{base_url}}"],
+              "port": "4017",
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+
