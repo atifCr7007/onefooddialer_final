@@ -40,7 +40,7 @@ class _InvoicesListPageState extends ConsumerState<InvoicesListPage> {
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (e, st) => Center(child: Text('Error: $e')),
             data: (rows) {
-              if (rows is! List) return const Center(child: Text('No data'));
+              // if (rows is! List) return const Center(child: Text('No data'));
               return ListView.separated(
                 itemCount: rows.length,
                 separatorBuilder: (_, __) => const Divider(height: 1),

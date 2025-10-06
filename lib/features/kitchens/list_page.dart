@@ -275,7 +275,9 @@ class _KitchensListPageState extends ConsumerState<KitchensListPage> {
           ),
           const SizedBox(height: 24),
           FilledButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              
+            },
             icon: const Icon(Icons.add),
             label: const Text('Create New'),
           ),
